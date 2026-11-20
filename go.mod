@@ -1,6 +1,6 @@
 module github.com/your-username/lazarr
 
-go 1.26.10
+go 1.26.11
 
 require (
 	github.com/hanwen/go-fuse/v2 v2.12.1
