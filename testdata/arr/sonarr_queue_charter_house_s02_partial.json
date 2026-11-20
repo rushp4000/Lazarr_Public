@@ -1,0 +1,2846 @@
+{
+ "page": 1,
+ "pageSize": 200,
+ "sortKey": "timeleft",
+ "sortDirection": "ascending",
+ "totalRecords": 26,
+ "records": [
+  {
+   "id": 880101,
+   "seriesId": 412,
+   "episodeId": 30001,
+   "seasonNumber": 2,
+   "title": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "One or more episodes expected in this release were not imported or missing from the release",
+     "messages": []
+    },
+    {
+     "title": "Charter.House.S02E06.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E07.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E08.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E09.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E10.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E11.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E12.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E13.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E14.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E15.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E16.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E17.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E18.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E19.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E20.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E21.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E22.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    }
+   ],
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr",
+   "indexer": "Example Indexer",
+   "outputPath": "/debrid_symlinks/lazarr/sonarr_main/Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "size": 31000000000,
+   "sizeleft": 0
+  },
+  {
+   "id": 880102,
+   "seriesId": 412,
+   "episodeId": 30002,
+   "seasonNumber": 2,
+   "title": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "One or more episodes expected in this release were not imported or missing from the release",
+     "messages": []
+    },
+    {
+     "title": "Charter.House.S02E06.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E07.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E08.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E09.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E10.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E11.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E12.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E13.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E14.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E15.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E16.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E17.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E18.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E19.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E20.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E21.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E22.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    }
+   ],
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr",
+   "indexer": "Example Indexer",
+   "outputPath": "/debrid_symlinks/lazarr/sonarr_main/Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "size": 31000000000,
+   "sizeleft": 0
+  },
+  {
+   "id": 880103,
+   "seriesId": 412,
+   "episodeId": 30003,
+   "seasonNumber": 2,
+   "title": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "One or more episodes expected in this release were not imported or missing from the release",
+     "messages": []
+    },
+    {
+     "title": "Charter.House.S02E06.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E07.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E08.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E09.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E10.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E11.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E12.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E13.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E14.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E15.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E16.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E17.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E18.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E19.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E20.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E21.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E22.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    }
+   ],
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr",
+   "indexer": "Example Indexer",
+   "outputPath": "/debrid_symlinks/lazarr/sonarr_main/Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "size": 31000000000,
+   "sizeleft": 0
+  },
+  {
+   "id": 880104,
+   "seriesId": 412,
+   "episodeId": 30004,
+   "seasonNumber": 2,
+   "title": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "One or more episodes expected in this release were not imported or missing from the release",
+     "messages": []
+    },
+    {
+     "title": "Charter.House.S02E06.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E07.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E08.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E09.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E10.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E11.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E12.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E13.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E14.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E15.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E16.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E17.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E18.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E19.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E20.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E21.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E22.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    }
+   ],
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr",
+   "indexer": "Example Indexer",
+   "outputPath": "/debrid_symlinks/lazarr/sonarr_main/Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "size": 31000000000,
+   "sizeleft": 0
+  },
+  {
+   "id": 880105,
+   "seriesId": 412,
+   "episodeId": 30005,
+   "seasonNumber": 2,
+   "title": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "One or more episodes expected in this release were not imported or missing from the release",
+     "messages": []
+    },
+    {
+     "title": "Charter.House.S02E06.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E07.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E08.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E09.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E10.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E11.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E12.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E13.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E14.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E15.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E16.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E17.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E18.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E19.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E20.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E21.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E22.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    }
+   ],
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr",
+   "indexer": "Example Indexer",
+   "outputPath": "/debrid_symlinks/lazarr/sonarr_main/Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "size": 31000000000,
+   "sizeleft": 0
+  },
+  {
+   "id": 880106,
+   "seriesId": 412,
+   "episodeId": 30006,
+   "seasonNumber": 2,
+   "title": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "One or more episodes expected in this release were not imported or missing from the release",
+     "messages": []
+    },
+    {
+     "title": "Charter.House.S02E06.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E07.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E08.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E09.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E10.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E11.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E12.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E13.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E14.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E15.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E16.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E17.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E18.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E19.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E20.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E21.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E22.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    }
+   ],
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr",
+   "indexer": "Example Indexer",
+   "outputPath": "/debrid_symlinks/lazarr/sonarr_main/Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "size": 31000000000,
+   "sizeleft": 0
+  },
+  {
+   "id": 880107,
+   "seriesId": 412,
+   "episodeId": 30007,
+   "seasonNumber": 2,
+   "title": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "One or more episodes expected in this release were not imported or missing from the release",
+     "messages": []
+    },
+    {
+     "title": "Charter.House.S02E06.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E07.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E08.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E09.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E10.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E11.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E12.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E13.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E14.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E15.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E16.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E17.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E18.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E19.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E20.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E21.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E22.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    }
+   ],
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr",
+   "indexer": "Example Indexer",
+   "outputPath": "/debrid_symlinks/lazarr/sonarr_main/Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "size": 31000000000,
+   "sizeleft": 0
+  },
+  {
+   "id": 880108,
+   "seriesId": 412,
+   "episodeId": 30008,
+   "seasonNumber": 2,
+   "title": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "One or more episodes expected in this release were not imported or missing from the release",
+     "messages": []
+    },
+    {
+     "title": "Charter.House.S02E06.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E07.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E08.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E09.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E10.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E11.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E12.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E13.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E14.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E15.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E16.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E17.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E18.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E19.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E20.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E21.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E22.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    }
+   ],
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr",
+   "indexer": "Example Indexer",
+   "outputPath": "/debrid_symlinks/lazarr/sonarr_main/Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "size": 31000000000,
+   "sizeleft": 0
+  },
+  {
+   "id": 880109,
+   "seriesId": 412,
+   "episodeId": 30009,
+   "seasonNumber": 2,
+   "title": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "One or more episodes expected in this release were not imported or missing from the release",
+     "messages": []
+    },
+    {
+     "title": "Charter.House.S02E06.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E07.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E08.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E09.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E10.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E11.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E12.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E13.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E14.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E15.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E16.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E17.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E18.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E19.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E20.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E21.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E22.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    }
+   ],
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr",
+   "indexer": "Example Indexer",
+   "outputPath": "/debrid_symlinks/lazarr/sonarr_main/Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "size": 31000000000,
+   "sizeleft": 0
+  },
+  {
+   "id": 880110,
+   "seriesId": 412,
+   "episodeId": 30010,
+   "seasonNumber": 2,
+   "title": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "One or more episodes expected in this release were not imported or missing from the release",
+     "messages": []
+    },
+    {
+     "title": "Charter.House.S02E06.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E07.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E08.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E09.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E10.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E11.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E12.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E13.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E14.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E15.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E16.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E17.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E18.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E19.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E20.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E21.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E22.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    }
+   ],
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr",
+   "indexer": "Example Indexer",
+   "outputPath": "/debrid_symlinks/lazarr/sonarr_main/Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "size": 31000000000,
+   "sizeleft": 0
+  },
+  {
+   "id": 880111,
+   "seriesId": 412,
+   "episodeId": 30011,
+   "seasonNumber": 2,
+   "title": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "One or more episodes expected in this release were not imported or missing from the release",
+     "messages": []
+    },
+    {
+     "title": "Charter.House.S02E06.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E07.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E08.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E09.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E10.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E11.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E12.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E13.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E14.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E15.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E16.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E17.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E18.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E19.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E20.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E21.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E22.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    }
+   ],
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr",
+   "indexer": "Example Indexer",
+   "outputPath": "/debrid_symlinks/lazarr/sonarr_main/Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "size": 31000000000,
+   "sizeleft": 0
+  },
+  {
+   "id": 880112,
+   "seriesId": 412,
+   "episodeId": 30012,
+   "seasonNumber": 2,
+   "title": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "One or more episodes expected in this release were not imported or missing from the release",
+     "messages": []
+    },
+    {
+     "title": "Charter.House.S02E06.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E07.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E08.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E09.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E10.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E11.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E12.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E13.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E14.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E15.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E16.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E17.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E18.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E19.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E20.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E21.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E22.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    }
+   ],
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr",
+   "indexer": "Example Indexer",
+   "outputPath": "/debrid_symlinks/lazarr/sonarr_main/Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "size": 31000000000,
+   "sizeleft": 0
+  },
+  {
+   "id": 880113,
+   "seriesId": 412,
+   "episodeId": 30013,
+   "seasonNumber": 2,
+   "title": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "One or more episodes expected in this release were not imported or missing from the release",
+     "messages": []
+    },
+    {
+     "title": "Charter.House.S02E06.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E07.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E08.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E09.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E10.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E11.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E12.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E13.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E14.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E15.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E16.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E17.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E18.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E19.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E20.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E21.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E22.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    }
+   ],
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr",
+   "indexer": "Example Indexer",
+   "outputPath": "/debrid_symlinks/lazarr/sonarr_main/Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "size": 31000000000,
+   "sizeleft": 0
+  },
+  {
+   "id": 880114,
+   "seriesId": 412,
+   "episodeId": 30014,
+   "seasonNumber": 2,
+   "title": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "One or more episodes expected in this release were not imported or missing from the release",
+     "messages": []
+    },
+    {
+     "title": "Charter.House.S02E06.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E07.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E08.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E09.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E10.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E11.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E12.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E13.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E14.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E15.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E16.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E17.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E18.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E19.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E20.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E21.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E22.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    }
+   ],
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr",
+   "indexer": "Example Indexer",
+   "outputPath": "/debrid_symlinks/lazarr/sonarr_main/Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "size": 31000000000,
+   "sizeleft": 0
+  },
+  {
+   "id": 880115,
+   "seriesId": 412,
+   "episodeId": 30015,
+   "seasonNumber": 2,
+   "title": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "One or more episodes expected in this release were not imported or missing from the release",
+     "messages": []
+    },
+    {
+     "title": "Charter.House.S02E06.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E07.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E08.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E09.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E10.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E11.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E12.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E13.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E14.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E15.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E16.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E17.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E18.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E19.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E20.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E21.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E22.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    }
+   ],
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr",
+   "indexer": "Example Indexer",
+   "outputPath": "/debrid_symlinks/lazarr/sonarr_main/Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "size": 31000000000,
+   "sizeleft": 0
+  },
+  {
+   "id": 880116,
+   "seriesId": 412,
+   "episodeId": 30016,
+   "seasonNumber": 2,
+   "title": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "One or more episodes expected in this release were not imported or missing from the release",
+     "messages": []
+    },
+    {
+     "title": "Charter.House.S02E06.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E07.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E08.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E09.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E10.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E11.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E12.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E13.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E14.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E15.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E16.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E17.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E18.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E19.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E20.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E21.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E22.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    }
+   ],
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr",
+   "indexer": "Example Indexer",
+   "outputPath": "/debrid_symlinks/lazarr/sonarr_main/Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "size": 31000000000,
+   "sizeleft": 0
+  },
+  {
+   "id": 880117,
+   "seriesId": 412,
+   "episodeId": 30017,
+   "seasonNumber": 2,
+   "title": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "One or more episodes expected in this release were not imported or missing from the release",
+     "messages": []
+    },
+    {
+     "title": "Charter.House.S02E06.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E07.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E08.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E09.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E10.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E11.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E12.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E13.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E14.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E15.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E16.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E17.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E18.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E19.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E20.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E21.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E22.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    }
+   ],
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr",
+   "indexer": "Example Indexer",
+   "outputPath": "/debrid_symlinks/lazarr/sonarr_main/Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "size": 31000000000,
+   "sizeleft": 0
+  },
+  {
+   "id": 880118,
+   "seriesId": 412,
+   "episodeId": 30018,
+   "seasonNumber": 2,
+   "title": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "One or more episodes expected in this release were not imported or missing from the release",
+     "messages": []
+    },
+    {
+     "title": "Charter.House.S02E06.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E07.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E08.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E09.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E10.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E11.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E12.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E13.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E14.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E15.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E16.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E17.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E18.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E19.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E20.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E21.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E22.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    }
+   ],
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr",
+   "indexer": "Example Indexer",
+   "outputPath": "/debrid_symlinks/lazarr/sonarr_main/Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "size": 31000000000,
+   "sizeleft": 0
+  },
+  {
+   "id": 880119,
+   "seriesId": 412,
+   "episodeId": 30019,
+   "seasonNumber": 2,
+   "title": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "One or more episodes expected in this release were not imported or missing from the release",
+     "messages": []
+    },
+    {
+     "title": "Charter.House.S02E06.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E07.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E08.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E09.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E10.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E11.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E12.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E13.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E14.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E15.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E16.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E17.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E18.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E19.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E20.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E21.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E22.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    }
+   ],
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr",
+   "indexer": "Example Indexer",
+   "outputPath": "/debrid_symlinks/lazarr/sonarr_main/Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "size": 31000000000,
+   "sizeleft": 0
+  },
+  {
+   "id": 880120,
+   "seriesId": 412,
+   "episodeId": 30020,
+   "seasonNumber": 2,
+   "title": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "One or more episodes expected in this release were not imported or missing from the release",
+     "messages": []
+    },
+    {
+     "title": "Charter.House.S02E06.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E07.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E08.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E09.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E10.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E11.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E12.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E13.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E14.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E15.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E16.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E17.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E18.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E19.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E20.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E21.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E22.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    }
+   ],
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr",
+   "indexer": "Example Indexer",
+   "outputPath": "/debrid_symlinks/lazarr/sonarr_main/Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "size": 31000000000,
+   "sizeleft": 0
+  },
+  {
+   "id": 880121,
+   "seriesId": 412,
+   "episodeId": 30021,
+   "seasonNumber": 2,
+   "title": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "One or more episodes expected in this release were not imported or missing from the release",
+     "messages": []
+    },
+    {
+     "title": "Charter.House.S02E06.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E07.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E08.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E09.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E10.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E11.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E12.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E13.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E14.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E15.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E16.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E17.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E18.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E19.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E20.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E21.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E22.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    }
+   ],
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr",
+   "indexer": "Example Indexer",
+   "outputPath": "/debrid_symlinks/lazarr/sonarr_main/Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "size": 31000000000,
+   "sizeleft": 0
+  },
+  {
+   "id": 880122,
+   "seriesId": 412,
+   "episodeId": 30022,
+   "seasonNumber": 2,
+   "title": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "One or more episodes expected in this release were not imported or missing from the release",
+     "messages": []
+    },
+    {
+     "title": "Charter.House.S02E06.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E07.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E08.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E09.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E10.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E11.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E12.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E13.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E14.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E15.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E16.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E17.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E18.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E19.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E20.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E21.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    },
+    {
+     "title": "Charter.House.S02E22.1080p.WEB-DL.DD5.1.H.264-GRP.mkv",
+     "messages": [
+      "Not a Custom Format upgrade for existing episode file(s). New: [WEBDL] (0) do not improve on Existing: [AMZN, WEBDL] (1500)"
+     ]
+    }
+   ],
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr",
+   "indexer": "Example Indexer",
+   "outputPath": "/debrid_symlinks/lazarr/sonarr_main/Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP",
+   "size": 31000000000,
+   "sizeleft": 0
+  },
+  {
+   "id": 880300,
+   "seriesId": 99,
+   "episodeId": 40001,
+   "seasonNumber": 1,
+   "title": "Other.Show.S01.1080p-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "Other.Show.S01E01.mkv",
+     "messages": [
+      "Not an upgrade for existing episode file(s). Existing quality: WEBDL-1080p. New Quality WEBDL-1080p."
+     ]
+    }
+   ],
+   "downloadId": "AAAA1111BBBB2222CCCC3333DDDD4444EEEE5555",
+   "protocol": "torrent",
+   "downloadClient": "OtherClient"
+  },
+  {
+   "id": 880301,
+   "seriesId": 7,
+   "episodeId": 50010,
+   "seasonNumber": 18,
+   "title": "Its.Always.Rainy.in.Portland.S18E10.1080p.WEB.H264-FLUX",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importPending",
+   "statusMessages": [
+    {
+     "title": "Its.Always.Rainy.in.Portland.S18E10.1080p.WEB.H264-FLUX.exe",
+     "messages": [
+      "Found executable file with extension '.exe'"
+     ]
+    }
+   ],
+   "downloadId": "BBBB1111BBBB2222CCCC3333DDDD4444EEEE5555",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr"
+  },
+  {
+   "id": 880302,
+   "seriesId": 8,
+   "episodeId": 60001,
+   "seasonNumber": 3,
+   "title": "Mixed.Show.S03.720p-GRP",
+   "status": "completed",
+   "trackedDownloadStatus": "warning",
+   "trackedDownloadState": "importBlocked",
+   "statusMessages": [
+    {
+     "title": "One or more episodes expected in this release were not imported or missing from the release",
+     "messages": []
+    },
+    {
+     "title": "Mixed.Show.S03E01.mkv",
+     "messages": [
+      "Not an upgrade for existing episode file(s). Existing quality: HDTV-720p. New Quality HDTV-720p."
+     ]
+    },
+    {
+     "title": "Mixed.Show.S03E02.mkv",
+     "messages": [
+      "Sample"
+     ]
+    }
+   ],
+   "downloadId": "CCCC1111BBBB2222CCCC3333DDDD4444EEEE5555",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr"
+  },
+  {
+   "id": 880303,
+   "seriesId": 9,
+   "episodeId": 70001,
+   "seasonNumber": 1,
+   "title": "Waiting.Show.S01E01.1080p-GRP",
+   "status": "downloading",
+   "trackedDownloadStatus": "ok",
+   "trackedDownloadState": "downloading",
+   "statusMessages": [],
+   "downloadId": "DDDD1111BBBB2222CCCC3333DDDD4444EEEE5555",
+   "protocol": "torrent",
+   "downloadClient": "Lazarr Seerr"
+  }
+ ]
+}

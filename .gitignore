@@ -1,0 +1,27 @@
+# build output
+/lazarr
+/dist/
+*.exe
+
+# local runtime
+/config/config.yaml
+/config/*.sqlite
+*.sqlite
+*.db
+/data/
+
+# go
+/vendor/
+
+# editor / os
+.DS_Store
+.idea/
+.vscode/
+
+# agent worktrees (transient)
+.claude/worktrees/
+
+# internal working notes / project-local agent tooling — not part of the product
+/docs/
+/.claude/
+/scripts/

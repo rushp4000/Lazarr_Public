@@ -1,0 +1,319 @@
+# Lazarr config — copy to config.yaml and fill in. See docs/05 §7 and docs/11.
+# TIP: everything below is editable from the Web UI (Settings tab); the UI rewrites
+# this file (comments are not preserved) and offers a restart. Log-level changes
+# apply live without a restart.
+
+log_level: "info"          # debug | info | warn | error (debug = every request/read)
+
+torbox:
+  api_key: "PUT-YOUR-TORBOX-KEY-HERE"        # from your TorBox account
+  api_base: "https://api.torbox.app/v1/api"  # verified base (the /v1 matters)
+  # Lazarr's own cap on TorBox API calls (token bucket). TorBox allows 300 per 60 s per
+  # API key and reports x-ratelimit-* headers; on a 429 (or remaining 0) Lazarr pauses
+  # ALL TorBox calls until the window resets. 240 leaves room for other key users.
+  max_requests_per_minute: 240
+  # extra_cdn_hosts: additional CDN host suffixes the stream proxy accepts, on top of the
+  # built-ins (.tb-cdn.io, .tb-cdn.earth). Only needed if TorBox introduces a CDN under a
+  # NEW domain (Settings -> CDN Selection) before a Lazarr release knows about it — reads
+  # then fail with "host ... not under [...]" and one line here unblocks streaming.
+  # extra_cdn_hosts:
+  #   - ".tb-cdn.net"
+
+qbit:
+  listen: ":8080"        # the arr points its qBittorrent client here
+  username: "lazarr"     # what the arr sends (optional check)
+  password: "lazarr"
+
+paths:
+  download_dir: "/data/symlinks"   # arr's qBit "save path"; per-category subdirs created here
+  fuse_mount: "/data/torbox"       # FUSE virtual tree root
+  db_path: "/data/lazarr.sqlite"   # SQLite catalog (default shown)
+  probe_cache_dir: "/data/probe"   # Phase 2: bounded on-disk header cache (default shown)
+
+categories:                # must match arr names (Radarr movieCategory / Sonarr tvCategory)
+  - "radarr"               # one entry per arr instance
+
+policy:
+  allow_uncached: false    # cached-only default; toggle on to let TorBox really download uncached
+
+  # Materialization lifecycle — "watch-then-forget" model:
+  # Lazarr keeps a played item on TorBox for idle_ttl after the last byte is read.
+  # Re-watching within that window costs no extra add. After idle_ttl the reaper releases
+  # the slot; the next play re-adds transparently. LRU eviction kicks in even sooner
+  # when all active_slots are occupied and a new play arrives.
+  idle_ttl: "168h"         # 7 days — keeps recently-watched content hot without hoarding
+  max_hold: "720h"         # 30 days absolute ceiling, matching TorBox's natural purge window
+
+  # active_slots: concurrent materializations. SET TO YOUR TORBOX PLAN'S SLOT COUNT.
+  #   Essential = 3 (default). Pro/Standard allow more -> raise to match.
+  #   Never set higher than your plan (extra adds get rejected). 0 = auto-detect.
+  active_slots: 3
+  probe_cache: true        # cache file headers so Plex scans of new imports don't re-add
+
+  # What to do when an arr grabs a release TorBox has NOT cached (only applies while
+  # allow_uncached is false):
+  #   error  - keep the grab visible as an error in the arr (default; Cleanuparr-friendly)
+  #   reject - refuse the add so the arr instantly falls back to its next release
+  #   wait   - let TorBox download it: real progress shows in the arr. Past
+  #            cache_wait_budget a download keeps waiting only while its progress is
+  #            still rising (stalled 3 min = abandoned), and never past cache_wait_max.
+  #            On completion the account copy is released (content is now cached)
+  #            and import proceeds.
+  on_cache_miss: "error"
+  # Per-category override, e.g. Seerr requests cached-only while direct adds wait (see
+  # README "Different cache-miss handling for Seerr requests"):
+  # on_cache_miss_by_category: {sonarr_main_seerr: reject, radarr_main_seerr: reject}
+  cache_wait_budget: "15m"   # wait mode: unconditional wait before stall checks apply
+  cache_wait_max: "0s"       # wait mode: hard ceiling for a still-progressing download (0 = 3x budget)
+  max_wait_downloads: 1      # wait mode: concurrent TorBox downloads cap (overflow is refused, see below)
+  # wait mode: a download whose progress has not moved for this long while TorBox sees
+  # 0 seeds and 0 peers is a dead swarm — bail early instead of burning the budget. 0 = off.
+  wait_no_progress: "15m"
+  # Name the download folder after the release title the arr grabbed (magnet dn /
+  # .torrent name) rather than TorBox's cached name, which can be wrong (a season pack
+  # cached under one episode's file name makes Sonarr import only that episode).
+  use_arr_release_name: true
+  # Never store a stuck "error" row at add time: when checkcached fails (or the API is
+  # backing off), the wait cap is full, the uncached add fails, or (allow_uncached) the
+  # torrentinfo lookup fails, answer "Fails." so the arr takes its next release.
+  # false = pre-1.2.8 error rows. (on_cache_miss: error still creates error rows.)
+  refuse_add_errors: true
+  # wait mode: when a wait download fails (over budget/stalled, vanished), remove it
+  # from the owning arr's queue as FAILED — the arr blocklists that release and
+  # searches for another. Without this the arr only shows a warning forever (arrs
+  # map qBit "error" to a warning by design). Needs the category in playback.arrs
+  # (url + LAZARR_ARR_API_KEY_<CATEGORY>); categories without one keep the error.
+  # Also used for content-gate refusals (a plain "Fails." never blocklists, so RSS
+  # re-grabs the fake every sync) and releases found purged on TorBox at play time.
+  wait_fail_blocklist: false
+
+  # When an arr deletes a download from Lazarr (torrents/delete) after it already
+  # imported some of its files — a partially imported season pack, a queue cleaner, a
+  # manual "remove" — keep the release (hidden from the arr) so those library symlinks
+  # keep playing; only Lazarr's own download_dir symlinks are removed. A release with no
+  # library links left is deleted as before; a daily sweep removes detached releases
+  # whose links have all gone. Library links are found under local_cache.library_roots
+  # (default: the parent of download_dir). false = pre-1.2.8: every delete drops the
+  # release and imported files dangle. Deleting a "downloading" (wait mode) grab always
+  # removes its TorBox transfer first.
+  detach_on_delete: true
+
+  # Pack janitor (opt-in): every 5 min, remove from each playback.arrs queue the Lazarr
+  # downloads that are importBlocked (or importPending on two passes) although some files were imported (arr history) and
+  # every remaining rejection only says the arr already has that episode ("Not an
+  # upgrade", "Not a Custom Format upgrade", "already imported", "Existing file"), using
+  # blocklist=false&skipRedownload=true: no blocklist, no re-search. Without it a partial
+  # pack stays ImportBlocked forever and is re-probed through FUSE every minute.
+  # Requires detach_on_delete. pack_janitor_clients = the arr-side client names.
+  pack_janitor: false
+  # pack_janitor_clients: ["Lazarr", "Lazarr Seerr"]
+
+  # Daily repair scan: when TorBox has evicted a release (confirmed by two scans at
+  # least 12h apart), remove the library symlinks that point at it so the arr's next
+  # rescan marks the file missing and its missing search re-grabs it. Max 50
+  # releases per run; links into the local cache tree are never touched.
+  repair_unlink_dead: false
+
+  # Add-time content gate: refuse ("Fails.", the arr falls through to its next release)
+  # a cached release whose file list cannot be a real movie/episode: any executable or
+  # script (.exe .scr .bat .cmd .lnk .msi .com .vbs .js .jar .apk), or no video file of
+  # at least min_video_mib. reject_archives: only = refuse archives with no qualifying
+  # video; any = refuse ANY archive (.rar/.r00-.r999/.zip/.7z/.tar/.gz/.tgz, even a
+  # small subtitle zip; .iso counts as video); none = archives alone never refuse.
+  content_gate: true
+  min_video_mib: 100
+  reject_archives: "only"
+
+  # After a requestdl failure for a file, further reads of that file fail fast for this
+  # long without calling TorBox (stops an arr's per-minute import probe from becoming a
+  # 429 storm). 0 = off.
+  requestdl_negative_ttl: "90s"
+  # While the TorBox API is backing off after a rate limit, reads that need an API call
+  # fail at once (0) or wait up to this long for the backoff to end.
+  backoff_read_wait: "0s"
+
+  # Parallel readahead for playback: how many 1 MiB windows to prefetch ahead of a
+  # sequential read. 0 = off (~5-8 MB/s per stream). 4 suits most 4K (~20-30 MB/s);
+  # 8 for high-bitrate 4K remux. Higher values waste more TorBox bandwidth when a
+  # viewer stops or seeks.
+  readahead_windows: 4
+
+repair:
+  # Every hour Lazarr walks the library roots for symlinks into its FUSE/cache tree whose
+  # release it no longer has (Web UI Health tab, lazarr_dangling_library_links). true =
+  # remove them (symlinks only; a hash must be dangling for an hour; max 20 releases
+  # per run) and ask the owning arr in playback.arrs to rescan the series/movie, so the
+  # files become missing and get searched again.
+  unlink_orphans: false
+  # Replacement search: after unlink_orphans or policy.repair_unlink_dead removed links
+  # (usually because TorBox dropped the content) and the arr's rescan shows those
+  # episodes/movies missing, ask the arr to search for exactly them. Never touches
+  # TorBox; the arr's grab goes through Lazarr's normal add path. Bounded on purpose
+  # (TorBox flags misconfigured automated tools): monitored items only, one search per
+  # item per cooldown (persisted), max_per_hour across all arrs, at most 200 queued.
+  # Metric: lazarr_replacement_search_total{result}.
+  search_replacement:
+    enabled: false
+    max_per_hour: 10   # 1..30
+    cooldown: "72h"    # 24h..720h
+
+cleanup:
+  # Empty folders (v1.2.11). Deleted releases leave empty folders under
+  # <download_dir>/<category>/, and library links removed by the repair sweeps leave
+  # empty season/series/movie folders. Every hour Lazarr reports them (log + metric
+  # lazarr_empty_dirs); true = remove them. Only folders holding nothing but other empty
+  # folders are removed (rmdir, never recursive, symlinks never followed). Never removed:
+  # the download category folders, the arrs' library roots (playback.arrs[].library_root),
+  # anything above them, and the folder of any release still in the arr's download list.
+  remove_empty_dirs: false
+  # A folder modified less than this long ago (it or any folder in it) is left alone.
+  empty_dir_grace: "1h"
+  # Library folders are only removed strictly below a playback.arrs[].library_root (see
+  # there): with remove_empty_dirs, the folders the repair sweeps empty
+  # (repair.unlink_orphans, policy.repair_unlink_dead). No library_root = never.
+  # Also sweep the empty folders that already exist below each library_root every hour.
+  # The arr recreates a series/movie folder on import. Skipped for an arr with
+  # no_library_sweep, an arr with "Create empty series/movie folders" on (it would
+  # recreate them on every scan) and an arr Lazarr cannot ask.
+  sweep_library: false
+
+slow_lane:
+  # OPT-IN (v1.2.9). Background TorBox downloads with NO time budget for uncached releases
+  # that are too slow for on_cache_miss=wait: old shows, multi-season packs, thin swarms.
+  # Add items in the Web UI (Slow lane tab: magnet, infohash or .torrent upload) or POST
+  # /api/slowlane on the webui port (JSON magnet, or multipart .torrent files; see README).
+  # When TorBox has one cached, the content gate checks its real file list and it is
+  # handed to the arr: if the arr's history has a grab of that hash (it gave up on it),
+  # Lazarr clears that blocklist entry and asks the arr to search again (needs the
+  # category in playback.arrs); otherwise it appears in the category as a completed
+  # download. Running downloads count as held in the ToS audit (never orphans).
+  enabled: false
+  max_concurrent: 1        # simultaneous slow-lane downloads (each holds a TorBox slot); 1..5
+  poll_interval: "10m"     # progress check / start cadence; 1m..24h
+  max_age: "168h"          # give up (and delete the TorBox download) after this; "0s" = never
+  # Move an on_cache_miss=wait download that fails ONLY for being slow (budget, ETA, max
+  # wait, dead swarm) into the slow lane instead of deleting it. The grab still fails in
+  # the arr (with wait_fail_blocklist it blocklists and searches on). Needs enabled.
+  adopt_wait_failures: false
+  # A download the arr never grabbed is handed off by NAME only: Sonarr imports just what
+  # the folder name describes (one season of "S01-S02", nothing under a foreign-language
+  # folder name). auto_import then runs the arr's manual import file by file, importing
+  # ONLY files without rejections that map to one series/movie (the item's target when
+  # POST /api/slowlane gave one) into monitored episodes/movies that have NO file yet
+  # (never a replacement). At most 3 attempts per item. Needs the category in playback.arrs.
+  auto_import: true
+  auto_import_after: "15m" # the arr's own import goes first; also the gap between attempts; 1m..24h
+
+missing:
+  # Web UI "Missing" tab: what the arrs in playback.arrs still want (monitored episodes
+  # that have aired / monitored movies that are available, with no file), grouped by
+  # show + season or movie, with buttons to make the arr search again, copy search text,
+  # or hand a torrent to the slow lane for that row. Read-only towards the arrs except
+  # the explicit Search button. Runs only when playback.arrs has an arr with an API key.
+  enabled: true
+  refresh_interval: "30m"  # how often each arr is asked (~3 requests per arr); 5m..24h
+
+audit:
+  # Every 5-minute ToS audit also lists TorBox account torrents that NO Lazarr release
+  # references (not playing, not a wait download, older than 10 min) — Web UI Health tab,
+  # metric lazarr_tos_audit_orphans. Report only by default. Set e.g. "168h" to delete
+  # orphans older than that (max 10 per audit). CAUTION: on an account shared with
+  # another app, that app's torrents are orphans to Lazarr too.
+  delete_orphans_older_than: "0s"
+
+ownership:
+  # Lazarr runs as ROOT inside the container (required to mount FUSE in Docker), but the
+  # *arr suite runs as its own uid and must be able to move/delete the symlinks Lazarr
+  # creates. Set these to your arr's uid:gid and Lazarr chowns every symlink + dir it
+  # creates to them, and its virtual drive reports files as theirs. The container env vars
+  # PUID/PGID (or LAZARR_PUID/LAZARR_PGID) override these. 0 = disabled (leave as root).
+  puid: 0                  # e.g. 1000 — the uid your Sonarr/Radarr runs as
+  pgid: 0                  # e.g. 1000 — the gid your Sonarr/Radarr runs as
+
+metrics:
+  # OPT-IN observability on a SEPARATE port (kept off the arr-facing qbit port). Empty =
+  # disabled. When set, serves Prometheus /metrics and JSON /health. Unauthenticated like
+  # the qbit port — bind to the trusted LAN only.
+  # Default :9090 so the docker-compose.example.yml healthcheck works out of the box (S8).
+  # Clearing it ("") disables the admin port AND breaks that healthcheck — if you disable
+  # metrics, also remove the `healthcheck:` block from your compose file (or the container
+  # will be marked unhealthy forever).
+  listen: ":9090"
+
+# ─── Local cache ─────────────────────────────────────────
+# OPT-IN. Keeps real copies of what is being watched on YOUR disk (instant, local
+# playback instead of streaming), pulls the next episodes ahead of the viewer, and can
+# start movie pulls at grab time. Files live at <dir>/<infohash>/<rel_path>, a twin of
+# the FUSE tree; library symlinks are switched between the two. Retention is per file
+# and disk-aware. NOTHING above about the TorBox account lifecycle changes.
+local_cache:
+  enabled: false
+  dir: "/cache"                    # container path of the cache volume (bind-mount your big disk here)
+  publish: true                    # bind-mount dir at publish_at so Plex/arrs see it via the rshared symlink root
+  # publish_at: "/data/lazarr_cache"   # default: a "lazarr_cache" sibling of paths.fuse_mount
+  # library_roots: ["/data/Movies", "/data/TV Shows"]   # where the arrs move imports; default = parent of download_dir
+  torrent_only: true               # never cache usenet grabs (metered bandwidth on TorBox)
+  profile: "balanced"              # conservative | balanced | generous — presets for ttl + water marks
+  free_high_pct: 20                # windows apply fully above this much free space on dir...
+  free_low_pct: 5                  # ...shrink towards it, and below it the reaper evicts until back above
+  reserve_pct: 2                   # never start a pull that would leave less than this free
+  ttl:
+    watching: "0"                  # 0 = pinned while the series/movie has activity within active_window
+    finished: "48h"                # every viewer completed it, nobody mid-series
+    finished_movie: "720h"         # movies (often re-watched): 30 d; 0 = same as finished
+    untouched: "336h"              # pulled (prefetch / grab) but never played: 14 d
+    new_movie: "4320h"             # movie released within new_release_window: 180 d
+    default: "720h"                # everything else: 30 d
+  active_window: "72h"
+  new_release_window: "270d"       # "Nd" days are accepted for every duration here
+  pull_on_grab: []                 # categories whose grabs pull immediately, e.g. [radarr, radarr_4k] (heavy)
+  prefetch_ahead: 2                # episodes kept local ahead of each viewer
+  season_fill:                     # pull the rest of a season once a viewer is committed to it
+    enabled: false
+    after_completed: 2             # episodes of the season this viewer must have finished
+    max_episodes: 30               # cap per fill
+  speculative_gb_per_day: 250      # rolling 24 h cap on season-fill pulls; 0 = none
+  pull_current: true               # also pull the episode/movie being streamed right now
+  max_concurrent_pulls: 1          # each pull holds a TorBox slot while it runs
+  max_pulls_per_hour: 20           # shares the 60/h createtorrent budget with playback
+  min_file_mib: 200                # skip samples / extras
+  pull_window_mib: 8
+  stable_mtime: false              # see README: one-time library re-scan when turned on
+
+# Media servers + arrs that feed the cache's planner. SECRETS COME FROM THE ENVIRONMENT:
+#   LAZARR_PLEX_TOKEN, LAZARR_JELLYFIN_API_KEY, LAZARR_ARR_API_KEY_<CATEGORY> (upper-cased,
+#   e.g. LAZARR_ARR_API_KEY_RADARR_4K), and optionally LAZARR_TORBOX_API_KEY.
+# An env value always wins over the YAML and is never written back to this file.
+playback:
+  poll_interval: "30s"             # 0 disables polling
+  watched_pct: 90                  # progress at/after which a viewing counts as completed
+  refresh_on_retarget: false       # ask the server to refresh an item after its link is switched
+  # path_map:                      # only if a media server mounts the shared root elsewhere
+  #   - {from: "/media", to: "/data"}
+  plex:
+    url: ""                        # e.g. http://192.168.1.10:32400 ; empty = off
+    token: ""                      # prefer LAZARR_PLEX_TOKEN
+  jellyfin:
+    url: ""                        # e.g. http://192.168.1.10:8096 ; empty = off
+    api_key: ""                    # prefer LAZARR_JELLYFIN_API_KEY
+  # arrs:                          # optional: precise release/air dates + titles (and policy.wait_fail_blocklist)
+  #   - {category: "radarr", url: "http://radarr:7878"}      # key: LAZARR_ARR_API_KEY_RADARR
+  #   - {category: "sonarr", url: "http://sonarr:8989"}      # key: LAZARR_ARR_API_KEY_SONARR
+  # Per arr, optional:
+  #   library_root: "/data/TV Shows/sonarr"   # the arr's root folder AS LAZARR SEES IT. The arrs
+  #       # report paths in their own container ("/tv"); this maps them, so Lazarr can ask the
+  #       # right arr to rescan after the repair sweeps remove library links, and bounds the
+  #       # empty-folder cleanup. Unset = guessed from the library links for rescans (WARN and
+  #       # no rescans if that fails) and no library cleanup for this arr.
+  #   no_library_sweep: true                  # keep cleanup.sweep_library off this arr's root
+
+webui:
+  # OPT-IN human dashboard on a SEPARATE port. Empty = disabled. Serves the Lazarr
+  # dashboard: releases table, live materialized set, ToS audit, repair scanner (content
+  # health), and config view.
+  # Like the qbit and metrics ports it is unauthenticated by default — bind to the trusted
+  # LAN. Set username + password to enable HTTP Basic Auth (recommended; the UI has
+  # mutating actions: force-release, run-audit, repair-scan, forget-release).
+  listen: ":8081"          # set empty to disable
+  username: ""             # leave empty to disable auth (trusted-LAN only)
+  password: ""             # must be set together with username

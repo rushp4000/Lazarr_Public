@@ -1,0 +1,2064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lazarr</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;font-size:14px;background:#0f1117;color:#cdd6f4;min-height:100vh}
+a{color:#89b4fa;text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav{background:#1e1e2e;border-bottom:1px solid #313244;padding:0 24px;display:flex;align-items:center;gap:8px;height:48px;position:sticky;top:0;z-index:20}
+nav .brand{font-weight:700;font-size:16px;color:#cba6f7;letter-spacing:.5px;margin-right:16px}
+nav button{background:none;border:none;color:#cdd6f4;cursor:pointer;padding:6px 12px;border-radius:6px;font-size:13px}
+nav button:hover,nav button.active{background:#313244;color:#89b4fa}
+nav .spacer{flex:1}
+nav .ver{font-size:11px;color:#6c7086}
+
+main{max-width:1280px;margin:0 auto;padding:24px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:16px}
+
+.card{background:#1e1e2e;border:1px solid #313244;border-radius:8px;padding:16px;margin-bottom:16px}
+.card h2{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:#6c7086;margin-bottom:12px}
+.card .sub{font-size:12px;color:#6c7086;margin:-6px 0 12px;line-height:1.5}
+
+.stat{display:flex;flex-direction:column;gap:2px}
+.stat .val{font-size:28px;font-weight:700;color:#cba6f7}
+.stat .lbl{font-size:12px;color:#6c7086}
+.stats-row{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:8px}
+
+.badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
+.badge.green{background:#1a2a20;color:#a6e3a1;border:1px solid #a6e3a1}
+.badge.red{background:#2a1a1a;color:#f38ba8;border:1px solid #f38ba8}
+.badge.yellow{background:#2a2615;color:#f9e2af;border:1px solid #f9e2af}
+.badge.blue{background:#17203a;color:#89b4fa;border:1px solid #89b4fa}
+.badge.gray{background:#1e1e2e;color:#6c7086;border:1px solid #45475a}
+
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:8px 12px;color:#6c7086;font-weight:600;border-bottom:1px solid #313244;white-space:nowrap}
+td{padding:8px 12px;border-bottom:1px solid #181825;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#181825}
+.hash{font-family:monospace;font-size:11px;color:#6c7086}
+.name-cell{max-width:380px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.name-cell .hash{display:block;font-weight:400;margin-top:2px}
+
+.filter-row{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+input,select,textarea{background:#181825;border:1px solid #313244;color:#cdd6f4;padding:7px 10px;border-radius:6px;font-size:13px;outline:none;font-family:inherit}
+input:focus,select:focus{border-color:#89b4fa}
+.filter-row input[type=text]{min-width:220px}
+
+button.btn{cursor:pointer;padding:6px 14px;border-radius:6px;border:1px solid #313244;font-size:12px;font-weight:600;background:#181825;color:#cdd6f4;transition:background .15s}
+button.btn:hover{background:#313244}
+button.btn.danger{border-color:#f38ba8;color:#f38ba8}
+button.btn.danger:hover{background:#2a1a1a}
+button.btn.primary{border-color:#89b4fa;color:#89b4fa}
+button.btn.primary:hover{background:#17203a}
+button.btn.solid{background:#89b4fa;color:#11111b;border-color:#89b4fa}
+button.btn.solid:hover{background:#a5c4fc}
+button.btn:disabled{opacity:.4;cursor:not-allowed}
+
+.section{display:none}
+.section.active{display:block}
+
+.sparkbar-row{display:flex;gap:12px;flex-wrap:wrap}
+.sparkbar{display:flex;flex-direction:column;gap:4px;min-width:96px}
+.sparkbar .lbl{font-size:11px;color:#6c7086}
+.sparkbar .bar-wrap{height:6px;background:#313244;border-radius:3px;overflow:hidden}
+.sparkbar .bar-fill{height:100%;background:#89b4fa;border-radius:3px;transition:width .4s}
+.sparkbar .num{font-size:13px;font-weight:700;color:#cdd6f4}
+
+.pager{display:flex;gap:8px;align-items:center;margin-top:12px;font-size:13px;color:#6c7086}
+
+.loading{color:#6c7086;font-size:13px;padding:16px 0}
+
+/* how-it-works */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.step{background:#181825;border-radius:8px;padding:12px 14px}
+.step .n{display:inline-flex;width:22px;height:22px;border-radius:50%;background:#cba6f7;color:#11111b;font-weight:700;font-size:12px;align-items:center;justify-content:center;margin-bottom:8px}
+.step b{display:block;margin-bottom:4px;font-size:13px}
+.step span{font-size:12px;color:#a6adc8;line-height:1.5}
+
+/* settings form */
+.form-grid{display:grid;grid-template-columns:240px 1fr;gap:10px 16px;align-items:start}
+.form-grid label{padding-top:8px;font-size:13px;color:#cdd6f4;font-weight:600}
+.form-grid label small{display:block;font-weight:400;color:#6c7086;font-size:11px;margin-top:2px;line-height:1.4}
+.form-grid .field{display:flex;flex-direction:column;gap:4px}
+.form-grid .field .row{display:flex;gap:8px;align-items:center}
+.form-grid input,.form-grid select{width:100%;max-width:420px}
+.form-grid input[type=number]{max-width:120px}
+.form-grid input[type=checkbox]{width:auto;transform:scale(1.2);margin-top:10px}
+.hint{font-size:11px;color:#6c7086;line-height:1.4}
+.drop-over{outline:2px dashed #89b4fa;outline-offset:-4px}
+.tip{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;margin-left:6px;padding:0;border-radius:50%;border:1px solid #585b70;background:transparent;color:#89b4fa;font-size:10px;font-weight:700;line-height:1;cursor:help;position:relative;vertical-align:middle}
+.tip:hover,.tip:focus{border-color:#89b4fa;outline:none}
+.tip:hover::after,.tip:focus::after{content:attr(data-tip);position:absolute;left:0;top:22px;z-index:50;width:min(380px,80vw);white-space:pre-line;text-align:left;background:#11111b;color:#cdd6f4;border:1px solid #45475a;border-radius:8px;padding:10px 12px;font-size:12px;font-weight:400;line-height:1.5;box-shadow:0 6px 24px rgba(0,0,0,.5)}
+.chip{display:inline-flex;align-items:center;gap:6px;background:#17203a;border:1px solid #89b4fa;color:#89b4fa;border-radius:999px;padding:3px 6px 3px 12px;font-size:12px;font-weight:600}
+.chip button{background:none;border:none;color:#89b4fa;cursor:pointer;font-size:14px;padding:0 4px}
+.chip button:hover{color:#f38ba8}
+.chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center;max-width:420px}
+
+.savebar{position:sticky;bottom:0;background:#1e1e2e;border:1px solid #313244;border-radius:8px;padding:12px 16px;display:flex;gap:12px;align-items:center;box-shadow:0 -4px 16px rgba(0,0,0,.4)}
+.savebar .msg{font-size:13px}
+.savebar .msg.ok{color:#a6e3a1}
+.savebar .msg.err{color:#f38ba8}
+.savebar .spacer{flex:1}
+
+.restart-banner{background:#2a2615;border:1px solid #f9e2af;border-radius:8px;padding:12px 16px;margin-bottom:16px;display:none;align-items:center;gap:12px;font-size:13px;color:#f9e2af}
+.restart-banner.show{display:flex}
+
+.conn-box{background:#181825;border-radius:8px;padding:12px 14px;font-size:13px;margin-top:8px;max-width:560px}
+.conn-box table{font-size:13px}
+.conn-box td{padding:3px 12px 3px 0;border:none}
+.conn-box td:first-child{color:#6c7086;white-space:nowrap}
+.conn-box code{color:#a6e3a1;font-family:monospace;background:#11111b;padding:1px 6px;border-radius:4px}
+
+/* logs */
+.log-box{background:#11111b;border:1px solid #313244;border-radius:8px;padding:8px 0;font-family:monospace;font-size:12px;max-height:600px;overflow-y:auto}
+.log-line{padding:2px 12px;white-space:pre-wrap;word-break:break-all;line-height:1.5}
+.log-line:hover{background:#181825}
+.log-line .t{color:#6c7086}
+.log-line .lv-DEBUG{color:#6c7086}
+.log-line .lv-INFO{color:#89b4fa}
+.log-line .lv-WARN{color:#f9e2af}
+.log-line .lv-ERROR{color:#f38ba8}
+.log-line .attrs{color:#a6adc8}
+
+.audit-entry{padding:8px 12px;border-radius:6px;background:#181825;margin-bottom:6px;font-size:13px}
+.audit-entry.leak{border-left:3px solid #f38ba8}
+.audit-entry.info{border-left:3px solid #89b4fa}
+</style>
+</head>
+<body>
+<nav>
+  <span class="brand">⬡ Lazarr</span>
+  <button class="active" data-tab="dashboard" onclick="showSection('dashboard',this)">Dashboard</button>
+  <button data-tab="library" onclick="showSection('library',this)">Library</button>
+  <button data-tab="streams" onclick="showSection('streams',this)">Streams</button>
+  <button data-tab="cache" onclick="showSection('cache',this)" id="nav-cache">Cache</button>
+  <button data-tab="missing" onclick="showSection('missing',this)">Missing</button>
+  <button data-tab="slowlane" onclick="showSection('slowlane',this)">Slow lane</button>
+  <button data-tab="health" onclick="showSection('health',this)">Health</button>
+  <button data-tab="logs" onclick="showSection('logs',this)">Logs</button>
+  <button data-tab="settings" onclick="showSection('settings',this)">Settings</button>
+  <span class="spacer"></span>
+  <span class="ver" id="nav-version"></span>
+</nav>
+<main>
+
+<div class="restart-banner" id="restart-banner">
+  ⚠ Settings saved — a restart is needed to apply them.
+  <button class="btn" onclick="doRestart()">Restart Lazarr now</button>
+</div>
+
+<!-- ═══════════ DASHBOARD ═══════════ -->
+<div id="section-dashboard" class="section active">
+  <div class="card">
+    <h2>How Lazarr works</h2>
+    <div class="steps">
+      <div class="step"><span class="n">1</span><b>Grab — instant, nothing downloaded</b>
+        <span>When Sonarr/Radarr grabs a release, Lazarr records it and places a file link in your library. <strong>Nothing is added to your TorBox account.</strong></span></div>
+      <div class="step"><span class="n">2</span><b>Play — streamed on demand</b>
+        <span>When you press play (Plex, Jellyfin…), Lazarr adds the torrent to TorBox and streams the bytes straight to your player. First play takes a few extra seconds.</span></div>
+      <div class="step"><span class="n">3</span><b>Clean up — automatic</b>
+        <span>After it sits unwatched for the idle window, Lazarr removes it from TorBox again. Your library file keeps working — the next play just repeats step 2.</span></div>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="card" id="status-card" style="margin:0"><div class="loading">Loading…</div></div>
+    <div class="card" id="slots-card" style="margin:0"><div class="loading">Loading…</div></div>
+    <div class="card" id="account-card" style="margin:0"><div class="loading">Loading…</div></div>
+    <div class="card" id="metrics-card" style="margin:0"><div class="loading">Loading…</div></div>
+  </div>
+</div>
+
+<!-- ═══════════ LIBRARY ═══════════ -->
+<div id="section-library" class="section">
+  <div class="card">
+    <h2>Library</h2>
+    <p class="sub">Everything your arrs have grabbed through Lazarr. <span class="badge gray">On demand</span> = ready, not on TorBox (the normal state). <span class="badge blue">On TorBox</span> = played recently, currently using a slot. <span class="badge red">Unavailable</span> = TorBox no longer has the content (see the Health tab). <span class="badge green">Local</span> = a real copy is on your disk (Cache tab).</p>
+    <div class="filter-row">
+      <input id="rel-q" type="text" placeholder="Search title…" oninput="debounce(loadReleases,300)">
+      <select id="rel-state" onchange="loadReleases()">
+        <option value="">Any status</option>
+        <option value="virtual">On demand</option>
+        <option value="materialized">On TorBox</option>
+        <option value="local">Local copy</option>
+        <option value="error">Error</option>
+      </select>
+      <select id="rel-cat" onchange="loadReleases()">
+        <option value="">All arrs</option>
+      </select>
+      <button class="btn" onclick="loadReleases()">Refresh</button>
+    </div>
+    <div class="table-wrap">
+      <table id="rel-table">
+        <thead><tr>
+          <th>Title</th><th>Arr</th><th>Status</th><th>Size</th><th>Last played</th><th></th>
+        </tr></thead>
+        <tbody id="rel-body"><tr><td colspan="6" class="loading">Loading…</td></tr></tbody>
+      </table>
+    </div>
+    <div class="pager">
+      <button class="btn" id="rel-prev" onclick="relPage(-1)" disabled>← Prev</button>
+      <span id="rel-page-info">—</span>
+      <button class="btn" id="rel-next" onclick="relPage(1)" disabled>Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ STREAMS ═══════════ -->
+<div id="section-streams" class="section">
+  <div class="card">
+    <h2>Active on TorBox</h2>
+    <p class="sub">Releases currently added to your TorBox account — each uses one of your <span id="streams-slots">…</span> streaming slots. Idle ones are removed automatically after <span id="streams-idle">…</span>; you only need “Remove now” to free a slot early.</p>
+    <div class="filter-row">
+      <button class="btn primary" onclick="loadMat()">Refresh</button>
+      <button class="btn danger" onclick="releaseAllIdle()" id="btn-release-idle">Remove all idle from TorBox</button>
+      <span id="mat-result" style="font-size:12px;color:#a6e3a1;margin-left:8px"></span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Title</th><th>Arr</th><th>Size</th><th>Activity</th><th>Last played</th><th></th></tr></thead>
+        <tbody id="mat-body"><tr><td colspan="6" class="loading">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ CACHE ═══════════ -->
+<div id="section-cache" class="section">
+  <div class="card" id="cache-off" style="display:none">
+    <h2>Local cache</h2>
+    <p class="sub">Off. Turn it on under Settings → Local cache to keep real copies of what is being watched on your own disk (instant playback, no streaming), pull the next episodes ahead of the viewer, and start movie downloads at request time. Nothing on your TorBox account changes.</p>
+  </div>
+  <div id="cache-on" style="display:none">
+    <div class="grid2">
+      <div class="card" id="cache-disk-card" style="margin:0"><div class="loading">Loading…</div></div>
+      <div class="card" id="cache-activity-card" style="margin:0"><div class="loading">Loading…</div></div>
+    </div>
+    <div class="card">
+      <h2>Now watching</h2>
+      <p class="sub">Live sessions from your media servers. Lazarr keeps the current episode and the next ones local while someone is watching.</p>
+      <div class="filter-row">
+        <button class="btn primary" onclick="cachePoll()" id="btn-cache-poll">Poll servers now</button>
+        <span id="cache-poll-result" style="font-size:12px;margin-left:8px"></span>
+      </div>
+      <div class="table-wrap">
+        <table><thead><tr><th>Server</th><th>User</th><th>Title</th><th>Progress</th><th>State</th><th>Local</th></tr></thead>
+        <tbody id="cache-sessions"><tr><td colspan="6" class="loading">Loading…</td></tr></tbody></table>
+      </div>
+    </div>
+    <div class="card">
+      <h2>On disk <button id="cache-backfill" class="btn" style="display:none;float:right" onclick="cacheAnalyzeBackfill(this)" title="Ask the media servers to analyze every cached file not analyzed yet (intro/credits markers etc.) while it is local">Analyze all cached</button></h2>
+      <p class="sub">Every file the cache holds, newest first. <b>Class</b> is what the retention policy decided last sweep: <span class="badge blue">wanted</span> someone is on it right now · <span class="badge blue">watching</span> series in progress · <span class="badge green">new_movie</span> long retention · <span class="badge gray">default</span> · <span class="badge yellow">untouched</span> never played · <span class="badge yellow">finished</span> everyone done, drops soon.</p>
+      <div class="table-wrap">
+        <table><thead><tr><th>Title</th><th>File</th><th>Arr</th><th>State</th><th>Class</th><th>Size</th><th>Pulled</th><th>Last read</th><th>Analysis</th><th></th></tr></thead>
+        <tbody id="cache-files"><tr><td colspan="10" class="loading">Loading…</td></tr></tbody></table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ MISSING ═══════════ -->
+<div id="section-missing" class="section">
+  <div class="card">
+    <h2>Missing</h2>
+    <p class="sub">What your arrs still want: monitored episodes that have already aired and monitored movies that are available, with no file yet. Lazarr asks each arr for its list every <span id="miss-every">…</span> (read-only). <b>Search</b> asks the arr to search its indexers again. <b>Copy search text</b> copies e.g. “Show Name S02” for searching a torrent site by hand. <b>Add torrent…</b> opens the Slow lane with this arr selected and remembers the row, so the magnet you paste (or the .torrent you upload) there is added for it. <span class="badge blue">downloading</span> = the arr already has it in its queue; <span class="badge yellow">in slow lane</span> = an active slow-lane item was added for it.</p>
+    <div id="miss-off" style="display:none;margin-bottom:10px;color:#f9e2af;font-size:13px">The missing list is off. It needs at least one arr with an API key under Settings → Playback (arrs), and <code>missing.enabled</code> left on in config.yaml.</div>
+    <div id="miss-summary" class="filter-row" style="flex-wrap:wrap;gap:6px"></div>
+    <div class="filter-row">
+      <input id="miss-q" type="text" placeholder="Filter title or profile…" oninput="renderMissing()">
+      <select id="miss-arr" onchange="renderMissing()"><option value="">All arrs</option></select>
+      <select id="miss-sort" onchange="renderMissing()">
+        <option value="title">Sort: title</option>
+        <option value="count">Sort: most missing</option>
+        <option value="aired">Sort: latest aired</option>
+      </select>
+      <label style="font-size:12px;display:inline-flex;align-items:center;gap:4px"><input type="checkbox" id="miss-hideq" onchange="renderMissing()"> Hide downloading</label>
+      <button class="btn primary" onclick="loadMissing(true)" id="btn-miss-refresh">Refresh from arrs</button>
+      <span id="miss-msg" style="font-size:12px;margin-left:8px"></span>
+    </div>
+    <div class="hint" id="miss-info" style="margin:6px 0 10px"></div>
+    <div class="table-wrap">
+      <table><thead><tr><th>Title</th><th>Season</th><th>Missing</th><th>Aired</th><th>Profile</th><th></th></tr></thead>
+      <tbody id="miss-body"><tr><td colspan="6" class="loading">Loading…</td></tr></tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ SLOW LANE ═══════════ -->
+<div id="section-slowlane" class="section">
+  <div class="card" id="slow-card">
+    <h2>Slow lane</h2>
+    <p class="sub">For releases TorBox has not cached and that would take longer than a normal wait: old shows, multi-season packs, thin swarms. Lazarr asks TorBox to download them in the background, a few at a time, with no time limit, and checks back periodically. When TorBox has one cached, Lazarr checks its files (no executables, no archives, a real video) and hands it to the arr: it appears in the arr's download client as a completed download, or, for a download the arr already gave up on, Lazarr clears that blocklist entry and asks the arr to search again. Nothing is streamed until the arr imports it.</p>
+    <div id="slow-off" style="display:none;margin-bottom:10px;color:#f9e2af;font-size:13px">The slow lane is off. Turn it on under Settings → Slow lane (restart required). Items left from an earlier run are still listed and can be cancelled.</div>
+    <div class="filter-row">
+      <input type="text" id="slow-magnet" placeholder="magnet:?xt=urn:btih:…  or an infohash" style="flex:1;min-width:320px">
+      <span id="slow-target" class="badge blue" style="display:none" title="Set from the Missing tab: the next add (magnet or .torrent upload) is for this show/season or movie"></span>
+      <select id="slow-cat"></select>
+      <button class="btn primary" onclick="slowAdd()" id="btn-slow-add">Add to slow lane</button>
+      <button class="btn" onclick="document.getElementById('slow-files').click()" id="btn-slow-upload">Upload .torrent…</button>
+      <input type="file" id="slow-files" accept=".torrent,application/x-bittorrent" multiple style="display:none" onchange="slowUploadFiles(this.files); this.value=''">
+      <span id="slow-msg" style="font-size:12px;margin-left:8px"></span>
+    </div>
+    <div class="hint" style="margin-top:6px">Or drop .torrent files anywhere on this card: they go to the arr selected above, with their trackers. Private-tracker torrents are refused (TorBox would announce with your passkey).</div>
+    <div class="hint" id="slow-config" style="margin:6px 0 10px"></div>
+    <div class="table-wrap">
+      <table><thead><tr><th>Name</th><th>Arr</th><th>From</th><th>State</th><th>Progress</th><th>Swarm</th><th>Queued</th><th>Details</th><th></th></tr></thead>
+      <tbody id="slow-body"><tr><td colspan="9" class="loading">Loading…</td></tr></tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ HEALTH ═══════════ -->
+<div id="section-health" class="section">
+  <div class="card">
+    <h2>Content availability</h2>
+    <p class="sub">Lazarr checks every grabbed release against TorBox daily (read-only, never adds anything). Items marked <span class="badge red">Unavailable</span> were purged from TorBox’s cache — playing them would fail. “Re-search” deletes the dead link so your arr notices the missing file and grabs a fresh copy.</p>
+    <div class="filter-row">
+      <button class="btn primary" onclick="runRepairScan()" id="btn-repair-scan">Check availability now</button>
+      <span id="repair-scan-result" style="font-size:12px;margin-left:8px"></span>
+      <span style="flex:1"></span>
+      <button class="btn" onclick="loadRepair()">Refresh</button>
+    </div>
+    <div class="table-wrap">
+      <table id="repair-table">
+        <thead><tr>
+          <th>Title</th><th>Arr</th><th>Status</th><th>Grabbed</th><th>Last checked</th><th></th>
+        </tr></thead>
+        <tbody id="repair-body"><tr><td colspan="6" class="loading">Loading…</td></tr></tbody>
+      </table>
+    </div>
+    <div id="repair-empty" style="display:none;color:#a6e3a1;padding:16px 0;font-size:13px">
+      ✓ Everything in your library is still available on TorBox.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Dangling library links</h2>
+    <p class="sub">Library files (symlinks your arrs imported) that point into Lazarr for a release Lazarr no longer has. They fail to play, and the arr does not notice. The list is checked every hour. With <code>repair.unlink_orphans</code> they are removed and the arr rescans, so it marks the files missing and searches again.</p>
+    <div id="dangling"><div class="loading">Loading…</div></div>
+  </div>
+
+  <div class="card">
+    <h2>TorBox account compliance</h2>
+    <p class="sub">Lazarr promises to never hoard content on your TorBox account. The audit compares what TorBox says is on your account with what Lazarr believes it added; a leak means something was left behind and should be investigated.</p>
+    <div class="filter-row">
+      <button class="btn primary" onclick="runAudit()" id="btn-audit">Run audit now</button>
+      <span id="audit-result" style="font-size:12px;margin-left:8px"></span>
+    </div>
+    <div id="audit-status"><div class="loading">Runs automatically every 5 minutes.</div></div>
+    <h3 style="margin-top:16px;font-size:14px">Torrents on the account that no Lazarr release uses</h3>
+    <p class="sub">Listed by every audit: not playing, not a wait download, older than 10 minutes. “In catalog” means a Lazarr release whose TorBox copy was left behind; otherwise something else added it (another app on the same key, a manual add, or a pre-1.2.8 wait-download leak). Lazarr deletes them only if <code>audit.delete_orphans_older_than</code> is set.</p>
+    <div id="orphans"><div class="loading">Loading…</div></div>
+  </div>
+</div>
+
+<!-- ═══════════ LOGS ═══════════ -->
+<div id="section-logs" class="section">
+  <div class="card">
+    <h2>Logs</h2>
+    <p class="sub">The most recent activity (kept in memory; the full stream is in <code>docker logs</code>). Change how much detail is recorded under Settings → Logging — “Debug” shows every request and read.</p>
+    <div class="filter-row">
+      <select id="log-level" onchange="loadLogs()">
+        <option value="debug">All levels</option>
+        <option value="info" selected>Info and up</option>
+        <option value="warn">Warnings and up</option>
+        <option value="error">Errors only</option>
+      </select>
+      <select id="log-limit" onchange="loadLogs()">
+        <option value="100">Last 100</option>
+        <option value="200" selected>Last 200</option>
+        <option value="500">Last 500</option>
+        <option value="1000">Last 1000</option>
+      </select>
+      <button class="btn" onclick="loadLogs()">Refresh</button>
+      <label style="font-size:12px;color:#6c7086;display:flex;align-items:center;gap:6px">
+        <input type="checkbox" id="log-follow" checked onchange="toggleFollow()"> auto-refresh
+      </label>
+    </div>
+    <div class="log-box" id="log-box"><div class="loading" style="padding:8px 12px">Loading…</div></div>
+  </div>
+</div>
+
+<!-- ═══════════ SETTINGS ═══════════ -->
+<div id="section-settings" class="section">
+
+  <div class="card">
+    <h2>TorBox</h2>
+    <div class="form-grid">
+      <label>API key<small>From <a href="https://torbox.app/settings" target="_blank" rel="noopener">torbox.app/settings</a>. Stored in config.yaml, never shown again here.</small></label>
+      <div class="field">
+        <input type="password" id="set-apikey" placeholder="" autocomplete="new-password">
+        <span class="hint" id="apikey-state"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Media managers (Sonarr / Radarr)</h2>
+    <p class="sub">Add one <strong>category</strong> per arr instance — the category is just a name Lazarr and the arr agree on (e.g. <code>radarr</code>, <code>sonarr_4k</code>). Then point that arr at Lazarr using the connection details below.</p>
+    <div class="form-grid">
+      <label>Categories<small>One per arr. Press Enter or “Add”.</small></label>
+      <div class="field">
+        <div class="chips" id="cat-chips"></div>
+        <div class="row">
+          <input type="text" id="cat-new" placeholder="e.g. sonarr_hq" onkeydown="if(event.key==='Enter'){addCategory();event.preventDefault()}">
+          <button class="btn primary" onclick="addCategory()">Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="conn-box" id="conn-box">
+      <b style="display:block;margin-bottom:8px">In each arr: Settings → Download Clients → <span style="color:#89b4fa">＋</span> → qBittorrent</b>
+      <table>
+        <tr><td>Host</td><td><code id="conn-host">…</code></td></tr>
+        <tr><td>Port</td><td><code id="conn-port">…</code></td></tr>
+        <tr><td>Username</td><td><code id="conn-user">…</code></td></tr>
+        <tr><td>Password</td><td><code id="conn-pass">…</code></td></tr>
+        <tr><td>Category</td><td>the category you added for that arr, e.g. <code id="conn-cat">…</code></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Streaming</h2>
+    <div class="form-grid">
+      <label>Keep on TorBox for<small>How long a played item stays on TorBox before automatic removal. Longer = instant replays; shorter = tidier account.</small></label>
+      <div class="field"><div class="row">
+        <input type="number" id="set-idle-n" min="1" step="1">
+        <select id="set-idle-u"><option value="h">hours</option><option value="d">days</option></select>
+        <span class="hint">since last played</span>
+      </div></div>
+
+      <label>Absolute limit<small>Hard ceiling per item, even if it is played constantly. Keep under TorBox’s 30-day policy.</small></label>
+      <div class="field"><div class="row">
+        <input type="number" id="set-hold-n" min="1" step="1">
+        <select id="set-hold-u"><option value="h">hours</option><option value="d">days</option></select>
+      </div></div>
+
+      <label>Streaming slots<small>How many items may be on TorBox at once. Match your TorBox plan (Essential = 3). 0 = detect automatically.</small></label>
+      <div class="field"><input type="number" id="set-slots" min="0" step="1"></div>
+
+      <label>Allow uncached grabs<small>Off (recommended): only grab what TorBox already has cached, so playback is instant. On: also accept releases TorBox must download first.</small></label>
+      <div class="field"><input type="checkbox" id="set-uncached"></div>
+
+      <label>If a release isn't cached<small>Only applies when "Allow uncached grabs" is off.</small></label>
+      <div class="field">
+        <select id="set-cachemiss" onchange="toggleWaitRow()">
+          <option value="error">Show as an error in the arr (clean up later)</option>
+          <option value="reject">Skip it — the arr instantly tries another release</option>
+          <option value="wait">Let TorBox download it, if it's quick</option>
+        </select>
+        <div class="row" id="wait-row" style="display:none;margin-top:6px">
+          <span class="hint">only if it can finish within</span>
+          <input type="number" id="set-waitmin" min="1" step="1" style="max-width:90px">
+          <span class="hint">minutes; at most</span>
+          <input type="number" id="set-waitmax" min="1" step="1" style="max-width:70px">
+          <span class="hint">at a time</span>
+        </div>
+        <div class="row" id="wait-max-row" style="display:none;margin-top:6px">
+          <span class="hint">keep waiting while progress is still rising, up to</span>
+          <input type="number" id="set-waitceil" min="0" step="1" style="max-width:90px">
+          <span class="hint">minutes in total (0 = 3× the time above)</span>
+        </div>
+        <span class="hint">"Wait" shows a real download bar in the arr; when the download finishes the copy is removed from your account (the content is now in TorBox's cache) and the import completes normally.</span>
+      </div>
+
+      <label>Readahead windows<small>How many pieces to fetch in parallel ahead of playback. Higher = faster streams but more wasted bandwidth when you stop or skip.</small></label>
+      <div class="field">
+        <select id="set-readahead">
+          <option value="0">Off — single connection (~5–8 MB/s, light 1080p)</option>
+          <option value="2">Low — 2 ahead</option>
+          <option value="4">Standard — 4 ahead (most 4K)</option>
+          <option value="6">High — 6 ahead</option>
+          <option value="8">Max — 8 ahead (4K remux)</option>
+        </select>
+      </div>
+
+      <label>Readahead chunk size<small>Size of each readahead piece in MiB. Larger chunks = fewer CDN round-trips (higher throughput) but more RAM and wasted transfer on seek/stop.</small></label>
+      <div class="field">
+        <select id="set-readahead-chunk">
+          <option value="1">1 MiB (minimal RAM)</option>
+          <option value="2">2 MiB (default)</option>
+          <option value="4">4 MiB</option>
+          <option value="8">8 MiB</option>
+          <option value="16">16 MiB</option>
+          <option value="32">32 MiB</option>
+          <option value="64">64 MiB (TMC-style)</option>
+        </select>
+      </div>
+
+      <label>Header cache<small>Keeps tiny file headers locally so Plex/Jellyfin library scans don’t consume TorBox requests. Leave on.</small></label>
+      <div class="field"><input type="checkbox" id="set-probe"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Slow lane</h2>
+    <p class="sub">Background TorBox downloads with no time limit, for releases that are not cached and too slow for "Let TorBox download it" above. Add items on the Slow lane tab. Each running download holds one of your TorBox download slots. Restart required.</p>
+    <div class="form-grid">
+      <label>Enable slow lane</label>
+      <div class="field"><input type="checkbox" id="sl-enabled"></div>
+      <label>Downloads at a time<small>How many slow-lane downloads may run on TorBox at once. Keep it low: they share your plan's slots with streaming and quick waits (Essential = 3).</small></label>
+      <div class="field"><input type="number" id="sl-max" min="1" max="5" step="1" style="max-width:90px"></div>
+      <label>Check every<small>How often progress is checked and queued items are started. Each check costs one TorBox request per running download.</small></label>
+      <div class="field"><input type="text" id="sl-poll" style="max-width:120px"> <span class="hint">e.g. 10m, 30m, 1h</span></div>
+      <label>Give up after<small>Drop an item (and delete its TorBox download) if it is still not cached this long after it was added. 0 = never.</small></label>
+      <div class="field"><input type="text" id="sl-age" style="max-width:120px"> <span class="hint">e.g. 7d, 72h; 0 = never</span></div>
+      <label>Catch slow quick-waits<small>When a "Let TorBox download it" grab is about to be dropped only for being slow, move it here instead of deleting it. The arr still moves on to another release; once this one is cached Lazarr clears its blocklist entry and asks the arr to search again.</small></label>
+      <div class="field"><input type="checkbox" id="sl-adopt"></div>
+      <label>Finish imports automatically<small>A download the arr never grabbed is handed over by name only, and the arr imports just what the folder name describes (one season of a multi-season pack, nothing under a foreign-language folder name). Lazarr then runs the arr's manual import file by file, importing only files the arr matched to one series/movie (the item's target, if it has one) and only into monitored episodes or movies that have no file yet. Nothing is ever replaced; at most 3 tries per item. Needs the arr under Playback → arrs.</small></label>
+      <div class="field"><input type="checkbox" id="sl-autoimport"></div>
+      <label>Give the arr first<small>How long the arr's own import gets before Lazarr steps in (also the gap between tries).</small></label>
+      <div class="field"><input type="text" id="sl-autoimport-after" style="max-width:120px"> <span class="hint">e.g. 15m, 1h</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Empty folder cleanup</h2>
+    <p class="sub">Deleted releases leave empty folders in the download folder, and library files removed by the repair sweeps leave empty season/series/movie folders. Lazarr checks every hour; while removal is off it only logs what it would remove (metric <code>lazarr_empty_dirs</code>). Only folders that contain nothing but other empty folders are removed, one at a time and never recursively; links are never followed. The download category folders, the library root folders and everything above them are never removed, and neither is the folder of any release still in the arr's download list. Restart required.</p>
+    <div class="form-grid">
+      <label>Remove empty folders<small>Off = report only.</small></label>
+      <div class="field"><input type="checkbox" id="cl-remove"></div>
+      <label>Leave alone for<small>A folder modified more recently than this (it, or any folder in it) is left alone: a grab or an import may be filling it right now.</small></label>
+      <div class="field"><input type="text" id="cl-grace" style="max-width:120px"> <span class="hint">e.g. 1h, 6h; 5m..168h</span></div>
+      <label>Library root folders<small>Each arr's root folder as Lazarr sees it, one <code>category=/path</code> per line (e.g. <code>sonarr_main=/data/TV Shows/sonarr_main</code> for an arr whose root folder is <code>/tv</code>). The arrs report their own container paths, so Lazarr needs this to translate them: it is also how Lazarr asks the right arr to rescan after removing library links (left empty, the root is guessed from the library and rescans are skipped if that fails). Library folders are only removed below these. Saved as <code>playback.arrs[].library_root</code>.</small></label>
+      <div class="field"><textarea id="cl-roots" rows="3" style="width:100%" placeholder="sonarr_main=/data/TV Shows/sonarr_main"></textarea></div>
+      <label>Also sweep existing empty library folders<small>Every hour, also remove empty folders that are already below the library root folders (a monitored movie without its file, a series removed from the arr). The arr creates the folder again when it imports. An arr with "Create empty series/movie folders" turned on is skipped automatically.</small></label>
+      <div class="field"><input type="checkbox" id="cl-library"></div>
+      <label>Never sweep these arrs<small>Categories (comma-separated) whose root folder the hourly library sweep skips. An arr with "Create empty series/movie folders" on is skipped automatically.</small></label>
+      <div class="field"><input type="text" id="cl-nosweep" style="max-width:320px" placeholder="sonarr_hq"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Local cache</h2>
+    <p class="sub">Keep real copies of what is being watched on your own disk, so playback is local instead of streamed, prefetch the next episodes, and start movie pulls at request time. Retention is per file and disk-aware. Your TorBox account lifecycle above is untouched. Restart required to turn on/off or change paths.</p>
+    <div class="form-grid">
+      <label>Enable local cache</label>
+      <div class="field"><input type="checkbox" id="lc-enabled"></div>
+      <label>Cache folder<small>Container path of the big volume (e.g. <code>/cache</code>). Bind-mount your storage there.</small></label>
+      <div class="field"><input type="text" id="lc-dir"></div>
+      <label>Publish into the symlink tree<small>Bind-mounts the cache folder next to the stream mount so Plex/Jellyfin and the arrs see it at the same path (like the stream mount). Turn off only if you mount the volume in every container yourself.</small></label>
+      <div class="field"><input type="checkbox" id="lc-publish"> <input type="text" id="lc-publish-at" placeholder="/data/lazarr_cache" style="max-width:320px"></div>
+      <label>Library folders<small>Where your arrs move imported files. One per line. Empty = the parent of the download folder.</small></label>
+      <div class="field"><textarea id="lc-roots" rows="2" style="width:100%"></textarea></div>
+      <label>Pull on grab<small>Categories whose new grabs are copied to disk immediately (movie arrs). Click to toggle.</small></label>
+      <div class="field"><div class="chips" id="lc-pog-chips"></div></div>
+      <label>Retention profile<small>Presets for the windows below. Pick one, then fine-tune.</small></label>
+      <div class="field"><select id="lc-profile" onchange="applyProfile()"></select><span class="hint" id="lc-profile-desc"></span></div>
+      <label>Keep after everyone finished<small>Starts once every Plex/Jellyfin user Lazarr has seen play this file has watched past “counts as watched” (below) and nobody is mid-way through the series. Users who never played it don’t count.</small></label>
+      <div class="field"><input type="text" id="lc-ttl-finished" style="max-width:120px"> <span class="hint">e.g. 48h, 7d</span></div>
+      <label>Keep movies after everyone finished<small>Same rule for movies only (they are re-watched more often). 0 = use the time above.</small></label>
+      <div class="field"><input type="text" id="lc-ttl-finished-movie" style="max-width:120px"> <span class="hint">e.g. 90d; 0 = same as above</span></div>
+      <label>Keep if never played<small>Copied ahead of time (next episodes, pull on grab) but nobody has played it yet.</small></label>
+      <div class="field"><input type="text" id="lc-ttl-untouched" style="max-width:120px"> <span class="hint">e.g. 14d</span></div>
+      <label>Keep new releases<small>Movies whose release date is recent.</small></label>
+      <div class="field"><input type="text" id="lc-ttl-newmovie" style="max-width:120px"> <span class="hint">movies released within <input type="text" id="lc-new-window" style="max-width:80px"> (e.g. 270d)</span></div>
+      <label>Keep everything else<small>Anything the rules above don’t cover, e.g. played partway and abandoned.</small></label>
+      <div class="field"><input type="text" id="lc-ttl-default" style="max-width:120px"></div>
+      <label>Keep while watching<small>0 = pinned as long as the series/movie has activity.</small></label>
+      <div class="field"><input type="text" id="lc-ttl-watching" style="max-width:120px"> <span class="hint">active for <input type="text" id="lc-active-window" style="max-width:80px"> after last play</span></div>
+      <label>Disk headroom<small>Windows apply fully above the high mark, shrink towards the low mark, and below it the cache evicts (finished → never played → oldest) until it is back above.</small></label>
+      <div class="field"><div class="row">
+        <span class="hint">high</span><input type="number" id="lc-high" min="1" max="100" style="max-width:70px"><span class="hint">% free · low</span><input type="number" id="lc-low" min="0" max="99" style="max-width:70px"><span class="hint">% free · never start a pull below</span><input type="number" id="lc-reserve" min="0" max="50" style="max-width:70px"><span class="hint">% free</span>
+      </div></div>
+      <label>Prefetch ahead<small>Episodes to keep local ahead of each viewer.</small></label>
+      <div class="field"><div class="row"><input type="number" id="lc-ahead" min="0" max="20" style="max-width:80px"><label class="hint" style="display:flex;align-items:center;gap:6px"><input type="checkbox" id="lc-current"> also copy the episode/movie being watched</label></div></div>
+      <label>Pull limits<small>Concurrent pulls (each holds a TorBox slot), pulls per hour, and the smallest file worth caching.</small></label>
+      <div class="field"><div class="row">
+        <input type="number" id="lc-conc" min="1" max="8" style="max-width:70px"><span class="hint">at once ·</span>
+        <input type="number" id="lc-perhour" min="1" style="max-width:80px"><span class="hint">per hour ·</span>
+        <input type="number" id="lc-minmib" min="0" style="max-width:90px"><span class="hint">MiB minimum ·</span>
+        <input type="number" id="lc-window" min="1" max="64" style="max-width:70px"><span class="hint">MiB per read</span>
+      </div></div>
+      <label>Speculative daily cap<small>Most GB per day Lazarr may pull for speculative reasons (season fill) when nobody is watching it yet. Live viewing is never capped. 0 turns speculative pulls off. Counts toward TorBox’s monthly usage limit (Essential: 10 TB). Takes effect after a restart.</small></label>
+      <div class="field"><div class="row"><input type="number" id="lc-spec" min="0" style="max-width:90px"><span class="hint">GB per day</span></div></div>
+      <label>Torrent only<small>Never cache usenet grabs (metered bandwidth). Leave on.</small></label>
+      <div class="field"><input type="checkbox" id="lc-torrentonly"></div>
+      <label>Stable timestamps<small>Report each release’s grab time as the file date so a cached copy looks identical to the streamed one. ⚠ Turning this on changes every existing file’s date once, which can make Plex/Jellyfin re-scan the whole library.</small></label>
+      <div class="field"><input type="checkbox" id="lc-mtime"></div>
+      <label>Advanced<small>Link index interval · grace before an un-linked file is dropped.</small></label>
+      <div class="field"><div class="row"><input type="text" id="lc-walk" style="max-width:100px"><input type="text" id="lc-grace" style="max-width:100px"></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Playback signal (Plex / Jellyfin / arrs)</h2>
+    <p class="sub">Lazarr polls your media servers to see who is watching what. Tokens and API keys are <b>read from environment variables</b> in your compose file, never from this page: <code>LAZARR_PLEX_TOKEN</code>, <code>LAZARR_JELLYFIN_API_KEY</code>, <code>LAZARR_ARR_API_KEY_&lt;CATEGORY&gt;</code>.</p>
+    <div class="form-grid">
+      <label>Plex URL<small>e.g. http://192.168.1.10:32400. Empty = off.</small></label>
+      <div class="field"><input type="text" id="pb-plex-url"><span class="hint" id="pb-plex-state"></span></div>
+      <label>Jellyfin URL<small>e.g. http://192.168.1.10:8096. Empty = off.</small></label>
+      <div class="field"><input type="text" id="pb-jf-url"><span class="hint" id="pb-jf-state"></span></div>
+      <label>Poll every<small>0 disables polling. 30s is plenty.</small></label>
+      <div class="field"><div class="row"><input type="text" id="pb-poll" style="max-width:100px"><span class="hint">· counts as watched at</span><input type="number" id="pb-watched" min="50" max="100" style="max-width:70px"><span class="hint">%</span></div></div>
+      <label>Refresh item after switching<small>Ask the server to refresh an item when its link switches between streamed and local. Not needed with automatic library scanning.</small></label>
+      <div class="field"><input type="checkbox" id="pb-refresh"></div>
+      <label>Path mapping<small>Only if your media server sees the shared folder at a different path than Lazarr. One <code>from=to</code> per line.</small></label>
+      <div class="field"><textarea id="pb-pathmap" rows="2" style="width:100%"></textarea></div>
+      <label>Radarr / Sonarr instances<small>Optional: precise release dates and titles. One per category: <code>category=http://host:port</code> per line. The key comes from the env var shown.</small></label>
+      <div class="field"><textarea id="pb-arrs" rows="3" style="width:100%" placeholder="radarr=http://radarr:7878&#10;sonarr=http://sonarr:8989"></textarea><span class="hint" id="pb-arrs-state"></span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Logging</h2>
+    <div class="form-grid">
+      <label>Log level<small>Applied immediately on save — no restart. Use Debug when investigating a problem.</small></label>
+      <div class="field">
+        <select id="set-loglevel">
+          <option value="debug">Debug — everything, very chatty</option>
+          <option value="info">Info — normal operation (recommended)</option>
+          <option value="warn">Warnings — problems only</option>
+          <option value="error">Errors — serious problems only</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Network &amp; security</h2>
+    <div class="form-grid">
+      <label>Arr-facing port (qBittorrent API)<small>What your arrs connect to. Format “:8080”. Restart required.</small></label>
+      <div class="field"><input type="text" id="set-qbit-listen"></div>
+      <label>qBittorrent username / password<small>Credentials the arrs use. Not secret — shown in the connection box above.</small></label>
+      <div class="field"><div class="row">
+        <input type="text" id="set-qbit-user" style="max-width:160px">
+        <input type="text" id="set-qbit-pass" style="max-width:160px">
+      </div></div>
+      <label>Web UI port<small>This dashboard. Restart required.</small></label>
+      <div class="field"><input type="text" id="set-webui-listen"></div>
+      <label>Web UI login<small>Recommended. Leave both empty for no login (trusted LAN only).</small></label>
+      <div class="field"><div class="row">
+        <input type="text" id="set-webui-user" placeholder="username" style="max-width:160px" autocomplete="off">
+        <input type="password" id="set-webui-pass" placeholder="" style="max-width:160px" autocomplete="new-password">
+      </div><span class="hint" id="webui-pass-state"></span><span class="hint" id="webui-auth-warn" style="color:#f9e2af"></span></div>
+      <label>Metrics port<small>Prometheus /metrics + /health. Empty = disabled.</small></label>
+      <div class="field"><input type="text" id="set-metrics-listen"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Advanced — paths &amp; file ownership</h2>
+    <p class="sub">⚠ These must match your container volume mounts and your arr’s paths. Only change them if you know why. Restart required.</p>
+    <div class="form-grid">
+      <label>Download folder<small>Where Lazarr puts file links for the arrs to import (the qBit “save path”).</small></label>
+      <div class="field"><input type="text" id="set-dl-dir"></div>
+      <label>Stream mount<small>The virtual drive the links point into. Playback reads from here.</small></label>
+      <div class="field"><input type="text" id="set-fuse"></div>
+      <label>Database file</label>
+      <div class="field"><input type="text" id="set-db"></div>
+      <label>Header cache folder</label>
+      <div class="field"><input type="text" id="set-probedir"></div>
+      <label>File owner (PUID / PGID)<small>The user id your arrs run as, so they can move the links Lazarr creates. Both set, or both 0 to disable.</small></label>
+      <div class="field"><div class="row">
+        <input type="number" id="set-puid" min="0" style="max-width:110px">
+        <input type="number" id="set-pgid" min="0" style="max-width:110px">
+      </div><small id="set-owner-env" hidden>Set by the PUID / PGID environment variables — change them in your compose file.</small></div>
+    </div>
+  </div>
+
+  <div class="savebar">
+    <button class="btn solid" onclick="saveSettings()" id="btn-save">Save settings</button>
+    <button class="btn" onclick="loadSettings()">Discard changes</button>
+    <span class="msg" id="save-msg"></span>
+    <span class="spacer"></span>
+    <button class="btn danger" onclick="doRestart()">Restart Lazarr</button>
+  </div>
+</div>
+
+</main>
+<script>
+// ─── state ──────────────────────────────────────────────────────────────────
+let relOffset = 0;
+const relLimit = 50;
+let relTotal = 0;
+let refreshTimer = null;
+let debounceTimer = null;
+let logTimer = null;
+let curSettings = null; // last-loaded settings (for connection box + restart diff)
+let cacheEnabled = false; // from /api/cache; controls the Library tab's local actions
+let profiles = [];
+let editPullOnGrab = [];
+
+// ─── navigation ─────────────────────────────────────────────────────────────
+function showSection(name, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button[data-tab]').forEach(b => b.classList.remove('active'));
+  document.getElementById('section-' + name).classList.add('active');
+  if (btn) btn.classList.add('active');
+  if (refreshTimer) { clearInterval(refreshTimer); refreshTimer = null; }
+  if (logTimer) { clearInterval(logTimer); logTimer = null; }
+  if (name === 'dashboard') {
+    refreshDashboard();
+    refreshTimer = setInterval(refreshDashboard, 10000);
+  } else if (name === 'library') {
+    relOffset = 0;
+    loadReleases();
+  } else if (name === 'streams') {
+    loadMat();
+    refreshTimer = setInterval(loadMat, 10000);
+  } else if (name === 'cache') {
+    loadCache();
+    refreshTimer = setInterval(loadCache, 5000);
+  } else if (name === 'missing') {
+    loadMissing(false);
+    refreshTimer = setInterval(() => loadMissing(false), 60000);
+  } else if (name === 'slowlane') {
+    loadSlowLane();
+    refreshTimer = setInterval(loadSlowLane, 15000);
+  } else if (name === 'health') {
+    loadRepair();
+    loadAuditStatus();
+    loadOrphans();
+    loadDangling();
+  } else if (name === 'logs') {
+    loadLogs();
+    toggleFollow();
+  } else if (name === 'settings') {
+    loadSettings();
+  }
+}
+
+// ─── dashboard ──────────────────────────────────────────────────────────────
+async function refreshDashboard() {
+  const [status, metrics, repair] = await Promise.all([
+    fetchJSON('/api/status'),
+    fetchJSON('/api/metrics-summary'),
+    fetchJSON('/api/repair'),
+  ]);
+  renderStatusCard(status, repair);
+  renderAccountCard(status);
+  renderMetricsCard(metrics);
+  renderSlotsCard(status, metrics);
+  if (status) document.getElementById('nav-version').textContent = status.version || '';
+}
+
+function renderStatusCard(s, repair) {
+  if (!s) return;
+  const mountBadge = s.mounted
+    ? '<span class="badge green">● Streaming drive OK</span>'
+    : '<span class="badge red">● Streaming drive offline</span>';
+  const auditTime = s.last_audit_unix > 0
+    ? relTime(s.last_audit_unix) : 'never';
+  const evicted = repair ? (repair.count || 0) : 0;
+  const repairBadge = evicted > 0
+    ? `<div><span class="badge red">⚠ ${evicted} unavailable</span> <a href="#" onclick="showSection('health',document.querySelector('[data-tab=health]'));return false" style="font-size:11px">→ Health tab</a></div>`
+    : '<div><span class="badge green">✓ All content available</span></div>';
+  document.getElementById('status-card').innerHTML = `
+    <h2>System</h2>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div>${mountBadge}</div>
+      ${repairBadge}
+      <div><span style="color:#6c7086">Uptime</span> ${formatDuration(s.uptime_seconds)}</div>
+      <div><span style="color:#6c7086">Last compliance audit</span> ${auditTime}</div>
+    </div>`;
+}
+
+function renderAccountCard(s) {
+  const a = s && s.account;
+  if (!a) {
+    document.getElementById('account-card').innerHTML = `<h2>TorBox account</h2><div class="loading">Unavailable</div>`;
+    return;
+  }
+  const planNames = {1:'Essential',2:'Pro',3:'Standard'};
+  const plan = planNames[a.plan] || ('Plan ' + a.plan);
+  const cd = a.cooldown_until && a.cooldown_until !== 'None'
+    ? `<span class="badge yellow">Download cooldown until ${esc(a.cooldown_until.replace('T',' ').replace('Z',' UTC'))}</span>`
+    : '<span class="badge green">No cooldown</span>';
+  document.getElementById('account-card').innerHTML = `
+    <h2>TorBox account</h2>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div><span style="color:#6c7086">Plan</span> <span class="badge blue">${esc(plan)}</span></div>
+      <div><span style="color:#6c7086">Streaming slots</span> ${a.active_slots}</div>
+      <div>${cd}</div>
+    </div>`;
+}
+
+function renderSlotsCard(s, m) {
+  if (!s) return;
+  const used = s.slots_in_use || 0;
+  const total = s.slots_total || 1;
+  const pct = Math.round(used / total * 100);
+  const leaks = m ? m.tos_audit_leaks : 0;
+  const leakBadge = leaks > 0
+    ? `<span class="badge red">⚠ ${leaks} compliance leak${leaks!==1?'s':''}</span>`
+    : '<span class="badge green">✓ Account clean</span>';
+  document.getElementById('slots-card').innerHTML = `
+    <h2>Streaming slots</h2>
+    <div class="stats-row">
+      <div class="stat"><span class="val">${used}/${total}</span><span class="lbl">on TorBox right now</span></div>
+    </div>
+    <div style="height:8px;background:#313244;border-radius:4px;overflow:hidden;margin:8px 0">
+      <div style="height:100%;width:${pct}%;background:${pct>80?'#f38ba8':'#89b4fa'};border-radius:4px;transition:width .4s"></div>
+    </div>
+    <div>${leakBadge}</div>`;
+}
+
+function renderMetricsCard(m) {
+  if (!m) return;
+  const items = [
+    {lbl:'Grabs', val:m.grabs_total},
+    {lbl:'Plays started', val:m.materializes_total},
+    {lbl:'Auto-removals', val:m.releases_total},
+    {lbl:'Link refreshes', val:m.link_refresh_total},
+    {lbl:'Rate limited', val:m.create_ratelimited_total},
+  ];
+  const maxVal = Math.max(...items.map(i => i.val||0), 1);
+  const bars = items.map(i => {
+    const pct = Math.round((i.val||0)/maxVal*100);
+    return `<div class="sparkbar">
+      <div class="num">${fmtNum(i.val||0)}</div>
+      <div class="bar-wrap"><div class="bar-fill" style="width:${pct}%"></div></div>
+      <div class="lbl">${esc(i.lbl)}</div>
+    </div>`;
+  }).join('');
+  document.getElementById('metrics-card').innerHTML = `<h2>Totals since start</h2><div class="sparkbar-row">${bars}</div>`;
+}
+
+// ─── library ───────────────────────────────────────────────────────────────
+function titleCell(r) {
+  const name = r.name || '(unnamed release)';
+  return `<td class="name-cell" title="${esc(name)}">${esc(name)}<span class="hash">${esc((r.hash||'').slice(0,16))}…</span></td>`;
+}
+
+function statusBadge(r) {
+  // Detached: the arr removed it from the client, but its imported library links still
+  // play from it (policy.detach_on_delete). Hidden from the arr, kept for the library.
+  const detached = r.detached_at > 0
+    ? ' <span class="badge gray" title="Removed by the arr; kept because imported library links still use it">Detached</span>'
+    : '';
+  return statusBadgeCore(r) + detached;
+}
+
+function statusBadgeCore(r) {
+  if (r.cache_status === 'evicted') return '<span class="badge red">Unavailable</span>';
+  let local = '';
+  if (r.local_pulling > 0) local = ' <span class="badge yellow">Pulling…</span>';
+  else if (r.local_files > 0) local = ' <span class="badge green">Local</span>';
+  if (r.state === 'materialized') return '<span class="badge blue">On TorBox</span>' + local;
+  if (local) return '<span class="badge gray">On demand</span>' + local;
+  if (r.state === 'downloading') return '<span class="badge yellow">TorBox downloading…</span>';
+  if (r.state === 'error') return '<span class="badge red">Error</span>';
+  return '<span class="badge gray">On demand</span>';
+}
+
+async function loadReleases() {
+  const q = document.getElementById('rel-q').value;
+  const state = document.getElementById('rel-state').value;
+  const cat = document.getElementById('rel-cat').value;
+  const url = `/api/releases?q=${encodeURIComponent(q)}&state=${encodeURIComponent(state)}&category=${encodeURIComponent(cat)}&limit=${relLimit}&offset=${relOffset}`;
+  const data = await fetchJSON(url);
+  if (!data) return;
+  relTotal = data.total || 0;
+  const body = document.getElementById('rel-body');
+  if (!data.releases || data.releases.length === 0) {
+    body.innerHTML = '<tr><td colspan="6" style="color:#6c7086;padding:16px">Nothing here yet — grab something in your arr and it will appear within seconds.</td></tr>';
+  } else {
+    body.innerHTML = data.releases.map(r => {
+      const la = r.last_access > 0 ? relTime(r.last_access) : 'never';
+      let action = r.state === 'materialized'
+        ? `<button class="btn danger" onclick="forceRelease('${esc(r.hash)}',this)">Remove from TorBox</button>`
+        : '';
+      if (cacheEnabled) {
+        action += (r.local_files > 0 || r.local_pulling > 0)
+          ? ` <button class="btn" onclick="cacheEvict('${esc(r.hash)}',this)">Evict local</button>`
+          : ` <button class="btn" onclick="cachePull('${esc(r.hash)}',this)" title="Copy this release to local disk now">Pull local</button>`;
+      }
+      return `<tr>
+        ${titleCell(r)}
+        <td>${esc(r.category)}</td>
+        <td>${statusBadge(r)}</td>
+        <td>${fmtBytes(r.total_size)}</td>
+        <td>${la}</td>
+        <td>${action}</td>
+      </tr>`;
+    }).join('');
+    if (relOffset === 0) populateCatDropdown(data.releases);
+  }
+  const start = relTotal === 0 ? 0 : relOffset + 1;
+  const end = Math.min(relOffset + (data.releases ? data.releases.length : 0), relTotal);
+  document.getElementById('rel-page-info').textContent = `${start}–${end} of ${relTotal}`;
+  document.getElementById('rel-prev').disabled = relOffset === 0;
+  document.getElementById('rel-next').disabled = end >= relTotal;
+}
+
+function relPage(dir) {
+  relOffset = Math.max(0, relOffset + dir * relLimit);
+  loadReleases();
+}
+
+function populateCatDropdown(rels) {
+  const sel = document.getElementById('rel-cat');
+  const existing = new Set(Array.from(sel.options).map(o => o.value));
+  rels.forEach(r => {
+    if (r.category && !existing.has(r.category)) {
+      const opt = document.createElement('option');
+      opt.value = r.category;
+      opt.textContent = r.category;
+      sel.appendChild(opt);
+      existing.add(r.category);
+    }
+  });
+}
+
+async function forceRelease(hash, btn) {
+  btn.disabled = true;
+  btn.textContent = '…';
+  const ok = await postJSON(`/api/releases/${encodeURIComponent(hash)}/release`);
+  if (ok) {
+    btn.textContent = 'Removed';
+    btn.className = 'btn';
+    setTimeout(loadReleases, 500);
+  } else {
+    btn.disabled = false;
+    btn.textContent = 'Error';
+  }
+}
+
+// ─── cache ──────────────────────────────────────────────────────────────────
+function classBadge(c) {
+  const color = {wanted:'blue', watching:'blue', new_movie:'green', untouched:'yellow', finished:'yellow', unreferenced:'red'}[c] || 'gray';
+  return `<span class="badge ${color}">${esc(c || '—')}</span>`;
+}
+function localStateBadge(st) {
+  if (st === 'complete') return '<span class="badge green">Local</span>';
+  if (st === 'pulling') return '<span class="badge yellow">Pulling…</span>';
+  if (st === 'failed') return '<span class="badge red">Failed</span>';
+  return '<span class="badge gray">Streamed</span>';
+}
+
+async function loadCache() {
+  const [snap, files] = await Promise.all([fetchJSON('/api/cache'), fetchJSON('/api/cache/files')]);
+  if (!snap) return;
+  cacheEnabled = !!snap.enabled;
+  document.getElementById('cache-off').style.display = cacheEnabled ? 'none' : '';
+  document.getElementById('cache-on').style.display = cacheEnabled ? '' : 'none';
+  if (!cacheEnabled) return;
+  const pct = Math.round(snap.free_pct || 0);
+  const barColor = pct <= snap.free_low_pct ? '#f38ba8' : (pct < snap.free_high_pct ? '#f9e2af' : '#a6e3a1');
+  document.getElementById('cache-disk-card').innerHTML = `
+    <h2>Disk</h2>
+    <div class="stats-row">
+      <div class="stat"><span class="val">${fmtBytes(snap.local_bytes)}</span><span class="lbl">cached on disk</span></div>
+      <div class="stat"><span class="val">${pct}%</span><span class="lbl">free of ${fmtBytes(snap.disk_total)}</span></div>
+    </div>
+    <div style="height:8px;background:#313244;border-radius:4px;overflow:hidden;margin:8px 0">
+      <div style="height:100%;width:${Math.min(100,pct)}%;background:${barColor};border-radius:4px;transition:width .4s"></div>
+    </div>
+    <div style="font-size:12px;color:#6c7086">Retention windows at <b style="color:#cdd6f4">${Math.round((snap.scale||1)*100)}%</b> (full above ${snap.free_high_pct}% free, evicting below ${snap.free_low_pct}%). Profile: ${esc(snap.profile)}.${snap.linking ? '' : ' <span class="badge red">⚠ publish mount failed — links are not being switched, see Logs</span>'}</div>`;
+  const f = snap.files || {};
+  const pulling = (snap.pulling || []).map(p => `<div>⬇ ${esc(p.name || p.hash.slice(0,12))} <span class="hint">${fmtBytes(p.frontier)} / ${fmtBytes(p.size)} · ${esc(p.reason)}</span></div>`).join('');
+  const queue = (snap.queue || []).slice(0, 8).map(q => `<div>· ${esc(q.name || q.hash.slice(0,12))} <span class="hint">${fmtBytes(q.size)} · ${esc(q.reason)}</span></div>`).join('');
+  document.getElementById('cache-activity-card').innerHTML = `
+    <h2>Activity</h2>
+    <div class="stats-row">
+      <div class="stat"><span class="val">${f.complete||0}</span><span class="lbl">files local</span></div>
+      <div class="stat"><span class="val">${f.pulling||0}</span><span class="lbl">pulling</span></div>
+      <div class="stat"><span class="val">${(snap.queue||[]).length}</span><span class="lbl">queued</span></div>
+    </div>
+    <div style="font-size:13px;line-height:1.7">${pulling}${queue}${(!pulling && !queue) ? '<span class="hint">Idle.</span>' : ''}</div>
+    <div style="font-size:12px;color:#6c7086;margin-top:8px">Servers: ${(snap.sources||[]).map(esc).join(', ') || 'none'} · last poll ${snap.last_poll_unix ? relTime(snap.last_poll_unix) : 'never'} · ${snap.links_indexed} library links indexed ${snap.last_walk_unix ? relTime(snap.last_walk_unix) : ''}</div>`;
+  const sb = document.getElementById('cache-sessions');
+  if (!snap.sessions || snap.sessions.length === 0) {
+    sb.innerHTML = '<tr><td colspan="6" style="color:#6c7086;padding:12px">Nobody is watching right now.</td></tr>';
+  } else {
+    sb.innerHTML = snap.sessions.map(s => `<tr>
+      <td>${esc(s.server)}</td><td>${esc(s.user)}</td>
+      <td class="name-cell">${esc(s.series ? `${s.series} — S${String(s.season).padStart(2,'0')}E${String(s.episode).padStart(2,'0')} ${s.title}` : s.title)}</td>
+      <td>${Math.round(s.progress_pct)}%</td><td>${esc(s.state)}</td>
+      <td>${s.lazarr ? localStateBadge(s.local) : '<span class="hint">not a Lazarr file</span>'}</td></tr>`).join('');
+  }
+  const bf = document.getElementById('cache-backfill');
+  if (bf) bf.style.display = (snap && snap.analysis) ? '' : 'none';
+  const fb = document.getElementById('cache-files');
+  const list = files ? (files.files || []) : [];
+  if (list.length === 0) {
+    fb.innerHTML = '<tr><td colspan="10" style="color:#6c7086;padding:12px">Nothing cached yet.</td></tr>';
+  } else {
+    fb.innerHTML = list.map(x => `<tr>
+      <td class="name-cell" title="${esc(x.name)}">${esc(x.name || x.hash.slice(0,12))}</td>
+      <td class="hash" title="${esc(x.rel_path)}">${esc((x.rel_path||'').split('/').pop())}</td>
+      <td>${esc(x.category)}</td>
+      <td>${localStateBadge(x.state)}${x.state==='pulling' ? ` <span class="hint">${Math.round(100*x.frontier/Math.max(1,x.size))}%</span>` : ''}${x.error ? ` <span class="hint" title="${esc(x.error)}">⚠</span>` : ''}</td>
+      <td>${classBadge(x.class)}</td>
+      <td>${fmtBytes(x.size)}</td>
+      <td>${x.pulled_at ? relTime(x.pulled_at) : '—'}</td>
+      <td>${x.last_read ? relTime(x.last_read) : '—'}</td>
+      <td>${analysisBadges(x.analysis)}</td>
+      <td>${snap.analysis && x.state==='complete' ? `<button class="btn" onclick="cacheAnalyze('${esc(x.hash)}',this)">Analyze</button> ` : ''}<button class="btn" onclick="cacheEvict('${esc(x.hash)}',this)">Evict</button></td></tr>`).join('');
+  }
+}
+
+async function cachePull(hash, btn) {
+  btn.disabled = true;
+  const d = await fetchJSONPost(`/api/cache/${encodeURIComponent(hash)}/pull`);
+  btn.textContent = d ? `Queued ${d.queued}` : 'Error';
+  setTimeout(() => { btn.disabled = false; }, 1500);
+}
+function analysisBadges(list) {
+  if (!list || list.length === 0) return '<span class="hint">—</span>';
+  const color = {done:'green', running:'blue', pending:'blue', unavailable:'gray', skipped:'gray', timeout:'yellow', failed:'red'};
+  return list.map(a => {
+    const marks = a.state === 'done' ? ` ${a.intro ? 'intro' : ''}${a.intro && a.credits ? '+' : ''}${a.credits ? 'credits' : ''}${!a.intro && !a.credits ? 'no markers' : ''}` : '';
+    return `<span class="badge ${color[a.state] || 'gray'}" title="${esc(a.error || '')}">${esc(a.server)}: ${esc(a.state)}${esc(marks)}</span>`;
+  }).join(' ');
+}
+async function cacheAnalyze(hash, btn) {
+  btn.disabled = true;
+  const d = await fetchJSONPost(`/api/cache/${encodeURIComponent(hash)}/analyze`);
+  btn.textContent = d ? `Queued ${d.queued}` : 'Error';
+  setTimeout(() => { btn.disabled = false; loadCache(); }, 1500);
+}
+async function cacheAnalyzeBackfill(btn) {
+  btn.disabled = true;
+  const d = await fetchJSONPost('/api/cache/analysis/backfill');
+  btn.textContent = d ? `Queued ${d.queued}` : 'Error';
+  setTimeout(() => { btn.disabled = false; btn.textContent = 'Analyze all cached'; loadCache(); }, 2000);
+}
+async function cacheEvict(hash, btn) {
+  btn.disabled = true;
+  const ok = await postJSON(`/api/cache/${encodeURIComponent(hash)}/evict`);
+  btn.textContent = ok ? 'Evicted' : 'Error';
+  setTimeout(() => { loadCache(); if (document.getElementById('section-library').classList.contains('active')) loadReleases(); }, 600);
+}
+async function cachePoll() {
+  const btn = document.getElementById('btn-cache-poll'), res = document.getElementById('cache-poll-result');
+  btn.disabled = true;
+  const ok = await postJSON('/api/cache/poll');
+  btn.disabled = false;
+  res.textContent = ok ? 'Polled.' : 'Poll failed — see Logs.';
+  loadCache();
+}
+
+// ─── streams ────────────────────────────────────────────────────────────────
+async function loadMat() {
+  const items = await fetchJSON('/api/materialized');
+  const body = document.getElementById('mat-body');
+  if (!items || items.length === 0) {
+    body.innerHTML = '<tr><td colspan="6" style="color:#6c7086;padding:16px">Nothing on TorBox right now — your account is clean. Items appear here while they are being watched.</td></tr>';
+    return;
+  }
+  body.innerHTML = items.map(it => {
+    const lu = it.last_used_ns > 0 ? relTimeNs(it.last_used_ns) : '—';
+    const refBadge = it.refs > 0
+      ? `<span class="badge green">▶ ${it.refs} watching</span>`
+      : '<span class="badge gray">idle</span>';
+    const action = it.refs === 0
+      ? `<button class="btn danger" onclick="forceReleaseMat('${esc(it.hash)}',this)">Remove now</button>`
+      : '<button class="btn" disabled title="Someone is watching this">In use</button>';
+    const name = it.name || '(unnamed release)';
+    return `<tr>
+      <td class="name-cell" title="${esc(name)}">${esc(name)}<span class="hash">${esc((it.hash||'').slice(0,16))}…</span></td>
+      <td>${esc(it.category||'')}</td>
+      <td>${fmtBytes(it.total_size)}</td>
+      <td>${refBadge}</td>
+      <td>${lu}</td>
+      <td>${action}</td>
+    </tr>`;
+  }).join('');
+}
+
+async function forceReleaseMat(hash, btn) {
+  btn.disabled = true;
+  const ok = await postJSON(`/api/releases/${encodeURIComponent(hash)}/release`);
+  document.getElementById('mat-result').textContent = ok ? 'Removed from TorBox.' : 'Error.';
+  setTimeout(loadMat, 500);
+}
+
+async function releaseAllIdle() {
+  const btn = document.getElementById('btn-release-idle');
+  const items = await fetchJSON('/api/materialized');
+  if (!items) return;
+  const idle = items.filter(i => i.refs === 0);
+  if (idle.length === 0) {
+    document.getElementById('mat-result').textContent = 'Nothing idle to remove.';
+    return;
+  }
+  btn.disabled = true;
+  let released = 0;
+  for (const it of idle) {
+    const ok = await postJSON(`/api/releases/${encodeURIComponent(it.hash)}/release`);
+    if (ok) released++;
+  }
+  document.getElementById('mat-result').textContent = `Removed ${released}/${idle.length}.`;
+  btn.disabled = false;
+  setTimeout(loadMat, 500);
+}
+
+// ─── health: audit ───────────────────────────────────────────────────────────
+async function runAudit() {
+  const btn = document.getElementById('btn-audit');
+  const res = document.getElementById('audit-result');
+  btn.disabled = true;
+  btn.textContent = 'Running…';
+  res.textContent = '';
+  const ok = await postJSON('/api/audit/run');
+  btn.disabled = false;
+  btn.textContent = 'Run audit now';
+  if (ok) {
+    res.style.color = '#a6e3a1';
+    res.textContent = 'Audit complete.';
+    loadAuditStatus();
+    loadOrphans();
+  } else {
+    res.style.color = '#f38ba8';
+    res.textContent = 'Audit failed — see Logs.';
+  }
+}
+
+async function loadAuditStatus() {
+  const [status, metrics] = await Promise.all([
+    fetchJSON('/api/status'),
+    fetchJSON('/api/metrics-summary'),
+  ]);
+  if (!status || !metrics) return;
+  const leaks = metrics.tos_audit_leaks || 0;
+  const lastAudit = status.last_audit_unix > 0 ? relTime(status.last_audit_unix) : 'never';
+  const leakEl = leaks > 0
+    ? `<div class="audit-entry leak">⚠ ${leaks} item(s) on your TorBox account that Lazarr believes it removed. Check the Logs tab for torbox_id details.</div>`
+    : '<div class="audit-entry info">✓ Clean — your TorBox account holds nothing Lazarr left behind.</div>';
+  document.getElementById('audit-status').innerHTML = `
+    <div style="margin-bottom:10px;font-size:13px;color:#6c7086">Last run: <strong style="color:#cdd6f4">${lastAudit}</strong></div>
+    ${leakEl}`;
+}
+
+// ─── health: dangling library links ───────────────────────────────────────────
+async function loadDangling() {
+  const el = document.getElementById('dangling');
+  const data = await fetchJSON('/api/dangling');
+  if (!data) { el.innerHTML = '<div style="color:#f38ba8">Failed to load.</div>'; return; }
+  if (!data.at) { el.innerHTML = '<div class="loading">First check runs a few minutes after start.</div>'; return; }
+  const hs = data.hashes || [];
+  if (hs.length === 0) { el.innerHTML = '<div style="color:#a6e3a1;font-size:13px">✓ None.</div>'; return; }
+  const mode = data.unlink_enabled ? 'removing (after 1 h)' : 'report only';
+  el.innerHTML = `<div style="font-size:13px;margin-bottom:8px">${data.links} link(s) across ${hs.length} release(s) — ${mode}; checked ${relTime(data.at)}</div>` +
+    `<div class="table-wrap"><table><thead><tr><th>Release hash</th><th>Links</th><th>Example</th><th>First seen</th><th></th></tr></thead><tbody>` +
+    hs.map(h => `<tr><td><span class="hash">${esc(h.hash.slice(0,16))}…</span></td><td>${h.links.length}</td>
+      <td class="name-cell" title="${esc(h.links[0]||'')}">${esc(h.links[0]||'')}</td>
+      <td>${h.first_seen ? relTime(Math.floor(Date.parse(h.first_seen)/1000)) : '—'}</td>
+      <td>${h.unlinked ? '<span class="badge gray">removed</span>' : ''}</td></tr>`).join('') +
+    `</tbody></table></div>`;
+}
+
+// ─── slow lane ────────────────────────────────────────────────────────────────
+const SLOW_BADGE = {queued:'gray', downloading:'blue', cached:'yellow', handed_off:'green', imported:'green', failed:'red', cancelled:'gray'};
+// ─── missing ─────────────────────────────────────────────────────────────────
+let missData = null;   // last /api/missing body
+let missRows = [];     // rows currently rendered (indexes used by the row buttons)
+let missSlow = {};     // "category|s:series:season" / "category|m:movie" -> state of an active slow-lane item targeting it
+const MISS_SLOW_ACTIVE = ['queued', 'downloading', 'cached', 'handed_off'];
+async function loadMissSlow() {
+  const sl = await fetchJSON('/api/slowlane'); // local catalog read, no arr/TorBox call
+  missSlow = {};
+  for (const it of (sl && sl.items) || []) {
+    const t = it.target;
+    if (!t || !MISS_SLOW_ACTIVE.includes(it.state)) continue;
+    if (t.movie_id) missSlow[`${it.category}|m:${t.movie_id}`] = it.state;
+    else if (t.series_id) missSlow[`${it.category}|s:${t.series_id}:${t.season || 0}`] = it.state; // season 0 = any
+  }
+}
+function missSlowState(a, it) {
+  if (it.type === 'movie') return missSlow[`${a.category}|m:${it.movie_id}`];
+  return missSlow[`${a.category}|s:${it.series_id}:${it.season}`] || missSlow[`${a.category}|s:${it.series_id}:0`];
+}
+async function loadMissing(refresh) {
+  const msg = document.getElementById('miss-msg');
+  const body = document.getElementById('miss-body');
+  const btn = document.getElementById('btn-miss-refresh');
+  if (refresh) { msg.textContent = 'Asking the arrs…'; btn.disabled = true; }
+  else if (!missData) body.innerHTML = '<tr><td colspan="6" class="loading">Loading… (the first list is fetched from the arrs, this can take a few seconds)</td></tr>';
+  let r, data;
+  try {
+    r = await fetch('/api/missing' + (refresh ? '?refresh=1' : ''));
+    data = await r.json();
+  } catch (e) { data = null; }
+  btn.disabled = false;
+  if (r && r.status === 429) { msg.textContent = '✗ ' + (data && data.error || 'rate-limited'); return loadMissing(false); }
+  if (!r || !r.ok || !data) { msg.textContent = ''; body.innerHTML = '<tr><td colspan="6" style="color:#f38ba8">Failed to load' + (data && data.error ? ': ' + esc(data.error) : '.') + '</td></tr>'; return; }
+  if (refresh) msg.textContent = data.refreshing ? 'Still refreshing; the list updates when it is done.' : '✓ Refreshed.';
+  missData = data;
+  await loadMissSlow();
+  document.getElementById('miss-off').style.display = data.enabled ? 'none' : '';
+  document.getElementById('miss-every').textContent = data.refresh_interval || '30m';
+  const sel = document.getElementById('miss-arr');
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">All arrs</option>' + (data.arrs || []).map(a => `<option value="${esc(a.category)}">${esc(a.category)}</option>`).join('');
+  sel.value = cur;
+  document.getElementById('miss-summary').innerHTML = (data.arrs || []).map(a => {
+    const unit = a.kind === 'sonarr' ? 'episode' : 'movie';
+    const q = a.queued ? ` · ${a.queued} downloading` : '';
+    const err = a.error ? ` <span class="badge red" title="${esc(a.error)}">⚠ ${a.refreshed_at ? 'stale' : 'failed'}</span>` : '';
+    return `<span class="badge ${a.total_missing ? 'yellow' : 'green'}" style="cursor:pointer" onclick="document.getElementById('miss-arr').value='${esc(a.category)}';renderMissing()" title="Show only ${esc(a.category)}">${esc(a.category)} · ${fmtNum(a.total_missing)} ${unit}${a.total_missing === 1 ? '' : 's'}${q}</span>${err}`;
+  }).join('');
+  const errs = (data.arrs || []).filter(a => a.error).map(a => `${a.category}: ${a.error}`);
+  document.getElementById('miss-info').textContent = (data.refreshed_at ? 'Last refreshed ' + relTime(data.refreshed_at) + '.' : 'Not refreshed yet.')
+    + (data.refreshing ? ' Refreshing now…' : '') + (errs.length ? ' Errors: ' + errs.join(' · ') : '');
+  renderMissing();
+}
+function renderMissing() {
+  const body = document.getElementById('miss-body');
+  if (!missData) return;
+  const q = document.getElementById('miss-q').value.trim().toLowerCase();
+  const only = document.getElementById('miss-arr').value;
+  const sort = document.getElementById('miss-sort').value;
+  const hideQ = document.getElementById('miss-hideq').checked;
+  missRows = [];
+  let html = '';
+  for (const a of (missData.arrs || [])) {
+    if (only && a.category !== only) continue;
+    let items = (a.items || []).filter(it => (!q || (it.title + ' ' + (it.profile || '') + ' ' + it.search_text).toLowerCase().includes(q)) && (!hideQ || it.queued < it.count));
+    if (sort === 'count') items = items.slice().sort((x, y) => y.count - x.count);
+    else if (sort === 'aired') items = items.slice().sort((x, y) => (y.last_aired || String(y.year)).localeCompare(x.last_aired || String(x.year)));
+    if (items.length === 0) continue;
+    html += `<tr><td colspan="6" style="padding-top:14px;color:#cba6f7;font-weight:600">${esc(a.category)} <span class="hint">(${items.length} ${a.kind === 'sonarr' ? 'season' : 'movie'}${items.length === 1 ? '' : 's'})</span></td></tr>`;
+    for (const it of items) {
+      const i = missRows.push({arr: a, it}) - 1;
+      const dl = it.queued ? ` <span class="badge blue">downloading${it.type === 'season' && it.queued < it.count ? ' ' + it.queued + '/' + it.count : ''}</span>` : '';
+      const slow = missSlowState(a, it);
+      const sb = slow ? ` <span class="badge yellow" title="A slow-lane item targets this (${esc(slow.replace('_', ' '))})">in slow lane</span>` : '';
+      const ids = it.imdb_id ? `<span class="hash">${esc(it.imdb_id)}</span>` : '';
+      const season = it.type === 'season'
+        ? `S${String(it.season).padStart(2, '0')}${it.season_monitored ? '' : ' <span class="hint" title="This season is not monitored in the arr">(unmonitored)</span>'}` : '—';
+      const miss = it.type === 'season' ? `${esc(it.episode_ranges)} <span class="hint">(${it.count})</span>` : 'movie';
+      const aired = it.type === 'season' ? (it.first_aired === it.last_aired ? esc(it.first_aired) : `${esc(it.first_aired)} – ${esc(it.last_aired)}`) : (it.year || '');
+      html += `<tr><td class="name-cell" title="${esc(it.title)}">${esc(it.title)}${it.year ? ' (' + it.year + ')' : ''}${dl}${sb}${ids}</td>
+        <td>${season}</td><td>${miss}</td><td style="white-space:nowrap">${aired}</td><td>${esc(it.profile || '')}</td>
+        <td style="white-space:nowrap"><button class="btn" onclick="missSearch(${i},this)" title="Ask ${esc(a.category)} to search its indexers for this">Search</button>
+        <button class="btn" onclick="missCopy(${i},this)" title="${esc(it.search_text)}">Copy search text</button>
+        <button class="btn primary" onclick="missAdd(${i})" title="Paste a magnet for this on the Slow lane tab">Add torrent…</button></td></tr>`;
+    }
+  }
+  if (!html) {
+    const none = (missData.arrs || []).length === 0 ? 'No arrs configured.' : (q || only || hideQ ? 'Nothing matches the filter.' : 'Nothing missing.');
+    html = `<tr><td colspan="6" class="loading">${none}</td></tr>`;
+  }
+  body.innerHTML = html;
+}
+async function missSearch(i, btn) {
+  const {arr, it} = missRows[i] || {};
+  if (!it) return;
+  const req = it.type === 'season' ? {category: arr.category, series_id: it.series_id, season: it.season} : {category: arr.category, movie_id: it.movie_id};
+  btn.disabled = true;
+  try {
+    const r = await fetch('/api/missing/search', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(req)});
+    const d = await r.json().catch(() => ({}));
+    if (r.ok) { btn.textContent = '✓ ' + (d.command || 'Searching'); btn.title = 'Command ' + (d.command_id || '') + ' started in ' + arr.category; }
+    else { btn.disabled = false; alert('Search failed: ' + (d.error || r.status)); }
+  } catch (e) { btn.disabled = false; alert('Search failed: ' + e); }
+}
+async function missCopy(i, btn) {
+  const {it} = missRows[i] || {};
+  if (!it) return;
+  const text = it.search_text;
+  let ok = false;
+  try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(text); ok = true; } } catch (e) { ok = false; }
+  if (!ok) { // plain-http LAN: the async clipboard API is unavailable
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    ta.remove();
+  }
+  if (!ok) { prompt('Copy this:', text); return; }
+  const old = btn.textContent; btn.textContent = '✓ Copied'; setTimeout(() => { btn.textContent = old; }, 1500);
+}
+function missAdd(i) {
+  const {arr, it} = missRows[i] || {};
+  if (!it) return;
+  const target = it.type === 'season'
+    ? {series_id: it.series_id, season: it.season, title: it.target_title}
+    : {movie_id: it.movie_id, title: it.target_title};
+  slowTarget = {category: arr.category, target};
+  showSection('slowlane', document.querySelector('[data-tab=slowlane]'));
+  const sel = document.getElementById('slow-cat');
+  if (![...sel.options].some(o => o.value === arr.category)) sel.insertAdjacentHTML('beforeend', `<option value="${esc(arr.category)}">${esc(arr.category)}</option>`);
+  sel.value = arr.category;
+  renderSlowTarget();
+  document.getElementById('slow-magnet').focus();
+}
+
+// ─── slow lane ───────────────────────────────────────────────────────────────
+let slowTarget = null; // {category, target:{series_id,season,title} | {movie_id,title}} from the Missing tab
+function renderSlowTarget() {
+  const el = document.getElementById('slow-target');
+  if (!slowTarget) { el.style.display = 'none'; el.innerHTML = ''; return; }
+  el.innerHTML = `for: ${esc(slowTarget.target.title)} <a href="#" onclick="slowClearTarget();return false" title="Clear" style="color:inherit;text-decoration:none;margin-left:4px">✕</a>`;
+  el.style.display = '';
+}
+function slowClearTarget() { slowTarget = null; renderSlowTarget(); }
+// ─── category kind warning ───
+// A TV release queued for a Radarr category (or a Missing-tab row for the other kind of
+// arr) never imports: seen live, a Variety Show episode under radarr_main. Warn before
+// queueing. Names are only checked for SxxEyy / Sxx / Sxx-Syy / "Season N".
+let slowKinds = {}; // category -> "sonarr" | "radarr" (GET /api/slowlane category_kinds)
+const SLOW_TV_RE = /(?:^|[^a-z0-9])(?:s\d{1,2}e\d{1,3}|s\d{1,2}(?:\s*-\s*s?\d{1,2})?(?![a-z0-9])|season[ ._-]?\d{1,2}(?!\d))/i;
+function slowCatKind(category) {
+  if (slowKinds[category]) return slowKinds[category];
+  if (/^sonarr/i.test(category)) return 'sonarr';
+  if (/^radarr/i.test(category)) return 'radarr';
+  return '';
+}
+function magnetName(m) {
+  if (!/^magnet:/i.test(m)) return '';
+  try { return new URLSearchParams(m.slice(m.indexOf('?') + 1)).get('dn') || ''; } catch (e) { return ''; }
+}
+// slowKindOK returns false when the owner cancels a warned add.
+function slowKindOK(category, names) {
+  const kind = slowCatKind(category);
+  if (!kind) return true;
+  const warn = [];
+  if (slowTarget) {
+    const tk = slowTarget.target.movie_id ? 'radarr' : 'sonarr';
+    if (tk !== kind) warn.push(`The Missing-tab row "${slowTarget.target.title}" is ${tk === 'sonarr' ? 'a TV show' : 'a movie'}, but ${category} imports ${kind === 'sonarr' ? 'TV shows (Sonarr)' : 'movies (Radarr)'}.`);
+  }
+  if (kind === 'radarr') {
+    const tv = names.filter(n => SLOW_TV_RE.test(n));
+    if (tv.length) warn.push(`${tv.length === 1 ? `"${tv[0]}" looks` : `${tv.length} of these look`} like TV (season/episode in the name), but ${category} imports movies (Radarr).`);
+  }
+  if (!warn.length) return true;
+  return confirm(warn.join('\n') + '\n\nQueue it for ' + category + ' anyway?');
+}
+function fmtETA(s) {
+  if (!s || s <= 0 || s >= 8640000) return '';
+  if (s < 3600) return Math.round(s/60) + 'm left';
+  if (s < 86400) return Math.round(s/3600) + 'h left';
+  return Math.round(s/86400) + 'd left';
+}
+async function loadSlowLane() {
+  const data = await fetchJSON('/api/slowlane');
+  const body = document.getElementById('slow-body');
+  if (!data) { body.innerHTML = '<tr><td colspan="9" style="color:#f38ba8">Failed to load.</td></tr>'; return; }
+  document.getElementById('slow-off').style.display = data.enabled ? 'none' : '';
+  document.getElementById('btn-slow-add').disabled = !data.enabled;
+  document.getElementById('btn-slow-upload').disabled = !data.enabled;
+  document.getElementById('slow-config').textContent = data.enabled
+    ? `Up to ${data.max_concurrent} download(s) at a time, checked every ${data.poll_interval}.` +
+      (data.auto_import ? ` Imports the arr cannot finish by name are completed automatically after ${data.auto_import_after}.` : '') : '';
+  slowKinds = data.category_kinds || {};
+  const sel = document.getElementById('slow-cat');
+  const cur = sel.value;
+  sel.innerHTML = (data.categories || []).map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
+  if (slowTarget) sel.value = slowTarget.category; else if (cur) sel.value = cur;
+  renderSlowTarget();
+  const items = data.items || [];
+  if (items.length === 0) { body.innerHTML = '<tr><td colspan="9" class="loading">Nothing in the slow lane.</td></tr>'; return; }
+  body.innerHTML = items.map(it => {
+    const active = it.state === 'queued' || it.state === 'downloading' || it.state === 'cached';
+    const pct = Math.round((it.progress || 0) * 100);
+    const prog = it.state === 'downloading'
+      ? `<div class="bar-wrap"><div class="bar-fill" style="width:${pct}%"></div></div><span class="hint">${pct}% ${fmtETA(it.eta)} ${it.speed ? fmtBytes(it.speed) + '/s' : ''}</span>`
+      : (it.size ? fmtBytes(it.size) : '');
+    const swarm = it.state === 'downloading' ? `${it.seeds} seeds · ${it.peers} peers` : '';
+    const detail = [it.note, it.auto_import_note, it.last_error ? '⚠ ' + it.last_error : ''].filter(Boolean).join(' — ');
+    return `<tr><td class="name-cell" title="${esc(it.name)}">${esc(it.name || '(name not known yet)')}${slowTargetLabel(it.target)}<span class="hash">${esc(it.hash.slice(0,16))}…</span></td>
+      <td>${esc(it.category)}</td><td>${it.origin === 'wait' ? 'quick-wait' : 'added'}</td>
+      <td><span class="badge ${SLOW_BADGE[it.state] || 'gray'}">${esc(it.state.replace('_',' '))}</span></td>
+      <td>${prog}</td><td>${swarm}</td><td>${it.queued_at ? relTime(it.queued_at) : '—'}</td>
+      <td style="font-size:12px;max-width:360px">${esc(detail)}</td>
+      <td>${active ? `<button class="btn danger" onclick="slowCancel('${esc(it.hash)}')">Cancel</button>` : ''}</td></tr>`;
+  }).join('');
+}
+// slowTargetLabel renders an item's optional target ("for Lindy Mercer S02").
+function slowTargetLabel(t) {
+  if (!t) return '';
+  let what = t.title || (t.series_id ? 'series #' + t.series_id : (t.movie_id ? 'movie #' + t.movie_id : ''));
+  if (t.season) what += (what ? ' ' : '') + 'S' + String(t.season).padStart(2, '0');
+  return what ? `<span class="hint" style="display:block">for ${esc(what)}</span>` : '';
+}
+async function slowAdd() {
+  const msg = document.getElementById('slow-msg');
+  const magnet = document.getElementById('slow-magnet').value.trim();
+  const category = document.getElementById('slow-cat').value;
+  if (!magnet) { msg.textContent = 'Paste a magnet link or infohash.'; return; }
+  if (!slowKindOK(category, [magnetName(magnet)].filter(Boolean))) { msg.textContent = 'Not queued.'; return; }
+  msg.textContent = 'Adding…';
+  try {
+    const body = {magnet, category};
+    // A row picked on the Missing tab rides along (only for the arr it came from).
+    if (slowTarget && slowTarget.category === category) body.target = slowTarget.target;
+    const r = await fetch('/api/slowlane', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)});
+    const data = await r.json();
+    msg.textContent = r.ok ? '✓ Queued.' : '✗ ' + (data.error || 'failed');
+    if (r.ok) { document.getElementById('slow-magnet').value = ''; slowClearTarget(); }
+  } catch (e) { msg.textContent = '✗ ' + e; }
+  loadSlowLane();
+}
+async function slowUploadFiles(fileList) {
+  const msg = document.getElementById('slow-msg');
+  const all = Array.from(fileList || []);
+  const files = all.filter(f => /\.torrent$/i.test(f.name));
+  const skipped = all.filter(f => !/\.torrent$/i.test(f.name)).map(f => `✗ ${f.name}: not a .torrent file`);
+  if (document.getElementById('btn-slow-upload').disabled) { msg.textContent = '✗ The slow lane is off.'; return; }
+  if (files.length === 0) { msg.textContent = skipped.join(' · ') || 'Choose .torrent files.'; return; }
+  const category = document.getElementById('slow-cat').value;
+  if (!slowKindOK(category, files.map(f => f.name))) { msg.textContent = 'Not queued.'; return; }
+  const fd = new FormData();
+  fd.append('category', category);
+  // A row picked on the Missing tab rides along (only for the arr it came from), as in slowAdd.
+  const target = slowTarget && slowTarget.category === category ? slowTarget.target : null;
+  if (target) fd.append('target', JSON.stringify(target));
+  files.forEach(f => fd.append('torrent', f, f.name));
+  msg.textContent = `Uploading ${files.length} file(s)…`;
+  try {
+    const r = await fetch('/api/slowlane', {method:'POST', body: fd});
+    const data = await r.json();
+    const res = (data.results || []).map(x => x.error ? `✗ ${x.source}: ${x.error}` : `✓ ${x.source} queued`);
+    if (res.length === 0) res.push('✗ ' + (data.error || 'upload failed'));
+    msg.textContent = res.concat(skipped).join(' · ');
+    if (target && data.queued > 0) slowClearTarget();
+  } catch (e) { msg.textContent = '✗ ' + e; }
+  loadSlowLane();
+}
+function attachSlowDrop() {
+  const card = document.getElementById('slow-card');
+  if (!card) return;
+  const hasFiles = e => e.dataTransfer && Array.from(e.dataTransfer.types || []).includes('Files');
+  card.addEventListener('dragover', e => { if (hasFiles(e)) { e.preventDefault(); card.classList.add('drop-over'); } });
+  card.addEventListener('dragleave', e => { if (!card.contains(e.relatedTarget)) card.classList.remove('drop-over'); });
+  card.addEventListener('drop', e => {
+    if (!hasFiles(e)) return;
+    e.preventDefault();
+    card.classList.remove('drop-over');
+    slowUploadFiles(e.dataTransfer.files);
+  });
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', attachSlowDrop);
+else attachSlowDrop();
+async function slowCancel(hash) {
+  if (!confirm('Cancel this slow-lane item? A running TorBox download is deleted.')) return;
+  const r = await fetch('/api/slowlane/' + encodeURIComponent(hash) + '/cancel', {method:'POST'});
+  if (!r.ok) { const d = await r.json().catch(() => ({})); alert('Cancel failed: ' + (d.error || r.status)); }
+  loadSlowLane();
+}
+
+// ─── health: account orphans ──────────────────────────────────────────────────
+async function loadOrphans() {
+  const el = document.getElementById('orphans');
+  const data = await fetchJSON('/api/orphans');
+  if (!data) { el.innerHTML = '<div style="color:#f38ba8">Failed to load.</div>'; return; }
+  if (!data.at) { el.innerHTML = '<div class="loading">No audit has run yet.</div>'; return; }
+  const items = data.items || [];
+  if (items.length === 0) { el.innerHTML = '<div style="color:#a6e3a1;font-size:13px">✓ None.</div>'; return; }
+  el.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Name</th><th>TorBox id</th><th>State</th><th>Added</th><th>In catalog</th><th></th></tr></thead><tbody>` +
+    items.map(o => `<tr><td class="name-cell" title="${esc(o.name)}">${esc(o.name)}<span class="hash">${esc((o.hash||'').slice(0,16))}…</span></td>
+      <td>${esc(String(o.torbox_id))}</td><td>${esc(o.download_state||'')}</td>
+      <td>${o.created_at ? relTime(Math.floor(Date.parse(o.created_at)/1000)) : '—'}</td>
+      <td>${o.in_catalog ? 'yes' : 'no'}</td>
+      <td>${o.deleted ? '<span class="badge gray">deleted</span>' : ''}</td></tr>`).join('') +
+    `</tbody></table></div>`;
+}
+
+// ─── health: repair ───────────────────────────────────────────────────────────
+async function loadRepair() {
+  const data = await fetchJSON('/api/repair');
+  const body = document.getElementById('repair-body');
+  const empty = document.getElementById('repair-empty');
+  const table = document.getElementById('repair-table');
+  if (!data) { body.innerHTML = '<tr><td colspan="6" style="color:#f38ba8">Failed to load.</td></tr>'; return; }
+  const items = data.evicted || [];
+  if (items.length === 0) {
+    body.innerHTML = '';
+    table.style.display = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+  table.style.display = '';
+  empty.style.display = 'none';
+  body.innerHTML = items.map(r => {
+    const grabbed = r.added_on > 0 ? relTime(r.added_on) : '—';
+    const checked = r.last_cache_check > 0 ? relTime(r.last_cache_check) : 'never';
+    return `<tr>
+      ${titleCell(r)}
+      <td>${esc(r.category)}</td>
+      <td><span class="badge red">Unavailable</span></td>
+      <td>${grabbed}</td>
+      <td>${checked}</td>
+      <td><button class="btn danger" onclick="forgetRelease('${esc(r.hash)}','${esc(r.name||'')}',this)">Re-search</button></td>
+    </tr>`;
+  }).join('');
+}
+
+async function runRepairScan() {
+  const btn = document.getElementById('btn-repair-scan');
+  const res = document.getElementById('repair-scan-result');
+  btn.disabled = true;
+  btn.textContent = 'Checking…';
+  res.textContent = '';
+  const data = await fetchJSONPost('/api/repair/scan');
+  btn.disabled = false;
+  btn.textContent = 'Check availability now';
+  if (data) {
+    const n = data.count || 0;
+    res.style.color = n > 0 ? '#f38ba8' : '#a6e3a1';
+    res.textContent = n > 0 ? `${n} item(s) no longer available.` : '✓ Everything still available.';
+    loadRepair();
+  } else {
+    res.style.color = '#f38ba8';
+    res.textContent = 'Check failed — see Logs.';
+  }
+}
+
+async function forgetRelease(hash, name, btn) {
+  if (!confirm(`Remove “${name || hash.slice(0,12)}” from Lazarr so your arr re-searches for a fresh copy?`)) return;
+  btn.disabled = true;
+  btn.textContent = '…';
+  const ok = await postJSON(`/api/repair/${encodeURIComponent(hash)}/forget`);
+  if (ok) {
+    btn.closest('tr').style.opacity = '0.4';
+    btn.textContent = 'Done';
+    setTimeout(loadRepair, 800);
+  } else {
+    btn.disabled = false;
+    btn.textContent = 'Error';
+  }
+}
+
+// ─── logs ────────────────────────────────────────────────────────────────────
+async function loadLogs() {
+  const level = document.getElementById('log-level').value;
+  const limit = document.getElementById('log-limit').value;
+  const data = await fetchJSON(`/api/logs?level=${level}&limit=${limit}`);
+  const box = document.getElementById('log-box');
+  if (!data || !data.entries || data.entries.length === 0) {
+    box.innerHTML = '<div class="loading" style="padding:8px 12px">No log entries at this level yet.</div>';
+    return;
+  }
+  const stick = box.scrollTop + box.clientHeight >= box.scrollHeight - 30;
+  box.innerHTML = data.entries.map(e => {
+    const t = new Date(e.time_unix_ms).toLocaleTimeString();
+    return `<div class="log-line"><span class="t">${t}</span> <span class="lv-${esc(e.level)}">${esc(e.level.padEnd(5))}</span> ${esc(e.msg)}${e.attrs ? ' <span class="attrs">' + esc(e.attrs) + '</span>' : ''}</div>`;
+  }).join('');
+  if (stick) box.scrollTop = box.scrollHeight;
+}
+
+function toggleFollow() {
+  const on = document.getElementById('log-follow').checked;
+  if (logTimer) { clearInterval(logTimer); logTimer = null; }
+  if (on && document.getElementById('section-logs').classList.contains('active')) {
+    logTimer = setInterval(loadLogs, 4000);
+  }
+}
+
+// ─── settings ─────────────────────────────────────────────────────────────────
+function toggleWaitRow() {
+  const wait = document.getElementById('set-cachemiss').value === 'wait';
+  document.getElementById('wait-row').style.display = wait ? 'flex' : 'none';
+  document.getElementById('wait-max-row').style.display = wait ? 'flex' : 'none';
+}
+
+function parseGoDurationToHours(s) {
+  // "168h0m0s" / "720h" / "90m" -> hours (float)
+  let secs = 0;
+  const re = /([\d.]+)(h|m|s)/g;
+  let m;
+  while ((m = re.exec(s)) !== null) {
+    const v = parseFloat(m[1]);
+    if (m[2] === 'h') secs += v * 3600;
+    else if (m[2] === 'm') secs += v * 60;
+    else secs += v;
+  }
+  return secs / 3600;
+}
+
+function setDurationInputs(goDur, nId, uId) {
+  const hours = parseGoDurationToHours(goDur || '0h');
+  const n = document.getElementById(nId), u = document.getElementById(uId);
+  if (hours >= 24 && hours % 24 === 0) { n.value = hours / 24; u.value = 'd'; }
+  else { n.value = Math.max(1, Math.round(hours)); u.value = 'h'; }
+}
+
+function getDurationString(nId, uId) {
+  const n = parseInt(document.getElementById(nId).value, 10) || 0;
+  const unit = document.getElementById(uId).value;
+  return (unit === 'd' ? n * 24 : n) + 'h';
+}
+
+let editCategories = [];
+
+function renderCategoryChips() {
+  if (document.getElementById('lc-pog-chips')) renderPogChips();
+  const box = document.getElementById('cat-chips');
+  if (editCategories.length === 0) {
+    box.innerHTML = '<span class="hint">No categories yet — add one per arr.</span>';
+  } else {
+    box.innerHTML = editCategories.map((c, i) =>
+      `<span class="chip">${esc(c)}<button title="Remove" onclick="removeCategory(${i})">×</button></span>`).join('');
+  }
+  document.getElementById('conn-cat').textContent = editCategories[0] || 'radarr';
+}
+
+function addCategory() {
+  const inp = document.getElementById('cat-new');
+  const v = inp.value.trim();
+  if (!v) return;
+  if (!/^[A-Za-z0-9._-]+$/.test(v)) { alert('Category names: letters, numbers, dot, dash, underscore only.'); return; }
+  if (!editCategories.includes(v)) editCategories.push(v);
+  inp.value = '';
+  renderCategoryChips();
+}
+
+function removeCategory(i) {
+  const c = editCategories[i];
+  if (!confirm(`Remove category “${c}”? The arr using it will lose its connection to Lazarr (existing grabs keep working).`)) return;
+  editCategories.splice(i, 1);
+  renderCategoryChips();
+}
+
+function renderPogChips() {
+  const box = document.getElementById('lc-pog-chips');
+  if (editCategories.length === 0) { box.innerHTML = '<span class="hint">Add categories first.</span>'; return; }
+  box.innerHTML = editCategories.map(c => {
+    const on = editPullOnGrab.includes(c);
+    return `<span class="chip" style="cursor:pointer;opacity:${on?1:.45}" onclick="togglePog('${esc(c)}')">${on?'✓ ':''}${esc(c)}</span>`;
+  }).join('');
+}
+function togglePog(c) {
+  const i = editPullOnGrab.indexOf(c);
+  if (i >= 0) editPullOnGrab.splice(i, 1); else editPullOnGrab.push(c);
+  renderPogChips();
+}
+// SETTINGS_GUIDE: the full explanation behind each setting's "?" button, keyed by the
+// id of the setting's first input. attachSettingsGuide() adds the button to its label.
+const SETTINGS_GUIDE = {
+  'set-apikey': 'Your TorBox API key. Lazarr uses it to add cached torrents to your account when something is played, get download links, and remove items again.\nStored in config.yaml and never shown here again: type a key only to replace it. The LAZARR_TORBOX_API_KEY environment variable overrides it.',
+  'cat-new': 'A category is the name an arr sends with each grab (the qBittorrent "category"). Add one per Radarr/Sonarr instance, e.g. radarr_4k, and use the same name in that arr\'s download client.\nLazarr keeps each category\'s links in its own folder under the download folder. Removing a category does not delete anything already imported.',
+  'set-idle-n': 'When nobody has read a file for this long, Lazarr removes the item from your TorBox account.\nThe library file keeps working: the next play adds it back (a few seconds while TorBox still has it cached).\nLonger = replays start instantly; shorter = frees streaming slots sooner. Counted from the last read, not from when it was added.',
+  'set-hold-n': 'The hard limit for any single item on TorBox, even while it is being watched constantly. When reached, Lazarr removes it and the next play adds it back.\nKeep this under TorBox\'s 30-day policy.',
+  'set-slots': 'The most items Lazarr keeps on TorBox at the same time. Each playing or recently played item uses one.\nWhen all are in use, starting something new removes the least recently used idle item first.\nSet it to your plan\'s active limit (Essential = 3). 0 reads the limit from your account.',
+  'set-uncached': 'A release is "cached" when TorBox already has its files and can stream them immediately.\nOff: Lazarr only accepts cached releases, so everything in your library plays instantly.\nOn: it also accepts uncached releases; TorBox downloads them first and they show as downloading in the arr.',
+  'set-cachemiss': 'What happens when an arr sends a release TorBox does not have cached:\n• Show as an error: the grab fails in the arr; clean it up later (or let Cleanuparr).\n• Skip it: Lazarr refuses it straight away and the arr tries its next release.\n• Let TorBox download it: only if TorBox estimates it finishes within the time limit, with at most the number shown downloading at once. The arr shows real progress; when done, the copy leaves your account (the content stays in TorBox\'s cache) and the import finishes normally.',
+  'set-readahead': 'While something plays, Lazarr fetches this many pieces ahead of the player in parallel so the stream stays ahead of the video bitrate.\nOff uses one connection (fine for 1080p). Standard (4) handles most 4K; High/Max for high-bitrate remuxes.\nHigher uses more bandwidth, which is wasted when you stop or skip.',
+  'set-readahead-chunk': 'The size of each readahead piece.\nBigger pieces mean fewer requests to TorBox\'s servers and higher throughput, but more memory and more data thrown away when you seek or stop.\n2 MiB is the default; 32–64 MiB suits 4K on a fast connection.',
+  'set-probe': 'Plex and Jellyfin read the start and end of every file when they scan the library. With this on, Lazarr keeps those small pieces locally, so scans don\'t add items to TorBox or use streaming slots.\nLeave it on.',
+  'lc-enabled': 'Turns the local cache on.\nOn: Lazarr copies what people are watching (and the next episodes) from TorBox to your own disk and switches the library link to the local copy, so playback reads your disk instead of streaming.\nOff: links point back to streaming, exactly as before.\nRestart required.',
+  'lc-dir': 'The folder inside the Lazarr container where cached copies are stored, normally a large volume bind-mounted at /cache. Each release gets its own sub-folder.\nRestart required to change.',
+  'lc-publish': 'Plex, Jellyfin and the arrs must see cached files at the same path as Lazarr.\nOn: Lazarr mounts the cache folder at the path shown, next to the stream mount, and it appears in every container that shares that folder (like the stream mount).\nTurn it off only if you mount the cache volume at that path in every container yourself.',
+  'lc-roots': 'The folders your arrs import into (their root folders), as Lazarr sees them.\nLazarr scans them to learn which library links point at which files, so it knows what to switch between streamed and local, and when a file has left the library.\nEmpty = the parent of the download folder, which covers libraries next to it.',
+  'lc-pog-chips': 'For these categories, a new grab is copied to disk as soon as the arr sends it, before anyone presses play. Useful for movie arrs so a requested movie is local the first time it is watched.\nLeave empty to cache only what is actually being watched.',
+  'lc-profile': 'A preset for the retention times and disk marks below. Conservative frees space soon after watching, Balanced is the default, Generous keeps things longer.\nChoosing one overwrites the fields below; you can adjust any of them afterwards.',
+  'lc-ttl-finished': 'How long a cached file stays once it is done.\n"Done" means every Plex/Jellyfin user Lazarr has seen play this file got past the watched percentage, and none of them is mid-way through the series. Users who never played it don\'t count.\nAfter this time the file is deleted from disk and the link switches back to streaming.',
+  'lc-ttl-untouched': 'How long to keep a file that was copied to disk but that nobody has played yet: the next episodes prefetched ahead of a viewer, or a movie copied on grab.\nIf no one plays it within this time, it is deleted and the link goes back to streaming.',
+  'lc-ttl-newmovie': 'How long to keep movies whose release date falls within the window on the right. New releases are the most likely to be watched soon, so they get longer.\nRelease dates come from Radarr when its instance is configured below.',
+  'lc-ttl-default': 'How long to keep anything the other rules don\'t cover, for example a file that was played partway and then abandoned.',
+  'lc-ttl-watching': 'How long to keep the files of a movie or series someone is actively watching. 0 keeps them for as long as the activity lasts.\nActivity ends when nobody has played anything from it for the time on the right.',
+  'lc-high': 'Retention depends on free space on the cache disk:\n• Above the high mark, all windows apply in full.\n• Between high and low, they shrink proportionally.\n• Below the low mark, the cache deletes files until it is back above: finished first, then never played, then oldest. Files someone is watching are never deleted.\n• A new copy never starts if it would leave less free space than the last value.',
+  'lc-ahead': 'How many episodes after the one being watched to keep on disk for each viewer, so the next episode starts from local disk.\nThe checkbox also copies the episode or movie currently playing.',
+  'lc-conc': 'Limits on copying from TorBox:\n• At once: copies running at the same time. Each keeps its item on TorBox and runs at full speed, so it can use most of your internet connection.\n• Per hour: most copies started per hour.\n• MiB minimum: smaller files (samples, extras) are not cached.\n• MiB per read: size of each piece read while copying.',
+  'lc-torrentonly': 'Only cache releases that came from torrents. Usenet downloads are metered on TorBox, so caching them would use your usenet data.\nLeave on.',
+  'lc-mtime': 'Normally files on the stream mount show a fixed old date. On: they show when the release was grabbed, so a cached copy and the streamed file look identical to Plex/Jellyfin.\nTurning it on changes the date of every existing file once, which can make Plex/Jellyfin re-scan the whole library.',
+  'lc-walk': 'Left: how often Lazarr re-scans the library folders to map links to files.\nRight: how long a cached file with no library link left (after an upgrade, rename or deletion) is kept before it is deleted, in case the link is only being moved.',
+  'pb-plex-url': 'Your Plex server address. Lazarr asks it who is playing what on every poll; that drives prefetching and retention.\nEmpty = don\'t use Plex. The token comes from the LAZARR_PLEX_TOKEN environment variable.',
+  'pb-jf-url': 'Your Jellyfin server address, used the same way as Plex.\nEmpty = don\'t use Jellyfin. The API key comes from the LAZARR_JELLYFIN_API_KEY environment variable.',
+  'pb-poll': 'Left: how often Lazarr asks Plex/Jellyfin what is playing (0 turns polling off).\nRight: how far into a file a viewer must get for it to count as watched, 50–100%. 90% matches Plex\'s own watched mark.',
+  'pb-refresh': 'When a library link switches between streamed and local, ask Plex/Jellyfin to refresh that item.\nNormally not needed: the path stays the same and automatic library scanning picks up any change.',
+  'pb-pathmap': 'Only needed if Plex/Jellyfin see the shared folder at a different path than Lazarr, e.g. /media instead of /data.\nOne from=to per line (e.g. /media=/data) so Lazarr can translate the paths they report.',
+  'pb-arrs': 'Optional. The Radarr/Sonarr instance behind each category, one category=url per line, e.g. radarr_4k=http://radarr_4k:7878.\nLazarr uses them for exact titles, episode order and release dates, which improves prefetching and the "new releases" window.\nEach API key comes from the environment variable shown next to the box.',
+  'set-loglevel': 'How much Lazarr writes to its log.\nInfo is right for normal use. Debug records every request and decision, for investigating a problem. Warnings/Errors show only problems.\nApplied immediately, no restart.',
+  'set-qbit-listen': 'The address and port of Lazarr\'s qBittorrent-compatible API, which your arrs use as their download client. ":8080" means port 8080 on every interface inside the container; publish it in your compose file.\nRestart required.',
+  'set-qbit-user': 'The username and password the arrs enter for the qBittorrent download client. They only guard the arr-facing API on your network, and are shown in the connection box above.',
+  'set-webui-listen': 'The address and port of this dashboard inside the container.\nRestart required.',
+  'set-webui-user': 'Protects this dashboard with a username and password. Without them, anyone who can reach this page on your network can change settings, including the TorBox key.',
+  'set-metrics-listen': 'Address for Prometheus metrics (/metrics) and the health check (/health), which the container healthcheck and monitoring use.\nEmpty turns it off.',
+  'set-dl-dir': 'The folder where Lazarr creates the links for each grab, one sub-folder per category. This is the qBittorrent "save path" the arrs import from, so it must be the same path inside the arr containers.\nRestart required.',
+  'set-fuse': 'Where Lazarr mounts its virtual drive, which serves files from TorBox. The links in the download folder and in your library point into it.\nIt must be shared (rshared) with Plex, Jellyfin and the arrs at the same path. Restart required.',
+  'set-db': 'Lazarr\'s database: grabs, TorBox items, cache state and watch history. Keep it on persistent storage (your /config volume).\nRestart required.',
+  'set-probedir': 'Where the header cache (the small file pieces used by library scans) is stored. Keep it on persistent storage.\nRestart required.',
+  'set-puid': 'The user and group id your arrs run as. Lazarr gives the links it creates, and the files on its virtual drive, to this owner so the arrs can move, rename and upgrade them.\nSet both, or both 0 to leave everything owned by root. PUID/PGID environment variables override these.',
+};
+function attachSettingsGuide() {
+  for (const [id, text] of Object.entries(SETTINGS_GUIDE)) {
+    const el = document.getElementById(id);
+    const label = el && el.closest('.field') && el.closest('.field').previousElementSibling;
+    if (!label || label.tagName !== 'LABEL' || label.querySelector('.tip')) continue;
+    const tip = document.createElement('button');
+    tip.type = 'button';
+    tip.className = 'tip';
+    tip.textContent = '?';
+    tip.setAttribute('aria-label', 'What this setting does');
+    tip.setAttribute('data-tip', text);
+    const small = label.querySelector('small');
+    label.insertBefore(tip, small);
+  }
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', attachSettingsGuide);
+else attachSettingsGuide();
+
+const profileHelp = {
+  conservative: 'Small or shared disk: frees space soon after watching.',
+  balanced: 'The default: a couple of days after everyone finishes, a month for everything else.',
+  generous: 'Big disk: keeps finished items a week and new releases up to a year.',
+};
+// fmtDur turns a Go duration ("4320h0m0s") into "180d" / "12h" / "30m".
+function fmtDur(s) {
+  const h = parseInt((/(\d+)h/.exec(s || '') || [])[1] || '0', 10);
+  const m = parseInt((/(\d+)m/.exec(s || '') || [])[1] || '0', 10);
+  if (h >= 24 && h % 24 === 0) return `${h / 24}d`;
+  if (h) return `${h}h`;
+  return `${m}m`;
+}
+function describeProfile() {
+  const p = profiles.find(x => x.name === document.getElementById('lc-profile').value);
+  document.getElementById('lc-profile-desc').textContent = !p ? '' :
+    `${profileHelp[p.name] || ''} Finished ${fmtDur(p.finished)} · never played ${fmtDur(p.untouched)} · new releases ${fmtDur(p.new_movie)} · everything else ${fmtDur(p.default)} · evicts below ${p.free_low_pct}% free.`;
+}
+function applyProfile() {
+  const name = document.getElementById('lc-profile').value;
+  const p = profiles.find(x => x.name === name);
+  describeProfile();
+  if (!p) return;
+  document.getElementById('lc-ttl-finished').value = p.finished;
+  document.getElementById('lc-ttl-finished-movie').value = p.finished_movie || '0s';
+  document.getElementById('lc-ttl-untouched').value = p.untouched;
+  document.getElementById('lc-ttl-newmovie').value = p.new_movie;
+  document.getElementById('lc-ttl-default').value = p.default;
+  document.getElementById('lc-high').value = p.free_high_pct;
+  document.getElementById('lc-low').value = p.free_low_pct;
+}
+function fillCacheSettings(s) {
+  const c = s.cache || {}, p = s.playback || {};
+  profiles = s.profiles || [];
+  const sel = document.getElementById('lc-profile');
+  sel.innerHTML = profiles.map(x => `<option value="${esc(x.name)}">${esc(x.name)}</option>`).join('');
+  sel.value = c.profile || 'balanced';
+  describeProfile();
+  document.getElementById('lc-enabled').checked = !!c.enabled;
+  document.getElementById('lc-dir').value = c.dir || '';
+  document.getElementById('lc-publish').checked = !!c.publish;
+  document.getElementById('lc-publish-at').value = c.publish_at || '';
+  document.getElementById('lc-roots').value = (c.library_roots || []).join('\n');
+  editPullOnGrab = (c.pull_on_grab || []).slice();
+  renderPogChips();
+  document.getElementById('lc-ttl-finished').value = c.ttl_finished || '';
+  document.getElementById('lc-ttl-finished-movie').value = c.ttl_finished_movie || '';
+  document.getElementById('lc-ttl-untouched').value = c.ttl_untouched || '';
+  document.getElementById('lc-ttl-newmovie').value = c.ttl_new_movie || '';
+  document.getElementById('lc-ttl-default').value = c.ttl_default || '';
+  document.getElementById('lc-ttl-watching').value = c.ttl_watching || '0s';
+  document.getElementById('lc-new-window').value = c.new_release_window || '';
+  document.getElementById('lc-active-window').value = c.active_window || '';
+  document.getElementById('lc-high').value = c.free_high_pct;
+  document.getElementById('lc-low').value = c.free_low_pct;
+  document.getElementById('lc-reserve').value = c.reserve_pct;
+  document.getElementById('lc-ahead').value = c.prefetch_ahead;
+  document.getElementById('lc-current').checked = !!c.pull_current;
+  document.getElementById('lc-conc').value = c.max_concurrent_pulls;
+  document.getElementById('lc-perhour').value = c.max_pulls_per_hour;
+  document.getElementById('lc-spec').value = c.speculative_gb_per_day;
+  document.getElementById('lc-minmib').value = c.min_file_mib;
+  document.getElementById('lc-window').value = c.pull_window_mib;
+  document.getElementById('lc-torrentonly').checked = !!c.torrent_only;
+  document.getElementById('lc-mtime').checked = !!c.stable_mtime;
+  document.getElementById('lc-walk').value = c.link_index_interval || '';
+  document.getElementById('lc-grace').value = c.unreferenced_grace || '';
+  document.getElementById('pb-plex-url').value = p.plex_url || '';
+  document.getElementById('pb-plex-state').textContent = p.plex_token_env ? '✓ token set via LAZARR_PLEX_TOKEN' : (p.plex_token_set ? '✓ token set in config.yaml' : '⚠ no token — set LAZARR_PLEX_TOKEN in your compose file');
+  document.getElementById('pb-jf-url').value = p.jellyfin_url || '';
+  document.getElementById('pb-jf-state').textContent = p.jellyfin_key_env ? '✓ key set via LAZARR_JELLYFIN_API_KEY' : (p.jellyfin_key_set ? '✓ key set in config.yaml' : '⚠ no key — set LAZARR_JELLYFIN_API_KEY in your compose file');
+  document.getElementById('pb-poll').value = p.poll_interval || '';
+  document.getElementById('pb-watched').value = p.watched_pct;
+  document.getElementById('pb-refresh').checked = !!p.refresh_on_retarget;
+  document.getElementById('pb-pathmap').value = (p.path_map || []).map(m => `${m.from}=${m.to}`).join('\n');
+  document.getElementById('pb-arrs').value = (p.arrs || []).map(a => `${a.category}=${a.url}`).join('\n');
+  document.getElementById('pb-arrs-state').innerHTML = (p.arrs || []).map(a => `${esc(a.category)}: ${a.key_env ? '✓ ' + esc(a.env_var) : (a.key_set ? '✓ key in config.yaml' : '⚠ set ' + esc(a.env_var))}`).join(' · ');
+}
+function collectCacheSettings() {
+  const lines = id => document.getElementById(id).value.split('\n').map(x => x.trim()).filter(Boolean);
+  const kv = id => lines(id).map(l => { const i = l.indexOf('='); return i < 0 ? null : [l.slice(0,i).trim(), l.slice(i+1).trim()]; }).filter(Boolean);
+  const num = (id, d) => { const v = parseInt(document.getElementById(id).value, 10); return isNaN(v) ? d : v; };
+  return {
+    cache: {
+      enabled: document.getElementById('lc-enabled').checked,
+      dir: document.getElementById('lc-dir').value.trim(),
+      publish: document.getElementById('lc-publish').checked,
+      publish_at: document.getElementById('lc-publish-at').value.trim(),
+      library_roots: lines('lc-roots'),
+      link_index_interval: document.getElementById('lc-walk').value.trim(),
+      unreferenced_grace: document.getElementById('lc-grace').value.trim(),
+      torrent_only: document.getElementById('lc-torrentonly').checked,
+      profile: document.getElementById('lc-profile').value,
+      free_high_pct: num('lc-high', 20), free_low_pct: num('lc-low', 5), reserve_pct: num('lc-reserve', 2),
+      ttl_watching: document.getElementById('lc-ttl-watching').value.trim(),
+      ttl_finished: document.getElementById('lc-ttl-finished').value.trim(),
+      ttl_finished_movie: document.getElementById('lc-ttl-finished-movie').value.trim(),
+      ttl_untouched: document.getElementById('lc-ttl-untouched').value.trim(),
+      ttl_new_movie: document.getElementById('lc-ttl-newmovie').value.trim(),
+      ttl_default: document.getElementById('lc-ttl-default').value.trim(),
+      active_window: document.getElementById('lc-active-window').value.trim(),
+      new_release_window: document.getElementById('lc-new-window').value.trim(),
+      pull_on_grab: editPullOnGrab.filter(c => editCategories.includes(c)),
+      prefetch_ahead: num('lc-ahead', 2),
+      pull_current: document.getElementById('lc-current').checked,
+      max_concurrent_pulls: num('lc-conc', 1), max_pulls_per_hour: num('lc-perhour', 20),
+      speculative_gb_per_day: num('lc-spec', 250),
+      min_file_mib: num('lc-minmib', 200), pull_window_mib: num('lc-window', 8),
+      stable_mtime: document.getElementById('lc-mtime').checked,
+    },
+    playback: {
+      poll_interval: document.getElementById('pb-poll').value.trim(),
+      watched_pct: num('pb-watched', 90),
+      refresh_on_retarget: document.getElementById('pb-refresh').checked,
+      path_map: kv('pb-pathmap').map(([from, to]) => ({from, to})),
+      plex_url: document.getElementById('pb-plex-url').value.trim(),
+      jellyfin_url: document.getElementById('pb-jf-url').value.trim(),
+      arrs: kv('pb-arrs').map(([category, url]) => ({category, url})),
+    },
+  };
+}
+
+async function loadSettings() {
+  const s = await fetchJSON('/api/settings');
+  if (!s) { document.getElementById('save-msg').textContent = 'Failed to load settings.'; return; }
+  curSettings = s;
+  fillCacheSettings(s);
+  const sl = s.slow_lane || {};
+  document.getElementById('sl-enabled').checked = !!sl.enabled;
+  document.getElementById('sl-max').value = sl.max_concurrent || 1;
+  document.getElementById('sl-poll').value = sl.poll_interval || '10m0s';
+  document.getElementById('sl-age').value = sl.max_age || '168h0m0s';
+  document.getElementById('sl-adopt').checked = !!sl.adopt_wait_failures;
+  document.getElementById('sl-autoimport').checked = sl.auto_import !== false;
+  document.getElementById('sl-autoimport-after').value = sl.auto_import_after || '15m0s';
+  const cl = s.cleanup || {};
+  document.getElementById('cl-remove').checked = !!cl.remove_empty_dirs;
+  document.getElementById('cl-grace').value = cl.empty_dir_grace || '1h0m0s';
+  document.getElementById('cl-roots').value = Object.entries(cl.library_roots || {}).map(([c, p]) => `${c}=${p}`).join('\n');
+  document.getElementById('cl-nosweep').value = (cl.no_library_sweep || []).join(', ');
+  document.getElementById('cl-library').checked = !!cl.sweep_library;
+  document.getElementById('set-apikey').value = '';
+  document.getElementById('set-apikey').placeholder = s.torbox_api_key_set ? '••••••••  (configured — leave blank to keep)' : 'paste your TorBox API key';
+  document.getElementById('apikey-state').textContent = s.torbox_api_key_set ? '' : '⚠ No API key configured — Lazarr cannot talk to TorBox.';
+  editCategories = (s.categories || []).slice();
+  renderCategoryChips();
+  renderPogChips();
+  setDurationInputs(s.idle_ttl, 'set-idle-n', 'set-idle-u');
+  setDurationInputs(s.max_hold, 'set-hold-n', 'set-hold-u');
+  document.getElementById('set-slots').value = s.active_slots;
+  document.getElementById('set-uncached').checked = !!s.allow_uncached;
+  document.getElementById('set-probe').checked = !!s.probe_cache;
+  document.getElementById('set-cachemiss').value = s.on_cache_miss || 'error';
+  document.getElementById('set-waitmin').value = Math.max(1, Math.round(parseGoDurationToHours(s.cache_wait_budget || '15m') * 60));
+  document.getElementById('set-waitmax').value = s.max_wait_downloads || 1;
+  document.getElementById('set-waitceil').value = Math.round(parseGoDurationToHours(s.cache_wait_max || '0s') * 60);
+  document.getElementById('set-readahead').value = String(s.readahead_windows ?? 4);
+  document.getElementById('set-readahead-chunk').value = String(s.readahead_chunk_mib ?? 2);
+  toggleWaitRow();
+  document.getElementById('set-loglevel').value = s.log_level || 'info';
+  document.getElementById('set-qbit-listen').value = s.qbit_listen || '';
+  document.getElementById('set-qbit-user').value = s.qbit_username || '';
+  document.getElementById('set-qbit-pass').value = s.qbit_password || '';
+  document.getElementById('set-webui-listen').value = s.webui_listen || '';
+  document.getElementById('set-webui-user').value = s.webui_username || '';
+  document.getElementById('set-webui-pass').value = '';
+  document.getElementById('set-webui-pass').placeholder = s.webui_password_set ? '••••••  (leave blank to keep)' : 'password';
+  document.getElementById('webui-pass-state').textContent = '';
+  document.getElementById('webui-auth-warn').textContent = s.webui_username ? '' :
+    '⚠ No login set — anyone on your network can open this page and change settings (including the TorBox key).';
+  document.getElementById('set-metrics-listen').value = s.metrics_listen || '';
+  document.getElementById('set-dl-dir').value = s.download_dir || '';
+  document.getElementById('set-fuse').value = s.fuse_mount || '';
+  document.getElementById('set-db').value = s.db_path || '';
+  document.getElementById('set-probedir').value = s.probe_cache_dir || '';
+  document.getElementById('set-puid').value = s.puid;
+  document.getElementById('set-pgid').value = s.pgid;
+  ['set-puid', 'set-pgid'].forEach(id => { document.getElementById(id).disabled = !!s.ownership_env; });
+  document.getElementById('set-owner-env').hidden = !s.ownership_env;
+  document.getElementById('save-msg').textContent = '';
+  // connection helper box
+  document.getElementById('conn-host').textContent = location.hostname;
+  document.getElementById('conn-port').textContent = (s.qbit_listen || ':8080').replace(/^.*:/, '');
+  document.getElementById('conn-user').textContent = s.qbit_username || '';
+  document.getElementById('conn-pass').textContent = s.qbit_password || '';
+}
+
+async function saveSettings() {
+  const btn = document.getElementById('btn-save');
+  const msg = document.getElementById('save-msg');
+  btn.disabled = true;
+  msg.className = 'msg';
+  msg.textContent = 'Saving…';
+  const body = {
+    log_level: document.getElementById('set-loglevel').value,
+    torbox_api_key: document.getElementById('set-apikey').value.trim(),
+    torbox_api_base: curSettings ? curSettings.torbox_api_base : '',
+    qbit_listen: document.getElementById('set-qbit-listen').value.trim(),
+    qbit_username: document.getElementById('set-qbit-user').value.trim(),
+    qbit_password: document.getElementById('set-qbit-pass').value,
+    categories: editCategories,
+    download_dir: document.getElementById('set-dl-dir').value.trim(),
+    fuse_mount: document.getElementById('set-fuse').value.trim(),
+    db_path: document.getElementById('set-db').value.trim(),
+    probe_cache_dir: document.getElementById('set-probedir').value.trim(),
+    allow_uncached: document.getElementById('set-uncached').checked,
+    idle_ttl: getDurationString('set-idle-n', 'set-idle-u'),
+    max_hold: getDurationString('set-hold-n', 'set-hold-u'),
+    active_slots: parseInt(document.getElementById('set-slots').value, 10) || 0,
+    probe_cache: document.getElementById('set-probe').checked,
+    on_cache_miss: document.getElementById('set-cachemiss').value,
+    cache_wait_budget: (parseInt(document.getElementById('set-waitmin').value, 10) || 15) + 'm',
+    max_wait_downloads: parseInt(document.getElementById('set-waitmax').value, 10) || 1,
+    cache_wait_max: (parseInt(document.getElementById('set-waitceil').value, 10) || 0) + 'm',
+    readahead_windows: parseInt(document.getElementById('set-readahead').value, 10) || 0,
+    readahead_chunk_mib: parseInt(document.getElementById('set-readahead-chunk').value, 10) || 2,
+    puid: parseInt(document.getElementById('set-puid').value, 10) || 0,
+    pgid: parseInt(document.getElementById('set-pgid').value, 10) || 0,
+    metrics_listen: document.getElementById('set-metrics-listen').value.trim(),
+    webui_listen: document.getElementById('set-webui-listen').value.trim(),
+    webui_username: document.getElementById('set-webui-user').value.trim(),
+    webui_password: document.getElementById('set-webui-pass').value,
+    ...collectCacheSettings(),
+    slow_lane: {
+      enabled: document.getElementById('sl-enabled').checked,
+      max_concurrent: parseInt(document.getElementById('sl-max').value, 10) || 1,
+      poll_interval: document.getElementById('sl-poll').value.trim(),
+      max_age: document.getElementById('sl-age').value.trim() || '0s',
+      adopt_wait_failures: document.getElementById('sl-adopt').checked,
+      auto_import: document.getElementById('sl-autoimport').checked,
+      auto_import_after: document.getElementById('sl-autoimport-after').value.trim(),
+    },
+    cleanup: {
+      remove_empty_dirs: document.getElementById('cl-remove').checked,
+      empty_dir_grace: document.getElementById('cl-grace').value.trim(),
+      library_roots: Object.fromEntries(document.getElementById('cl-roots').value.split('\n')
+        .map(l => { const i = l.indexOf('='); return i < 0 ? null : [l.slice(0, i).trim(), l.slice(i + 1).trim()]; })
+        .filter(e => e && e[0] && e[1])),
+      no_library_sweep: document.getElementById('cl-nosweep').value.split(',').map(x => x.trim()).filter(Boolean),
+      sweep_library: document.getElementById('cl-library').checked,
+    },
+  };
+  try {
+    const r = await fetch('/api/settings', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body),
+    });
+    const data = await r.json();
+    btn.disabled = false;
+    if (!r.ok) {
+      msg.className = 'msg err';
+      msg.textContent = '✗ ' + (data.error || 'save failed');
+      return;
+    }
+    msg.className = 'msg ok';
+    if (data.restart_required) {
+      msg.textContent = '✓ Saved. Restart to apply.';
+      document.getElementById('restart-banner').classList.add('show');
+    } else {
+      msg.textContent = '✓ Saved and applied.';
+    }
+    loadSettings();
+  } catch (e) {
+    btn.disabled = false;
+    msg.className = 'msg err';
+    msg.textContent = '✗ ' + e;
+  }
+}
+
+async function doRestart() {
+  if (!confirm('Restart Lazarr now? Active playback will pause for a few seconds. (Requires the container restart policy to be set, e.g. unless-stopped.)')) return;
+  const ok = await postJSON('/api/restart');
+  if (!ok) { alert('Restart request failed.'); return; }
+  document.getElementById('restart-banner').classList.remove('show');
+  const msg = document.getElementById('save-msg');
+  msg.className = 'msg ok';
+  msg.textContent = 'Restarting… this page will reconnect.';
+  // poll until it's back
+  setTimeout(async function poll() {
+    const s = await fetchJSON('/api/status');
+    if (s) { location.reload(); } else { setTimeout(poll, 1500); }
+  }, 3000);
+}
+
+// ─── streams sub text ─────────────────────────────────────────────────────────
+async function fillStreamsSub() {
+  const [s, st] = await Promise.all([fetchJSON('/api/settings'), fetchJSON('/api/status')]);
+  if (st) document.getElementById('streams-slots').textContent = st.slots_total;
+  if (s) {
+    const h = parseGoDurationToHours(s.idle_ttl || '168h');
+    document.getElementById('streams-idle').textContent = h % 24 === 0 ? (h/24) + ' days unwatched' : h + ' hours unwatched';
+  }
+}
+
+// ─── helpers ─────────────────────────────────────────────────────────────────
+async function fetchJSON(url) {
+  try {
+    const r = await fetch(url);
+    if (!r.ok) return null;
+    return await r.json();
+  } catch { return null; }
+}
+
+async function fetchJSONPost(url) {
+  try {
+    const r = await fetch(url, {method:'POST'});
+    if (!r.ok) return null;
+    return await r.json();
+  } catch { return null; }
+}
+
+async function postJSON(url) {
+  try {
+    const r = await fetch(url, {method:'POST'});
+    return r.ok;
+  } catch { return false; }
+}
+
+function esc(s) {
+  if (s == null) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function fmtBytes(n) {
+  if (!n) return '—';
+  const units = ['B','KB','MB','GB','TB'];
+  let i = 0;
+  while (n >= 1024 && i < units.length-1) { n /= 1024; i++; }
+  return n.toFixed(1) + ' ' + units[i];
+}
+
+function fmtNum(n) {
+  if (n == null) return '0';
+  return Number(n).toLocaleString();
+}
+
+function formatDuration(secs) {
+  if (!secs) return '0s';
+  const d = Math.floor(secs/86400), h = Math.floor((secs%86400)/3600);
+  const m = Math.floor((secs%3600)/60), s = secs%60;
+  if (d > 0) return `${d}d ${h}h`;
+  if (h > 0) return `${h}h ${m}m`;
+  if (m > 0) return `${m}m ${s}s`;
+  return `${s}s`;
+}
+
+function relTime(unixSec) {
+  const diff = Math.floor(Date.now()/1000 - unixSec);
+  if (diff < 0) return 'just now';
+  if (diff < 60) return diff + 's ago';
+  if (diff < 3600) return Math.floor(diff/60) + 'm ago';
+  if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
+  return Math.floor(diff/86400) + 'd ago';
+}
+
+function relTimeNs(ns) {
+  return relTime(Math.floor(ns/1e9));
+}
+
+function debounce(fn, delay) {
+  if (debounceTimer) clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(fn, delay);
+}
+
+// ─── init ────────────────────────────────────────────────────────────────────
+fetchJSON('/api/cache').then(c => { cacheEnabled = !!(c && c.enabled); });
+refreshDashboard();
+refreshTimer = setInterval(refreshDashboard, 10000);
+fillStreamsSub();
+</script>
+</body>
+</html>

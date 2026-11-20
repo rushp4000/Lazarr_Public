@@ -1,0 +1,55 @@
+{
+ "page": 1,
+ "pageSize": 100,
+ "totalRecords": 8,
+ "records": [
+  {
+   "id": 1,
+   "episodeId": 30001,
+   "seriesId": 412,
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "eventType": "downloadFolderImported",
+   "sourceTitle": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP"
+  },
+  {
+   "id": 1,
+   "episodeId": 30002,
+   "seriesId": 412,
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "eventType": "downloadFolderImported",
+   "sourceTitle": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP"
+  },
+  {
+   "id": 1,
+   "episodeId": 30003,
+   "seriesId": 412,
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "eventType": "downloadFolderImported",
+   "sourceTitle": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP"
+  },
+  {
+   "id": 1,
+   "episodeId": 30004,
+   "seriesId": 412,
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "eventType": "downloadFolderImported",
+   "sourceTitle": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP"
+  },
+  {
+   "id": 1,
+   "episodeId": 30005,
+   "seriesId": 412,
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "eventType": "downloadFolderImported",
+   "sourceTitle": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP"
+  },
+  {
+   "id": 9,
+   "episodeId": 30001,
+   "seriesId": 412,
+   "downloadId": "7C1A3E5B9D2F4A6C8E0B1D3F5A7C9E2B4D6F8A0C",
+   "eventType": "grabbed",
+   "sourceTitle": "Charter.House.S02.1080p.WEB-DL.DD5.1.H.264-GRP"
+  }
+ ]
+}

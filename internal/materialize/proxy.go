@@ -1,0 +1,683 @@
+package materialize
+
+import (
+	"context"
+	"errors"
+	"fmt"
+	"io"
+	"net"
+	"net/http"
+	"net/url"
+	"strconv"
+	"strings"
+	"time"
+
+	"github.com/your-username/lazarr/internal/catalog"
+	"github.com/your-username/lazarr/internal/constants"
+	"github.com/your-username/lazarr/internal/metrics"
+	"github.com/your-username/lazarr/internal/torbox"
+	"github.com/your-username/lazarr/internal/version"
+)
+
+// cdnHostSuffixes is the BUILT-IN host-pin: presigned CDN URLs must terminate at one
+// of TorBox's CDN domains. TorBox serves regional PoPs under *.tb-cdn.io (observed:
+// nexus-138.snam.tb-cdn.io) and the Cloudflare-fronted ERTH PoP under *.tb-cdn.earth
+// (observed: nexus.erth.tb-cdn.earth). Verified live (docs/08 + docs/11 + docs/25).
+// Operators can append suffixes via config torbox.extra_cdn_hosts (see newProxy) —
+// the escape hatch for the next time TorBox ships a CDN under a new domain.
+var cdnHostSuffixes = []string{".tb-cdn.io", ".tb-cdn.earth"}
+
+// normalizeSuffix canonicalizes a configured host suffix: lowercase, trimmed, with a
+// single leading dot. Empty/garbage entries collapse to "" (caller skips them;
+// config.validate already rejects them loudly at load/save time).
+func normalizeSuffix(s string) string {
+	s = strings.ToLower(strings.TrimSpace(s))
+	s = "." + strings.TrimPrefix(s, ".")
+	if s == "." || !strings.Contains(s[1:], ".") {
+		return ""
+	}
+	return s
+}
+
+// hostPinned reports whether host terminates at one of the allowed TorBox CDN domains,
+// requiring a real label boundary (so "evil.com.tb-cdn.io.attacker.net" is rejected).
+func (p *proxy) hostPinned(host string) bool {
+	for _, s := range p.pinSuffixes {
+		if host == strings.TrimPrefix(s, ".") || strings.HasSuffix(host, s) {
+			return true
+		}
+	}
+	return false
+}
+
+// proxyTimeouts: a single header-region / range read is small (one window), so
+// generous-but-bounded timeouts suffice and protect against slowloris-style stalls.
+const (
+	proxyDialTimeout    = 10 * time.Second
+	proxyTLSTimeout     = 10 * time.Second
+	proxyRespHeaderWait = 30 * time.Second
+	proxyTotalTimeout   = 5 * time.Minute // whole ranged GET (covers slow large-window reads)
+)
+
+// Stall guard (riven lesson): a sick-but-responding CDN node can trickle a window over
+// minutes — a 200/206 that is effectively dead. Each getRange runs under its own
+// deadline scaled to the window size; tripping it is classified errCDNUnreachable, so
+// proxyRead's existing refresh re-pins a healthy node. The floor keeps small windows
+// from being twitchy; the rate (128 KiB/s) is far below any watchable stream yet far
+// above a dying node's trickle.
+var (
+	stallFloor       = 20 * time.Second // test seam: white-box tests shrink this
+	stallBytesPerSec = int64(128 << 10)
+)
+
+// stallTimeout returns the deadline budget for one ranged GET of n bytes.
+func stallTimeout(n int) time.Duration {
+	return stallFloor + time.Duration(int64(n)/stallBytesPerSec)*time.Second
+}
+
+// errSSRFBlocked is returned when a URL fails the host-pin / scheme / private-IP checks
+// BEFORE any network request is made.
+var errSSRFBlocked = errors.New("materialize: CDN URL blocked by host-pin/SSRF policy")
+
+// errCDNUnreachable marks a transport-level failure talking to the presigned CDN host
+// (dial refused/timeout, header timeout, mid-body reset). TorBox runs many CDN nodes and
+// a presigned URL pins one of them; when that node dies the URL is useless even though it
+// never 4xxes. Observed live 2026-06-10: nexus-136.snam.tb-cdn.io went down mid-stream and
+// the cached link failed with "connection refused" for minutes. proxyRead treats this the
+// same as ErrLinkExpired: invalidate + RequestDL once (TorBox hands out a different node)
+// + retry once. Context cancellation is NOT classified as this — a viewer stopping
+// playback must not burn a link refresh.
+var errCDNUnreachable = errors.New("materialize: CDN host unreachable")
+
+// errCDNThrottled marks an HTTP 429 from the CDN: the presigned link is fine, the
+// node is just rate-limiting a burst. Observed live twice: 2026-06-10 (readahead at
+// ~18 MB/s on a tb-cdn.io node) and 2026-06-12 (Cloudflare/ERTH 429ing the fresh-import
+// read storm — radarr ffprobe + Plex analysis + playback — which surfaced EIO to the
+// player within ~1.2s and killed playback startup). Refreshing the link would not
+// help — the right moves are a PATIENT bounded backoff (a FUSE read that blocks a few
+// seconds just looks like buffering; a read ERROR kills the stream) and pausing the
+// prefetcher so speculative reads don't eat the budget (see noteThrottle).
+var errCDNThrottled = errors.New("materialize: CDN throttled (HTTP 429)")
+
+// throttledError carries the CDN's Retry-After hint alongside the errCDNThrottled
+// identity (errors.Is matches via Unwrap). retryAfter==0 means "no usable hint".
+type throttledError struct{ retryAfter time.Duration }
+
+func (e *throttledError) Error() string { return errCDNThrottled.Error() }
+func (e *throttledError) Unwrap() error { return errCDNThrottled }
+
+// throttleBackoffs are the waits between 429 retries on the FOREGROUND read path.
+// The ladder is deliberately patient (~8s total): Cloudflare-class CDNs rate-limit
+// for whole seconds, and the alternative to waiting is an I/O error to the player.
+// When the CDN sends Retry-After, the larger of (ladder step, Retry-After) is used.
+var throttleBackoffs = []time.Duration{
+	300 * time.Millisecond, 900 * time.Millisecond, 2 * time.Second, 5 * time.Second,
+}
+
+// maxRetryAfter caps how long a CDN-supplied Retry-After can stall one retry step, so
+// a hostile/buggy header can't pin a FUSE read for minutes.
+const maxRetryAfter = 10 * time.Second
+
+// throttlePause is how long the prefetcher stays paused after any 429 (the breaker
+// window). Speculative readahead resumes automatically once it elapses.
+const throttlePause = 30 * time.Second
+
+// linkRefreshMaxAttempts bounds proxyRead's presigned-link refresh ladder. See the
+// comment above the ladder in proxyRead for why this is >1.
+const linkRefreshMaxAttempts = 2
+
+// linkRefreshBackoff is the pause between refresh attempts after the first.
+const linkRefreshBackoff = 300 * time.Millisecond
+
+// noteThrottle opens/extends the prefetch breaker window after an observed 429.
+func (m *materializer) noteThrottle() {
+	until := m.now().Add(throttlePause).UnixNano()
+	for {
+		cur := m.throttledUntil.Load()
+		if cur >= until || m.throttledUntil.CompareAndSwap(cur, until) {
+			return
+		}
+	}
+}
+
+// throttledNow reports whether the prefetch breaker window is open.
+func (m *materializer) throttledNow() bool {
+	return m.now().UnixNano() < m.throttledUntil.Load()
+}
+
+// retryAfterDuration parses a Retry-After header (delta-seconds or HTTP-date),
+// clamped to [0, maxRetryAfter]. Returns 0 for absent/unparseable values.
+func retryAfterDuration(h string, now time.Time) time.Duration {
+	h = strings.TrimSpace(h)
+	if h == "" {
+		return 0
+	}
+	var d time.Duration
+	if secs, err := strconv.Atoi(h); err == nil {
+		d = time.Duration(secs) * time.Second
+	} else if t, err := http.ParseTime(h); err == nil {
+		d = t.Sub(now)
+	}
+	if d < 0 {
+		d = 0
+	}
+	if d > maxRetryAfter {
+		d = maxRetryAfter
+	}
+	return d
+}
+
+// proxy issues SSRF-safe ranged GETs to the presigned CDN URL. Security (docs/15 §4.F):
+//   - require https + pin the host to *.tb-cdn.io (plus a configurable allowlist),
+//   - refuse private/loopback/link-local IPs at BOTH the URL-validation stage AND at dial
+//     time (the dial-time check closes the DNS-rebinding TOCTOU window),
+//   - never follow a redirect to a disallowed host,
+//   - never log a URL bearing token=/credentials (redactURL).
+type proxy struct {
+	hc *http.Client
+
+	// pinSuffixes is the effective host-pin: the built-in cdnHostSuffixes plus any
+	// operator-configured torbox.extra_cdn_hosts (normalized). Immutable after newProxy.
+	pinSuffixes []string
+
+	// allowExtraHosts is the test-only seam. In production it is EMPTY, so only the pinned
+	// suffixes pass. Tests stand up an httptest.Server on 127.0.0.1 and call allowHost() to
+	// permit that exact host:port WITHOUT weakening the production default. allowLoopback
+	// gates the dial-time loopback rejection so the httptest server is reachable in tests.
+	allowExtraHosts map[string]struct{}
+	allowLoopback   bool
+}
+
+// newProxy builds the SSRF-safe proxy with the production default (built-in pin plus the
+// operator's extra suffixes, loopback refused). The dialer re-validates the resolved IP
+// of every connection.
+func newProxy(extraSuffixes []string) *proxy {
+	p := &proxy{allowExtraHosts: make(map[string]struct{})}
+	p.pinSuffixes = append(p.pinSuffixes, cdnHostSuffixes...)
+	for _, s := range extraSuffixes {
+		if n := normalizeSuffix(s); n != "" {
+			p.pinSuffixes = append(p.pinSuffixes, n)
+		}
+	}
+
+	dialer := &net.Dialer{Timeout: proxyDialTimeout}
+	transport := &http.Transport{
+		Proxy: nil, // never honor environment proxies for outbound CDN fetches
+		DialContext: func(ctx context.Context, network, addr string) (net.Conn, error) {
+			// Re-resolve and validate the IP we are about to connect to. This blocks DNS
+			// rebinding: even if the hostname passed validateURL, the resolved address must
+			// not be a private/loopback/link-local range (unless explicitly allowed in tests).
+			host, port, err := net.SplitHostPort(addr)
+			if err != nil {
+				return nil, err
+			}
+			ips, err := net.DefaultResolver.LookupIPAddr(ctx, host)
+			if err != nil {
+				return nil, fmt.Errorf("materialize: resolve %q: %w", host, err)
+			}
+			if len(ips) == 0 {
+				return nil, fmt.Errorf("materialize: no addresses for %q", host)
+			}
+			for _, ip := range ips {
+				if !p.ipAllowed(ip.IP) {
+					return nil, fmt.Errorf("%w: resolved private/loopback IP %s", errSSRFBlocked, ip.IP)
+				}
+			}
+			// Pin the dial to a validated IP (avoids a second, racy resolution by the dialer).
+			return dialer.DialContext(ctx, network, net.JoinHostPort(ips[0].IP.String(), port))
+		},
+		TLSHandshakeTimeout:   proxyTLSTimeout,
+		ResponseHeaderTimeout: proxyRespHeaderWait,
+		ForceAttemptHTTP2:     true,
+		MaxIdleConns:          16,
+		IdleConnTimeout:       90 * time.Second,
+	}
+
+	p.hc = &http.Client{
+		Transport: transport,
+		Timeout:   proxyTotalTimeout,
+		// Refuse any redirect whose target fails the same host-pin/SSRF policy.
+		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+			if len(via) >= 5 {
+				return errors.New("materialize: too many redirects")
+			}
+			if err := p.validateURL(req.URL); err != nil {
+				return err
+			}
+			return nil
+		},
+	}
+	return p
+}
+
+// allowHost adds an exact host (or host:port) to the test-only allowlist and enables
+// loopback dialing. PRODUCTION CODE NEVER CALLS THIS — it is the host-pin test seam
+// described in testdata/cdn/README.md and docs/15 §4.F.
+func (p *proxy) allowHost(host string) {
+	p.allowExtraHosts[strings.ToLower(host)] = struct{}{}
+	p.allowLoopback = true
+}
+
+// close releases idle keep-alive connections.
+func (p *proxy) close() {
+	if t, ok := p.hc.Transport.(*http.Transport); ok {
+		t.CloseIdleConnections()
+	}
+}
+
+// validateURL enforces scheme + host-pin BEFORE any request. It rejects non-https, hosts
+// outside *.tb-cdn.io (unless allow-listed in tests), and literal private/loopback IP hosts.
+// Hostname resolution to private IPs is additionally caught at dial time.
+func (p *proxy) validateURL(u *url.URL) error {
+	if u == nil {
+		return fmt.Errorf("%w: nil url", errSSRFBlocked)
+	}
+	host := strings.ToLower(u.Hostname())
+
+	// Test-only allowlist: an exact host or host:port match bypasses the suffix pin (but
+	// still flows through the dial-time IP check, which allowLoopback relaxes).
+	if _, ok := p.allowExtraHosts[host]; ok {
+		return nil
+	}
+	if _, ok := p.allowExtraHosts[strings.ToLower(u.Host)]; ok {
+		return nil
+	}
+
+	if u.Scheme != "https" {
+		return fmt.Errorf("%w: scheme %q (require https)", errSSRFBlocked, u.Scheme)
+	}
+	// If the host is a literal IP, reject private/loopback/link-local outright.
+	if ip := net.ParseIP(host); ip != nil {
+		if !p.ipAllowed(ip) {
+			return fmt.Errorf("%w: literal private/loopback IP %s", errSSRFBlocked, ip)
+		}
+		// A public literal IP still isn't a pinned TorBox CDN host -> reject.
+		return fmt.Errorf("%w: literal IP host %s not pinned to %v", errSSRFBlocked, ip, p.pinSuffixes)
+	}
+	// Host-suffix pin against the allowed TorBox CDN domains (real label boundary enforced
+	// inside hostPinned). The hint matters operationally: when TorBox ships a CDN under a
+	// new domain, this is the error every read fails with, and the fix is one config line.
+	if !p.hostPinned(host) {
+		return fmt.Errorf("%w: host %q not under %v — if TorBox introduced a new CDN domain, add its suffix to torbox.extra_cdn_hosts in config.yaml", errSSRFBlocked, host, p.pinSuffixes)
+	}
+	return nil
+}
+
+// ipAllowed reports whether an IP may be dialed. Private, loopback, link-local,
+// unspecified, and multicast ranges are refused (SSRF). Loopback is permitted only when
+// the test seam enabled it.
+func (p *proxy) ipAllowed(ip net.IP) bool {
+	if ip == nil {
+		return false
+	}
+	if ip.IsLoopback() {
+		return p.allowLoopback
+	}
+	if ip.IsPrivate() || ip.IsLinkLocalUnicast() || ip.IsLinkLocalMulticast() ||
+		ip.IsUnspecified() || ip.IsMulticast() {
+		return false
+	}
+	return true
+}
+
+// proxyRead resolves a fresh dl_link for (ent.hash, fileID) and range-proxies the requested
+// window into p. On a 4xx expiry (constants.LinkRefreshStatuses) it invalidates the cached
+// link, calls RequestDL exactly once more, and retries the GET exactly once (the #179 fix —
+// no infinite loop). Returns (bytesRead, headerBodyForProbeCache, error). headerBody is
+// non-nil only when the read covers the header region and probe caching may want it.
+func (m *materializer) proxyRead(ctx context.Context, ent *entry, fileID int, p []byte, off int64) (int, []byte, error) {
+	link, err := m.freshLink(ctx, ent, fileID, false)
+	if err != nil {
+		return 0, nil, err
+	}
+
+	n, body, err := m.prox.getRange(ctx, link.URL, p, off, m.probe != nil)
+
+	// 429 burst limit: pause the prefetcher (so speculative reads stop eating the CDN's
+	// budget), then back off and retry the SAME link (it is valid; the node is pacing
+	// us). Each wait is the LARGER of the ladder step and the CDN's Retry-After hint.
+	// Bounded — after the ladder (~8s) the error surfaces. A multi-second blocked FUSE
+	// read just looks like buffering to a player; a read error kills playback.
+	for attempt := 0; errors.Is(err, errCDNThrottled) && attempt < len(throttleBackoffs); attempt++ {
+		m.noteThrottle()
+		wait := throttleBackoffs[attempt]
+		var te *throttledError
+		if errors.As(err, &te) && te.retryAfter > wait {
+			wait = te.retryAfter
+		}
+		select {
+		case <-ctx.Done():
+			return 0, nil, ctx.Err()
+		case <-time.After(wait):
+		}
+		n, body, err = m.prox.getRange(ctx, link.URL, p, off, m.probe != nil)
+	}
+	if errors.Is(err, errCDNThrottled) {
+		m.noteThrottle() // exhausted the ladder: keep prefetch paused while the CDN cools off
+	}
+	if err == nil {
+		return n, body, nil
+	}
+
+	// Refresh ladder: invalidate + re-request the presigned link and retry the GET, up to
+	// linkRefreshMaxAttempts times. Two triggers:
+	//   - 4xx expiry (the #179 fix), and
+	//   - CDN transport failure (dead node; RequestDL re-pins a healthy node).
+	// Bounded, not a loop: a genuinely purged torrent (or a persistently sick node) still
+	// fails terminally once the ladder is exhausted. Widened from a single attempt after
+	// observing live (2026-08-08) that TorBox can hand back an already-expired presigned
+	// link on the FIRST RequestDL following a fresh materialize (torbox_id created <150ms
+	// earlier) — treating that as terminal surfaced a read error for content that was
+	// genuinely cached moments before. A short backoff before the retry gives that kind of
+	// transient token hiccup a real second chance.
+	if errors.Is(err, torbox.ErrLinkExpired) || errors.Is(err, errCDNUnreachable) {
+		for attempt := 1; attempt <= linkRefreshMaxAttempts; attempt++ {
+			m.log.Info("dl_link unusable, refreshing", "hash", short(ent.hash), "file_id", fileID, "cause", err, "attempt", attempt, "max_attempts", linkRefreshMaxAttempts)
+			metrics.IncLinkRefresh()
+			link, rerr := m.freshLink(ctx, ent, fileID, true)
+			if rerr != nil {
+				return 0, nil, rerr
+			}
+			n, body, err = m.prox.getRange(ctx, link.URL, p, off, m.probe != nil)
+			if err == nil {
+				return n, body, nil
+			}
+			retryable := errors.Is(err, torbox.ErrLinkExpired) || errors.Is(err, errCDNUnreachable)
+			if attempt < linkRefreshMaxAttempts && retryable {
+				select {
+				case <-ctx.Done():
+					return 0, nil, ctx.Err()
+				case <-time.After(linkRefreshBackoff):
+				}
+				continue
+			}
+			break
+		}
+		// Ladder exhausted (or a non-refreshable error appeared mid-ladder) — surface it.
+		return 0, nil, fmt.Errorf("materialize: range read after refresh %s: %w", short(ent.hash), err)
+	}
+	return 0, nil, fmt.Errorf("materialize: range read %s: %w", short(ent.hash), err)
+}
+
+// freshLink returns a usable dl_link for (hash,fileID). If forceRefresh, or the cached link
+// is missing/near-expiry, it calls RequestDL and persists the new link. nearExpiry uses a
+// small skew so we refresh before the CDN starts returning 4xx.
+//
+// The requestdl call itself is (v1.2.8):
+//   - singleflight per (hash, file, torbox id): fillHeader, the readahead windows and the
+//     plain proxy path of one player read used to issue a requestdl each;
+//   - negative-cached for policy.requestdl_negative_ttl after a failure, so a stuck
+//     import that an arr probes every minute costs one call per window, not one per read.
+func (m *materializer) freshLink(ctx context.Context, ent *entry, fileID int, forceRefresh bool) (*catalog.DLLink, error) {
+	if !forceRefresh {
+		if l, err := m.store.GetLink(ent.hash, fileID); err == nil && l != nil && !m.nearExpiry(l) &&
+			l.FetchedAt >= ent.since {
+			return l, nil
+		}
+	}
+	key := fmt.Sprintf("%s:%d:%d", ent.hash, fileID, ent.torboxID)
+	if err := m.negLookup(key); err != nil {
+		metrics.IncRequestDLNegativeHit()
+		return nil, err
+	}
+	v, err, _ := m.sf.Do("rdl:"+key, func() (any, error) {
+		return m.requestLink(ent, fileID, key)
+	})
+	if err != nil {
+		return nil, err
+	}
+	return v.(*catalog.DLLink), nil
+}
+
+// requestLink performs one RequestDL and persists the link; failures other than a
+// governor backoff (already free) are remembered in the negative cache.
+func (m *materializer) requestLink(ent *entry, fileID int, key string) (*catalog.DLLink, error) {
+	url, err := m.tb.RequestDL(ent.torboxID, fileID)
+	if err != nil {
+		// RequestDL errors are already redacted by the torbox client (no token leak).
+		werr := fmt.Errorf("materialize: requestdl %s file %d: %w", short(ent.hash), fileID, err)
+		if !errors.Is(err, torbox.ErrAPIBackoff) {
+			m.negStore(key, werr)
+		}
+		return nil, werr
+	}
+	now := m.now().Unix()
+	l := &catalog.DLLink{
+		Hash:      ent.hash,
+		FileID:    fileID,
+		URL:       url,
+		FetchedAt: now,
+		ExpiresAt: parseExpires(url, now),
+	}
+	if err := m.store.SetLink(l); err != nil {
+		// Non-fatal for the read itself (we have a usable URL), but log it.
+		m.log.Warn("materialize: persist dl_link failed", "hash", short(ent.hash), "err", err)
+	}
+	return l, nil
+}
+
+// nearExpiry reports whether a cached link is within the refresh skew of expiry.
+func (m *materializer) nearExpiry(l *catalog.DLLink) bool {
+	if l.ExpiresAt <= 0 {
+		return false // unknown expiry -> trust until the CDN 4xxes (refresh-on-4xx handles it)
+	}
+	const skew = int64(60) // seconds
+	return m.now().Unix()+skew >= l.ExpiresAt
+}
+
+// NOTE: each getRange fetches EXACTLY its requested window — there is no readahead
+// widening. An earlier design asked the CDN for window+readahead bytes, but with no
+// prefetch buffer those extra bytes were drained and discarded: pure wasted TorBox
+// bandwidth (which counts against the rolling-bandwidth ToS budget) for zero benefit.
+// Sequential reads already arrive as back-to-back windows from the kernel.
+//
+// getRange performs the SSRF-safe ranged GET. It validates the URL (host-pin/scheme/IP)
+// BEFORE issuing the request, sends Range: bytes=off-(off+len-1), and copies exactly the
+// requested window into p. wantBody==true returns the read bytes for the probe cache.
+// On a 4xx in LinkRefreshStatuses it returns torbox.ErrLinkExpired.
+func (p *proxy) getRange(ctx context.Context, rawURL string, dst []byte, off int64, wantBody bool) (int, []byte, error) {
+	u, err := url.Parse(rawURL)
+	if err != nil {
+		return 0, nil, fmt.Errorf("%w: unparseable url", errSSRFBlocked)
+	}
+	// SECURITY GATE: validate before any network egress. A negative test asserts this
+	// rejects non-tb-cdn / private-IP URLs before a GET is ever attempted.
+	if err := p.validateURL(u); err != nil {
+		return 0, nil, err
+	}
+
+	want := int64(len(dst))
+	// Fetch exactly the requested window: bytes=off-(off+want-1). The server caps at EOF.
+	last := off + want - 1
+
+	// Stall guard: the whole GET (headers + body) must finish within a budget scaled to
+	// the window size. ctx stays the PARENT — the error-classification paths below check
+	// ctx.Err() (caller cancel passes through untouched), so a tripped stall deadline
+	// falls into the errCDNUnreachable branches and triggers the refresh/re-pin.
+	stallCtx, cancelStall := context.WithTimeout(ctx, stallTimeout(len(dst)))
+	defer cancelStall()
+
+	req, err := http.NewRequestWithContext(stallCtx, http.MethodGet, rawURL, nil)
+	if err != nil {
+		return 0, nil, redactURL(err)
+	}
+	req.Header.Set("Range", fmt.Sprintf("bytes=%d-%d", off, last))
+	req.Header.Set("User-Agent", version.UserAgent())
+
+	resp, err := p.hc.Do(req) //nolint:bodyclose // drained and closed by drainClose below
+	if err != nil {
+		// Caller-driven cancellation (viewer stopped reading) passes through untouched;
+		// anything else that failed before we got response headers is a dead/unhealthy CDN
+		// node — mark it refreshable so proxyRead can re-pin via RequestDL.
+		if ctx.Err() != nil {
+			return 0, nil, redactURL(err)
+		}
+		return 0, nil, fmt.Errorf("%w: %w", errCDNUnreachable, redactURL(err))
+	}
+	defer drainClose(resp.Body)
+
+	switch resp.StatusCode {
+	case http.StatusPartialContent:
+		// 206: body begins at `off` as requested — the normal CDN path.
+	case http.StatusOK:
+		// 200: the server ignored Range and is returning the WHOLE entity from
+		// byte 0. Reading the first len(dst) bytes is only correct at off==0; for
+		// off>0 those bytes are the file START, not the requested window. Fail
+		// rather than silently corrupt a seek. (TorBox CDN returns 206; this is a
+		// guard against an anomalous server/cache.)
+		if off > 0 {
+			return 0, nil, fmt.Errorf("materialize: CDN ignored Range (HTTP 200) at offset %d", off)
+		}
+	default:
+		if resp.StatusCode == http.StatusTooManyRequests {
+			metrics.IncCDNThrottled()
+			return 0, nil, &throttledError{retryAfter: retryAfterDuration(resp.Header.Get("Retry-After"), time.Now())}
+		}
+		// 416 Range Not Satisfiable = the requested range starts at/past the entity's end.
+		// That is EOF, not an error (riven lesson): it happens when the catalog's file size
+		// drifts slightly past the CDN entity's true size, and surfacing EIO here would
+		// kill the final seconds of a playback. 0 bytes + nil error = clean EOF upstream.
+		if resp.StatusCode == http.StatusRequestedRangeNotSatisfiable {
+			return 0, nil, nil
+		}
+		// A presigned-link 4xx (400/403/410) OR a 404 means the link is stale — most often
+		// because the TorBox copy it referenced was released and re-added with a new presigned
+		// path (exactly what happens after an idle release, then a re-watch). Treat it as
+		// refreshable: proxyRead re-requests the link ONCE via RequestDL and retries. A genuinely
+		// purged torrent will 404 again on the fresh link and surface terminally (refresh-once
+		// does not loop). 404 is handled here, in the CDN read path only — the torbox API client
+		// still maps a materialize-time 404 to ErrNotFound (dead cache), which is correct there.
+		if isRefreshStatus(resp.StatusCode) || resp.StatusCode == http.StatusNotFound {
+			return 0, nil, torbox.ErrLinkExpired
+		}
+		// 5xx gateway-class answers mean THIS node is unhealthy (observed live:
+		// 502 after a node went sideways) — same recovery as a dead node: refresh
+		// the link so TorBox re-pins a healthy one.
+		if resp.StatusCode == http.StatusBadGateway ||
+			resp.StatusCode == http.StatusServiceUnavailable ||
+			resp.StatusCode == http.StatusGatewayTimeout {
+			return 0, nil, fmt.Errorf("%w: CDN HTTP %d", errCDNUnreachable, resp.StatusCode)
+		}
+		return 0, nil, fmt.Errorf("materialize: CDN HTTP %d", resp.StatusCode)
+	}
+
+	// Fill exactly the requested window. io.ReadFull tolerates a short final read (EOF) via
+	// ErrUnexpectedEOF, which is fine for the tail of a file. A non-EOF mid-body failure
+	// (connection reset by a dying node) is refreshable like a pre-header failure.
+	n, rerr := io.ReadFull(resp.Body, dst)
+	if rerr != nil && !errors.Is(rerr, io.ErrUnexpectedEOF) && !errors.Is(rerr, io.EOF) {
+		if ctx.Err() != nil {
+			return n, nil, redactURL(rerr)
+		}
+		return n, nil, fmt.Errorf("%w: %w", errCDNUnreachable, redactURL(rerr))
+	}
+
+	var body []byte
+	if wantBody && n > 0 {
+		body = make([]byte, n)
+		copy(body, dst[:n])
+	}
+	return n, body, nil
+}
+
+// isRefreshStatus reports whether status is one of constants.LinkRefreshStatuses {400,403,410}.
+func isRefreshStatus(status int) bool {
+	for _, s := range constants.LinkRefreshStatuses {
+		if s == status {
+			return true
+		}
+	}
+	return false
+}
+
+// drainClose drains and closes a response body so the connection can be reused, with a cap
+// so a hostile/huge body can't be drained forever.
+func drainClose(rc io.ReadCloser) {
+	_, _ = io.Copy(io.Discard, io.LimitReader(rc, 1<<20))
+	_ = rc.Close()
+}
+
+// parseExpires extracts the unix `expires=` query param from a CDN URL, if present. Returns
+// 0 when absent/unparseable (treated as unknown by nearExpiry).
+func parseExpires(rawURL string, fallback int64) int64 {
+	u, err := url.Parse(rawURL)
+	if err != nil {
+		return 0
+	}
+	v := u.Query().Get("expires")
+	if v == "" {
+		return 0
+	}
+	var secs int64
+	if _, err := fmt.Sscan(v, &secs); err != nil || secs <= 0 {
+		return 0
+	}
+	return secs
+}
+
+// redactURL strips the query string from a *url.Error so a presigned token/expires is never
+// logged (mirrors torbox.redactURLError; docs/15 §4.A). Non-url.Error values pass through.
+func redactURL(err error) error {
+	var ue *url.Error
+	if !errors.As(err, &ue) {
+		return err
+	}
+	redacted := "[redacted]"
+	if u, perr := url.Parse(ue.URL); perr == nil {
+		u.RawQuery = ""
+		redacted = u.String()
+	}
+	return fmt.Errorf("%s %q: %w", ue.Op, redacted, ue.Err)
+}
+
+// containsFold reports a case-insensitive substring match.
+func containsFold(s, sub string) bool {
+	return strings.Contains(strings.ToLower(s), strings.ToLower(sub))
+}
+
+// negEntry is one remembered requestdl failure.
+type negEntry struct {
+	until int64 // unix nanos
+	err   error
+}
+
+// negLookup returns the remembered failure for key while it is fresh, else nil.
+func (m *materializer) negLookup(key string) error {
+	if m.policy.RequestDLNegativeTTL.D() <= 0 {
+		return nil
+	}
+	m.negMu.Lock()
+	defer m.negMu.Unlock()
+	e, ok := m.neg[key]
+	if !ok {
+		return nil
+	}
+	if m.now().UnixNano() >= e.until {
+		delete(m.neg, key)
+		return nil
+	}
+	return fmt.Errorf("materialize: requestdl failed recently, not retrying until %s: %w",
+		time.Unix(0, e.until).UTC().Format(time.RFC3339), e.err)
+}
+
+// negStore remembers a requestdl failure for policy.requestdl_negative_ttl.
+func (m *materializer) negStore(key string, err error) {
+	ttl := m.policy.RequestDLNegativeTTL.D()
+	if ttl <= 0 {
+		return
+	}
+	m.negMu.Lock()
+	defer m.negMu.Unlock()
+	now := m.now().UnixNano()
+	if len(m.neg) > 4096 { // bounded: drop expired entries first, then everything
+		for k, e := range m.neg {
+			if now >= e.until {
+				delete(m.neg, k)
+			}
+		}
+		if len(m.neg) > 4096 {
+			m.neg = make(map[string]negEntry)
+		}
+	}
+	m.neg[key] = negEntry{until: now + int64(ttl), err: err}
+}
